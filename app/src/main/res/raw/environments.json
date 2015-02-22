@@ -1,0 +1,14 @@
+{
+		"production":{
+			"languageCode":"en",
+			"templateId":"200"
+		},
+		"stage":{
+			"languageCode":"en",
+			"templateId":"200"
+		},
+		"latest":{
+			"languageCode":"en",
+			"templateId":"200"
+		}
+}
