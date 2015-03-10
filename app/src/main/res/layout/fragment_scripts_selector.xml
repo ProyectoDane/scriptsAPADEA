@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <FrameLayout
+        style="@style/Panel.White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txt_screen_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/select_script" />
+
+    </FrameLayout>
+
+    <View style="@style/HR.Thick" />
+
+    <GridView
+        android:id="@+id/grid_scripts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        android:layout_marginTop="16dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:layout_weight="1"
+        android:verticalSpacing="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp" />
+
+</LinearLayout>
