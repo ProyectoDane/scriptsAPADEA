@@ -41,14 +41,17 @@ public class MainActivity extends BaseActivity {
         Log.i("INFO", "clickRemove");
     }
 
+    // TODO This methods should go inside property class.
     public void clickView(View view) {
         Log.i("INFO", "clickView");
     }
 
+    // TODO This methods should go inside property class.
     public void clickEdit(View view) {
         Log.i("INFO", "clickEdit");
     }
 
+    // TODO This methods should go inside property class.
     public void clickReadScript(View view) {
         Log.i("INFO", "clickReadScript");
     }

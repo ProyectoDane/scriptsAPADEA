@@ -45,7 +45,7 @@ public class Script {
     }
 
     public static List<Script> fetchAllScripts(String idPacient) {
-        // TODO get all scripta from idPacient
+        // TODO get all scripts from idPacient
         LinkedList listScript = new LinkedList<Script>();
         listScript.add(new Script("0", "Pepe", R.drawable.ic_launcher));
         listScript.add(new Script("1", "Juan", R.drawable.ic_launcher));

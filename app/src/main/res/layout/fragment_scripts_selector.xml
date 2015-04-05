@@ -21,17 +21,9 @@
 
     <View style="@style/HR.Thick" />
 
-    <GridView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/grid_scripts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:choiceMode="singleChoice"
-        android:layout_marginTop="16dp"
-        android:horizontalSpacing="10dp"
-        android:numColumns="2"
-        android:layout_weight="1"
-        android:verticalSpacing="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
