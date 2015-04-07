@@ -13,4 +13,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="password">Password</string>
 
+    <string name="select_script">Seleccione un Script</string>
+
+    <string name="default_script_name">Nuevo Script</string>
 </resources>

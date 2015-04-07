@@ -1,9 +1,11 @@
 package com.globant.scriptsapadea.ui.activities;
 
 import android.app.Fragment;
+import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
 
 import roboguice.inject.ContentView;
@@ -16,9 +18,12 @@ public class MainActivity extends BaseActivity {
 
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-        // TODO
-        // Navigate to ScriptsFragment
+        Fragment scriptsSelectorFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        if (scriptsSelectorFragment == null) {
+            getFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
+        } else {
+            getFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
+        }
     }
 
     public void onPreferenceClick(View view) {
@@ -29,5 +34,25 @@ public class MainActivity extends BaseActivity {
         } else {
             getFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }
+    }
+
+    // TODO This methods should go inside property class.
+    public void clickRemove(View view) {
+        Log.i("INFO", "clickRemove");
+    }
+
+    // TODO This methods should go inside property class.
+    public void clickView(View view) {
+        Log.i("INFO", "clickView");
+    }
+
+    // TODO This methods should go inside property class.
+    public void clickEdit(View view) {
+        Log.i("INFO", "clickEdit");
+    }
+
+    // TODO This methods should go inside property class.
+    public void clickReadScript(View view) {
+        Log.i("INFO", "clickReadScript");
     }
 }
