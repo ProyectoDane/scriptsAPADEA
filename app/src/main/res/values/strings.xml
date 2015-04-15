@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">scriptsAPADEA</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_sample_cache">Sample Cache</string>
+    <string name="title_settings">Settings Screen</string>
+    <string name="environment">Environment</string>
+    <string name="debug">Debug</string>
+    <string name="target_env">Target Environment</string>
+    <string name="console_log_level">Console Logging Level</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Password</string>
+
+    <string name="select_script">Seleccione un Script</string>
+
+    <string name="default_script_name">Nuevo Script</string>
+
+    <string name="use_guide_title">Bienvenido a TEAyudo!</string>
+    <string name="use_guide_leyenda">Vamos a aprender a usar ésta aplicación</string>
+    <string name="use_guide_siguente">Siguente</string>
+
+    <string name="use_guide_scripts_prueba">Tenemos scripts de prueba para que puedas probar</string>
+
+    <string name="use_guide_crear_scripts">Si te interesa, podés crear tus propios Scripts aquí</string>
+
+    <string name="use_guide_btn_entendido">Ok, entendido</string>
+</resources>
