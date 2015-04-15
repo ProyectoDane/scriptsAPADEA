@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicola.quartieri.
+ * Created by nicola.quartieri
  */
 public class ScriptsSelectorFragment extends BaseFragment {
 
@@ -53,7 +53,7 @@ public class ScriptsSelectorFragment extends BaseFragment {
         showProgress();
 
         scritpList.clear();
-        // TODO create injectable id or pacient
+        // TODO create injectable id of pacient
         scritpList = Script.fetchAllScripts("0");
 
         if (scritpList != null && !scritpList.isEmpty()) {
