@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Panel">
+        <item name="android:paddingRight">@dimen/panel_horizontal_padding</item>
+        <item name="android:paddingLeft">@dimen/panel_horizontal_padding</item>
+        <item name="android:paddingTop">@dimen/panel_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/panel_vertical_padding</item>
+    </style>
+
+    <style name="Panel.White">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="HR">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/hr_gray</item>
+        <item name="android:layout_marginTop">@dimen/margin_large</item>
+        <item name="android:layout_marginBottom">@dimen/margin_large</item>
+    </style>
+
+    <style name="HR.Thick">
+        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+</resources>

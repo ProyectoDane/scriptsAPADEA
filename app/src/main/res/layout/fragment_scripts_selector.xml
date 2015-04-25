@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <FrameLayout
+        style="@style/Panel.White"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scriptlist_edit"
+            android:layout_gravity="right|center_vertical" />
+
+        <Button
+            android:id="@+id/btn_new_script"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scriptlist_new_script"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <View style="@style/HR.Thick" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/grid_scripts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
