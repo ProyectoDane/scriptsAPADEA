@@ -38,7 +38,6 @@ public class ScriptsSelectorFragment extends BaseFragment {
         adapter = new ScriptsSelectorGridRecycleAdapter(scritpList, getActivity());
         mGridView.setAdapter(adapter);
 
-        mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);
         return view;
     }
 
