@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="environment"
+        android:title="@string/environment">
+        <ListPreference
+            android:key="target_environment"
+            android:title="@string/target_env" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="debug"
+        android:title="@string/debug">
+        <ListPreference
+            android:key="debug_loglevel"
+            android:title="@string/console_log_level" />
+    </PreferenceCategory>
+</PreferenceScreen>
