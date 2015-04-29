@@ -19,4 +19,5 @@
     <string name="default_script_name">Nuevo Script</string>
     <string name="default_script_example">Guiones de ejemplo</string>
 
+    <string name="list_patient_create">Crear una nueva persona</string>
 </resources>
