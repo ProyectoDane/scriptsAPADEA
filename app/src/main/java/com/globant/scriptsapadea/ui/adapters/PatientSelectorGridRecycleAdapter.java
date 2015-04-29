@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.widget.CropCircleTransformation;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,9 +56,9 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
     public void onBindViewHolder(PatientViewHolder patientViewHolder, int position) {
         runAnimation(patientViewHolder.itemView, position);
 
-        // TODO
-        //patientViewHolder.vImageAvatar.setImageResource((patientList.get(position).getAvatar()));
-
+        // TODO Image will not be a resource
+        Picasso.with(context).load((patientList.get(position).getAvatar())).transform(new CropCircleTransformation())
+                .into(patientViewHolder.vImageAvatar);
         patientViewHolder.vNamePatient.setText(patientList.get(position).getName());
         patientViewHolder.vTextLeyend.setText(R.string.default_script_example);
     }
