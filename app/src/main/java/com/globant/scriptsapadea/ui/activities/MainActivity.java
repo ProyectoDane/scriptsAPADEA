@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -11,7 +12,7 @@ import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
 import roboguice.inject.ContentView;
 
 /**
- * @author nicolas.quartieri
+ * @author nicolas.quartieri.
  */
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -31,6 +32,17 @@ public class MainActivity extends BaseActivity {
         Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
         if (settingsFragment == null) {
             getFragmentManager().beginTransaction().add(R.id.fragment_container, new SettingsFragment()).commit();
+        } else {
+            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
+        }
+    }
+
+    public void onAboutClicked(View view) {
+
+        // TODO Create Navigation Module
+        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        if (settingsFragment == null) {
+            navigator.to(new Intent(this, AboutActivity.class)).navigate();
         } else {
             getFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }
