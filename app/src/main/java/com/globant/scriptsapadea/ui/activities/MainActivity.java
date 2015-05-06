@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
 
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity {
         // TODO Create Navigation Module
         Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
         if (settingsFragment == null) {
-            navigator.to(new Intent(this, AboutActivity.class)).navigate();
+            navigator.to(new Intent(this, AboutActivity.class)).withAnimations(new SlidingUpAnimation()).navigate();
         } else {
             getFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }

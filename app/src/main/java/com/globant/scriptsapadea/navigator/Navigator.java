@@ -8,11 +8,12 @@ import android.support.v4.app.FragmentManager;
 
 import com.globant.scriptsapadea.ui.activities.BaseActivity;
 
+import java.io.Serializable;
+
 /**
  * Created by nicolas.quartieri.
  */
 public class Navigator {
-
 
     private final FragmentActivity activity;
     private final NavigationListener listener;
@@ -65,16 +66,57 @@ public class Navigator {
         return fragmentNavigator;
     }
 
-    public void navigateTo(Intent target) {
-        activity.startActivity(target);
+    public void navigateTo(IntentNavigator intentNavigator) {
+        activity.startActivity(intentNavigator.getTarget());
+
+        CustomAnimations animations = intentNavigator.getAnimations();
+        if (animations != null) {
+            activity.overridePendingTransition(animations.enter, animations.exit);
+        }
     }
 
-    public void navigateTo(Fragment target) {
-
-        activity.getFragmentManager().beginTransaction().add(layoutId, target).commit();
+    public void navigateTo(FragmentNavigator fragmentNavigator) {
+        activity.getFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).commit();
     }
 
     public interface NavigationListener {
 
+    }
+
+    /**
+     * The custom transition animation configuration class.
+     */
+    public static class CustomAnimations implements Serializable {
+        public final int enter;
+        public final int exit;
+        public final int popEnter;
+        public final int popExit;
+
+        /**
+         * The {@link CustomAnimations} constructor.
+         *
+         * @param enter    the enter animation.
+         * @param exit     the exit animation.
+         * @param popEnter the pop backstack enter animation (only used for fragment transactions).
+         * @param popExit  the pop backstack exit animation (only used for fragment transactions).
+         */
+        public CustomAnimations(int enter, int exit, int popEnter, int popExit) {
+            this.enter = enter;
+            this.exit = exit;
+            this.popEnter = popEnter;
+            this.popExit = popExit;
+        }
+
+        /**
+         * The {@link CustomAnimations} constructor.
+         *
+         * @param enter A resource ID of the animation resource to use for
+         *              the incoming view.  Use 0 for no animation.
+         * @param exit A resource ID of the animation resource to use for
+         *             the outgoing view.  Use 0 for no animation.
+         */
+        public CustomAnimations(int enter, int exit) {
+            this(enter, exit, 0, 0);
+        }
     }
 }
