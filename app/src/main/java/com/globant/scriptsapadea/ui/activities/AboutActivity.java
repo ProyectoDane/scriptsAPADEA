@@ -17,7 +17,13 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            navigator.to(new AboutFragment()).navigate();
+            navigator.to(new AboutFragment()).noPush().navigate();
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.do_nothing, R.anim.pull_down_to_bottom);
     }
 }

@@ -75,8 +75,14 @@ public class Navigator {
         }
     }
 
+    // TODO: replace() transaction must replace add()
     public void navigateTo(FragmentNavigator fragmentNavigator) {
-        activity.getFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).commit();
+        if (fragmentNavigator.isNoPush()) {
+            // TODO: Assign Tag
+            activity.getFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).addToBackStack(null).commit();
+        } else {
+            activity.getFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).commit();
+        }
     }
 
     public interface NavigationListener {
