@@ -22,6 +22,12 @@ tools:context=".MainActivity">
         android:text="Scripts View"
         android:onClick="onScriptsClicked"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Slider View"
+        android:onClick="onSliderClick"/>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"

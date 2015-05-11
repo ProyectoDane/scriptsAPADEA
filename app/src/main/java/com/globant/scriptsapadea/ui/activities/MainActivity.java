@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
@@ -34,6 +35,10 @@ public class MainActivity extends BaseActivity {
         } else {
             getFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }
+    }
+
+    public void onSliderClick(View view) {
+        startActivity(new Intent(this, ScreenSliderActivity.class));
     }
 
     // TODO This methods should go inside property class.
