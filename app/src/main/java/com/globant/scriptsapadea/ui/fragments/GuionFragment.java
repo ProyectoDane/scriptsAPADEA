@@ -37,17 +37,10 @@ public class GuionFragment extends BaseFragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPictureFragment(null);
             }
         });
     }
 
-    //Method to show the next fragment when user click the next button
-    private void showPictureFragment(Fragment pictureFragment){
-        if (!isGuionNameEmpty()){
-
-        }
-    }
 
     //Method to show the hidden next button
     private void showNextButton(){
