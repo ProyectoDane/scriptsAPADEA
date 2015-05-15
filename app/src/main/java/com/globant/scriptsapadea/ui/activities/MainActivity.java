@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.ui.fragments.GuionFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
 
@@ -36,6 +37,12 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+
+    public void onCreateNewGuion(View view){
+        setNextFragment(new GuionFragment(),R.id.fragment_container);
+
+
+    }
     // TODO This methods should go inside property class.
     public void clickRemove(View view) {
         Log.i("INFO", "clickRemove");
@@ -54,5 +61,14 @@ public class MainActivity extends BaseActivity {
     // TODO This methods should go inside property class.
     public void clickReadScript(View view) {
         Log.i("INFO", "clickReadScript");
+    }
+
+    private void setNextFragment(Fragment fragment, int container){
+        Fragment commonFragment = getFragmentManager().findFragmentById(container);
+        if (commonFragment == null) {
+            getFragmentManager().beginTransaction().add(container, fragment).commit();
+        } else {
+            getFragmentManager().beginTransaction().remove(commonFragment).commit();
+        }
     }
 }
