@@ -1,10 +1,14 @@
 package com.globant.scriptsapadea.ui.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
@@ -24,12 +28,34 @@ public class ScreenSliderActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_slider_layout);
 
+        initActionBar(getApplicationContext());
+        initViewPager(getApplicationContext());
+    }
+
+    private void initViewPager(Context applicationContext) {
         List<Fragment> fragments = getFragments();
 
-        pageAdapter = new ScreenSliderPageAdapter(getFragmentManager(), fragments);
+        pageAdapter = new ScreenSliderPageAdapter(getSupportFragmentManager(), fragments);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
         viewPager.setAdapter(pageAdapter);
+    }
+
+    private void initActionBar(Context applicationContext) {
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setDisplayShowCustomEnabled(true);
+            getSupportActionBar().setCustomView(R.layout.action_bar);
+
+            TextView txtTitle = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.txt_title_action_bar);
+            txtTitle.setText(R.string.title_back);
+
+            // TODO: Image related with the Script
+            ImageView imgTitleCenter = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.img_title_center);
+
+            // TODO: Text related with the Script
+            TextView txtTitleCenter = (TextView) getSupportActionBar().getCustomView().findViewById(R.id.txt_title_center);
+        }
     }
 
     private List<Fragment> getFragments() {
@@ -45,7 +71,7 @@ public class ScreenSliderActivity extends BaseActivity {
     }
 
 
-    public class ScreenSliderPageAdapter extends FragmentPagerAdapter {
+    public class ScreenSliderPageAdapter extends FragmentStatePagerAdapter {
 
         private List<Fragment> fragmentList;
 

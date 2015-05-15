@@ -16,4 +16,7 @@
     <string name="select_script">Seleccione un Script</string>
 
     <string name="default_script_name">Nuevo Script</string>
+
+    <string name="title_back">SALIR</string>
+
 </resources>

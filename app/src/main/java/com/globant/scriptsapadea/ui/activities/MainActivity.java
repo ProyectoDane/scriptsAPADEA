@@ -1,7 +1,7 @@
 package com.globant.scriptsapadea.ui.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
@@ -19,21 +19,21 @@ public class MainActivity extends BaseActivity {
 
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
-        Fragment scriptsSelectorFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment scriptsSelectorFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (scriptsSelectorFragment == null) {
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
+            getSupportFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
         }
     }
 
     public void onPreferenceClick(View view) {
         // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment settingsFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (settingsFragment == null) {
             getFragmentManager().beginTransaction().add(R.id.fragment_container, new SettingsFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
+            getSupportFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }
     }
 

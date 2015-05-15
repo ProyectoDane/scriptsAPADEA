@@ -3,17 +3,16 @@ package com.globant.scriptsapadea.ui.activities;
 import android.os.Bundle;
 
 import com.google.inject.Inject;
-
 import com.squareup.otto.Bus;
 
-import roboguice.activity.RoboFragmentActivity;
+import roboguice.activity.RoboActionBarActivity;
 
 /**
  * Base Activity class provides access to the event bus.
  *
  * @author nicolas.quartieri
  */
-public abstract class BaseActivity extends RoboFragmentActivity {
+public abstract class BaseActivity extends RoboActionBarActivity {
 
     @Inject
     private Bus bus;
