@@ -30,4 +30,54 @@
         <item name="android:layout_marginBottom">0dp</item>
     </style>
 
+    <!-- ******* -->
+    <!-- Text    -->
+    <!-- ******* -->
+
+    <!-- Heavy: sans -->
+    <!-- Regular/Roman: serif -->
+    <!-- Book: mono -->
+
+    <style name="Text">
+        <item name="android:textSize">@dimen/font_size_body</item>
+    </style>
+
+    <style name="Text.Body">
+        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
+    <style name="Text.Body.Big">
+        <item name="android:textSize">@dimen/font_size_big</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
+    <style name="Text.Body.Medium">
+
+        <item name="android:textSize">@dimen/font_size_body</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
+
+    <style name="Text.Body.Big.Gray">
+        <item name="android:textColor">@color/panel_gray</item>
+    </style>
+
+    <style name="Text.Body.Medium.White">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="Text.Body.Big.Gray.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
+    <style name="Text.Body.Big.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
 </resources>

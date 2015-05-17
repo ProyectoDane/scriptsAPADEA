@@ -19,6 +19,9 @@ import com.globant.scriptsapadea.models.Script;
 
 import java.util.List;
 
+/**
+ * Created by nicola.quartieri.
+ */
 public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder> {
 
     private final Context context;
@@ -28,8 +31,11 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     private int lastPosition = -1;
 
-    private static final int VIEW_TYPE_DEFAULT = 1;
-    private static final int VIEW_TYPE_LOADER = 2;
+    private static final int ANIMATED_ITEMS_COUNT = 2;
+
+    private int itemsCount = 0;
+    private boolean animateItems = true;
+    private static int screenHeight = 0;
 
     public ScriptsSelectorGridRecycleAdapter(List<Script> scriptList, Context context) {
         this.scriptList = scriptList;
@@ -43,32 +49,39 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-        setAnimation(contactViewHolder.itemView, i);
+        runAnimation(contactViewHolder.itemView, i);
 
         contactViewHolder.vNameAvatar.setText(scriptList.get(i).getName());
         // TODO asign images to viewHolder
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        if (position > lastPosition)
-        {
-            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+    private void runAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            lastPosition = position;
 
-            viewToAnimate.setTranslationY(size.y);
+            viewToAnimate.setTranslationY(getScreenHeight(context));
             viewToAnimate.animate().translationY(0)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(1700)
+                    .setDuration(700)
                     .start();
         }
     }
 
+    private float getScreenHeight(Context context) {
+        if (screenHeight == 0) {
+            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenHeight = size.y;
+        }
+
+        return screenHeight;
+    }
+
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_layout, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.script_card_layout, viewGroup, false);
 
         return new ContactViewHolder(itemView);
     }
@@ -78,13 +91,10 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
         notifyItemChanged(0);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (showLoadingView && position == 0) {
-            return VIEW_TYPE_LOADER;
-        } else {
-            return VIEW_TYPE_DEFAULT;
-        }
+    public void updateItems(boolean animated) {
+        itemsCount = scriptList.size();
+        animateItems = animated;
+        notifyDataSetChanged();
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -98,6 +108,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
         public ContactViewHolder(View v) {
             super(v);
+
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vNameAvatar =  (TextView) v.findViewById(R.id.txt_avatar_name_item);
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);

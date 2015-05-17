@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">scriptsAPADEA</string>
+    <string name="app_title">APADEA</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_sample_cache">Sample Cache</string>
@@ -16,4 +17,7 @@
     <string name="select_script">Seleccione un Script</string>
 
     <string name="default_script_name">Nuevo Script</string>
+    <string name="default_script_example">Guiones de ejemplo</string>
+
+    <string name="list_patient_create">Crear una nueva persona</string>
 </resources>
