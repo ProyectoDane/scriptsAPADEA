@@ -51,6 +51,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
         runAnimation(contactViewHolder.itemView, i);
 
+        contactViewHolder.vImageAvatar.setImageResource(R.drawable.canilla);
         contactViewHolder.vNameAvatar.setText(scriptList.get(i).getName());
         // TODO asign images to viewHolder
     }
@@ -99,9 +100,6 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final ImageView vImageRemove;
-        private final ImageView vImageView;
-        private final ImageView vImageEdit;
         private ImageView vImageAvatar;
         protected TextView vNameAvatar;
         protected CardView vCardView;
@@ -112,15 +110,9 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vNameAvatar =  (TextView) v.findViewById(R.id.txt_avatar_name_item);
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);
-            vImageRemove =  (ImageView) v.findViewById(R.id.img_remove);
-            vImageView =  (ImageView) v.findViewById(R.id.img_view);
-            vImageEdit =  (ImageView) v.findViewById(R.id.img_edit);
 
             vNameAvatar.setOnClickListener(this);
             vImageAvatar.setOnClickListener(this);
-            vImageRemove.setOnClickListener(this);
-            vImageView.setOnClickListener(this);
-            vImageEdit.setOnClickListener(this);
         }
 
         @Override
@@ -135,15 +127,6 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
                     break;
                 case R.id.img_avatar_item:
                     Toast.makeText(context, "Click Avatar, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
-                    break;
-                case R.id.img_remove:
-                    Toast.makeText(context, "Click Remove, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
-                    break;
-                case R.id.img_view:
-                    Toast.makeText(context, "Click View, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
-                    break;
-                case R.id.img_edit:
-                    Toast.makeText(context, "Click Edit, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
                     break;
                 default:
                     Toast.makeText(context, "Click Other, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();

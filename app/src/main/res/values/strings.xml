@@ -20,4 +20,17 @@
     <string name="default_script_example">Guiones de ejemplo</string>
 
     <string name="list_patient_create">Crear una nueva persona</string>
+
+    <string name="use_guide_title">Bienvenido a TEAyudo!</string>
+    <string name="use_guide_leyenda">Vamos a aprender a usar ésta aplicación</string>
+    <string name="use_guide_siguente">Siguente</string>
+
+    <string name="use_guide_scripts_prueba">Tenemos scripts de prueba para que puedas probar</string>
+
+    <string name="use_guide_crear_scripts">Si te interesa, podés crear tus propios Scripts aquí</string>
+
+    <string name="use_guide_btn_entendido">Ok, entendido</string>
+
+    <string name="scriptlist_new_script">Nuevo Guión</string>
+    <string name="scriptlist_edit">Editar</string>
 </resources>
