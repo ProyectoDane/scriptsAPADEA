@@ -10,6 +10,7 @@ public class FragmentNavigator extends NavigatorEntry<Fragment> {
 
     private final Fragment target;
     private final Navigator navigator;
+    private boolean noPush;
 
     public FragmentNavigator(Navigator navigator, Fragment target) {
         super(navigator);
@@ -25,5 +26,15 @@ public class FragmentNavigator extends NavigatorEntry<Fragment> {
     @Override
     public void navigate() {
         navigator.navigateTo(this);
+    }
+
+    public NavigatorEntry noPush() {
+        this.noPush = true;
+
+        return this;
+    }
+
+    public boolean isNoPush() {
+        return noPush;
     }
 }

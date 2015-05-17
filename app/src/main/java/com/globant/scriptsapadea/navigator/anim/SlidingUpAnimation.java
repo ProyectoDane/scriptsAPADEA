@@ -6,7 +6,6 @@ import com.globant.scriptsapadea.navigator.Navigator;
 
 /**
  * Sliding up animation.
- * Created by jorge.capra on 1/21/15.
  */
 public class SlidingUpAnimation extends Navigator.CustomAnimations {
 
