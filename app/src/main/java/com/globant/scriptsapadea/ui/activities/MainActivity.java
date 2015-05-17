@@ -1,7 +1,7 @@
 package com.globant.scriptsapadea.ui.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
@@ -21,42 +21,44 @@ public class MainActivity extends BaseActivity {
 
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
-        Fragment container = getFragmentManager().findFragmentById(R.id.fragment_container);
-        if (container == null) {
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
+        Fragment scriptsSelectorFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (scriptsSelectorFragment == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(container).commit();
+            getSupportFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
         }
     }
 
     public void onPreferenceClick(View view) {
         // TODO Create Navigation Module
-        Fragment container = getFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment container = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (container == null) {
             getFragmentManager().beginTransaction().add(R.id.fragment_container, new SettingsFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(container).commit();
+            getSupportFragmentManager().beginTransaction().remove(container).commit();
         }
     }
 
     public void onPrincipalClick(View view) {
         // TODO Create Navigation Module
-        Fragment container = getFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment container = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (container == null) {
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, new PrincipalFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new PrincipalFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(container).commit();
+            getSupportFragmentManager().beginTransaction().remove(container).commit();
         }
 	}
 
-	public void onAboutClicked(View view) {
+    public void onSliderClick(View view) {
+        startActivity(new Intent(this, ScreenSliderActivity.class));
+    }
 
-        // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+	public void onAboutClicked(View view) {
+        Fragment settingsFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (settingsFragment == null) {
             navigator.to(new Intent(this, AboutActivity.class)).withAnimations(new SlidingUpAnimation()).navigate();
         } else {
-            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
+            getSupportFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }
     }
 

@@ -1,7 +1,7 @@
 package com.globant.scriptsapadea.navigator;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by nicolas.quartieri.

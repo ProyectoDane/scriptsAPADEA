@@ -1,8 +1,8 @@
 package com.globant.scriptsapadea.navigator;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
@@ -79,9 +79,9 @@ public class Navigator {
     public void navigateTo(FragmentNavigator fragmentNavigator) {
         if (fragmentNavigator.isNoPush()) {
             // TODO: Assign Tag
-            activity.getFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).addToBackStack(null).commit();
+            activity.getSupportFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).addToBackStack(null).commit();
         } else {
-            activity.getFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).commit();
+            activity.getSupportFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).commit();
         }
     }
 
