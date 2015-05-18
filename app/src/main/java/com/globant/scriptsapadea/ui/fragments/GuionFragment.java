@@ -20,8 +20,7 @@ import roboguice.inject.InjectView;
  */
 public class GuionFragment extends BaseFragment {
 
-    @InjectView(R.id.guionName) EditText guionName;
-    @InjectView(R.id.nextButton)
+
     Button nextButton;
 
     @Override
@@ -33,7 +32,11 @@ public class GuionFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        showNextButton();
+
+
+        EditText guionName = (EditText)view.findViewById(R.id.guionName);
+        nextButton = (Button)view.findViewById(R.id.nextButton);
+        showNextButton(guionName);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +46,7 @@ public class GuionFragment extends BaseFragment {
 
 
     //Method to show the hidden next button
-    private void showNextButton(){
+    private void showNextButton(EditText guionName){
         guionName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -65,7 +68,7 @@ public class GuionFragment extends BaseFragment {
         });
     }
 
-    private boolean isGuionNameEmpty(){
+    private boolean isGuionNameEmpty(EditText guionName){
         return guionName.getText().toString().equals("");
     }
 
