@@ -3,7 +3,7 @@ package com.globant.scriptsapadea.models;
 import java.util.List;
 
 /**
- * Created by nicola.
+ * Created by nicola.quartieri
  */
 public class Pacient {
 

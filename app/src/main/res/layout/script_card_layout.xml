@@ -36,39 +36,7 @@
             android:layout_gravity="center"
             android:duplicateParentState="true"
             android:padding="5dp"
-            android:onClick="clickReadScript"
-            android:src="@drawable/ic_launcher" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:id="@+id/img_remove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="clickRemove"
-                android:src="@drawable/ic_launcher"/>
-
-            <ImageView
-                android:id="@+id/img_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="clickView"
-                android:clickable="true"
-                android:src="@drawable/ic_launcher"/>
-
-            <ImageView
-                android:id="@+id/img_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="clickEdit"
-                android:clickable="true"
-                android:src="@drawable/ic_launcher"/>
-        </LinearLayout>
+            android:onClick="clickReadScript" />
 
     </LinearLayout>
 
