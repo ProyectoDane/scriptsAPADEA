@@ -1,12 +1,16 @@
 package com.globant.scriptsapadea.ui.activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
@@ -18,6 +22,23 @@ import roboguice.inject.ContentView;
  */
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //DBTesting
+        super.onCreate(savedInstanceState);
+        SQLiteHelper ayuda= new SQLiteHelper(getApplicationContext());
+        Patient patient = new Patient("Guillermo",2);
+        long id = ayuda.createPatient(patient);
+        Script script = new Script("Ir al baño",2);
+        ayuda.createScript(script,id);
+        Log.d("All patients", ayuda.getAllPatients().toString());
+        Log.d("All scripts patient",ayuda.getAllScriptsFromPatient(patient.getName()).toString());
+
+
+    }
 
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module

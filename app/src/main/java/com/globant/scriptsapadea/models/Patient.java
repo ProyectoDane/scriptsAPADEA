@@ -16,11 +16,20 @@ public class Patient {
     private List<Script> scriptList;
 
 
+    public Patient() {
+    }
+
     public Patient(String id, String name, int avatar) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
     }
+
+    public Patient(String name, int avatar) {
+        this.name = name;
+        this.avatar = avatar;
+    }
+
 
     public String getId() {
         return id;
