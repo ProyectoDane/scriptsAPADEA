@@ -20,6 +20,15 @@ public class Script {
         this.image = image;
     }
 
+    public Script(String name, int image) {
+        this.name = name;
+        this.image = image;
+    }
+
+
+    public Script() {
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -20,6 +20,7 @@
     <dimen name="avatar_image_size">60dp</dimen>
     <dimen name="avatar_background_size">70dp</dimen>
 
+    <dimen name="font_size_big">34sp</dimen>
     <dimen name="font_size_heading">20sp</dimen>
     <dimen name="font_size_body">16sp</dimen>
     <dimen name="font_size_caption">12sp</dimen>

@@ -1,11 +1,17 @@
 package com.globant.scriptsapadea.ui.activities;
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
 
@@ -17,34 +23,63 @@ import roboguice.inject.ContentView;
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //DBTesting
+        super.onCreate(savedInstanceState);
+        SQLiteHelper ayuda= new SQLiteHelper(getApplicationContext());
+        Patient patient = new Patient("Guillermo",2);
+        long id = ayuda.createPatient(patient);
+        Script script = new Script("Ir al baño",2);
+        ayuda.createScript(script,id);
+        Log.d("All patients", ayuda.getAllPatients().toString());
+        Log.d("All scripts patient",ayuda.getAllScriptsFromPatient(patient.getName()).toString());
+
+
+    }
+
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
-        Fragment scriptsSelectorFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+        Fragment scriptsSelectorFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (scriptsSelectorFragment == null) {
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
+            getSupportFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
         }
     }
 
     public void onPreferenceClick(View view) {
         // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-        if (settingsFragment == null) {
+        Fragment container = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (container == null) {
             getFragmentManager().beginTransaction().add(R.id.fragment_container, new SettingsFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
+            getSupportFragmentManager().beginTransaction().remove(container).commit();
         }
     }
 
-    public void onAboutClicked(View view) {
-
+    public void onPrincipalClick(View view) {
         // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-        if (settingsFragment == null) {
-            navigator.to(new Intent(this, AboutActivity.class)).navigate();
+        Fragment container = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (container == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new PrincipalFragment()).commit();
         } else {
-            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
+            getSupportFragmentManager().beginTransaction().remove(container).commit();
+        }
+	}
+
+    public void onSliderClick(View view) {
+        startActivity(new Intent(this, ScreenSliderActivity.class));
+    }
+
+	public void onAboutClicked(View view) {
+        Fragment settingsFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (settingsFragment == null) {
+            navigator.to(new Intent(this, AboutActivity.class)).withAnimations(new SlidingUpAnimation()).navigate();
+        } else {
+            getSupportFragmentManager().beginTransaction().remove(settingsFragment).commit();
         }
     }
 

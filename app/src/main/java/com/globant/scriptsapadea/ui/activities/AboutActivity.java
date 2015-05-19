@@ -20,4 +20,10 @@ public class AboutActivity extends BaseActivity {
             navigator.to(new AboutFragment()).navigate();
         }
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.do_nothing, R.anim.pull_down_to_bottom);
+    }
 }
