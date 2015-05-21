@@ -31,6 +31,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     private ViewPager viewPager;
 
     private int currentSlide;
+    private boolean avoid = false;
 
     @InjectView(R.id.progress_bar)
     private MyProgressBar progressBar;
@@ -60,15 +61,19 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
             @Override
             public void onPageSelected(int position) {
 
-                if (currentSlide - position > 0) { // Right direction
-                    progressBar.prev();
+                if (!avoid) {
+                    if (currentSlide - position > 0) { // Right direction
+                        progressBar.prev();
 
-                    currentSlide--;
-                } else if (currentSlide - position < 0) { // Left direction
-                    progressBar.next();
+                        currentSlide--;
+                    } else if (currentSlide - position < 0) { // Left direction
+                        progressBar.next();
 
-                    currentSlide++;
+                        currentSlide++;
+                    }
                 }
+
+                avoid = false;
             }
 
             @Override
@@ -133,6 +138,8 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     @Override
     public void nextSlide() {
         if (currentSlide + 1 < pageAdapter.getCount()) {
+            avoid = true;
+
             viewPager.setCurrentItem(currentSlide + 1, true);
 
             progressBar.next();
@@ -144,6 +151,8 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     @Override
     public void previousSlide() {
         if (currentSlide - 1 >= 0) {
+            avoid = true;
+
             viewPager.setCurrentItem(currentSlide - 1, true);
 
             progressBar.prev();
