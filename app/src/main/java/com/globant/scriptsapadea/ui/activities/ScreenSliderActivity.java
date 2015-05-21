@@ -12,16 +12,28 @@ import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
+import com.globant.scriptsapadea.ui.views.MyProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
+
 /**
  * Created by nicolas.quartieri
  */
-public class ScreenSliderActivity extends BaseActivity {
+@ContentView(R.layout.screen_slider_layout)
+public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback {
 
-    ScreenSliderPageAdapter pageAdapter;
+    private ScreenSliderPageAdapter pageAdapter;
+
+    private ViewPager viewPager;
+
+    private int currentSlide;
+
+    @InjectView(R.id.progress_bar)
+    private MyProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +46,36 @@ public class ScreenSliderActivity extends BaseActivity {
 
     private void initViewPager(Context applicationContext) {
         List<Fragment> fragments = getFragments();
+        currentSlide = 0;
 
         pageAdapter = new ScreenSliderPageAdapter(getSupportFragmentManager(), fragments);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if (currentSlide - position > 0) { // Right direction
+                    progressBar.prev();
+
+                    currentSlide--;
+                } else if (currentSlide - position < 0) { // Left direction
+                    progressBar.next();
+
+                    currentSlide++;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         viewPager.setAdapter(pageAdapter);
     }
@@ -70,7 +109,6 @@ public class ScreenSliderActivity extends BaseActivity {
         return fragments;
     }
 
-
     public class ScreenSliderPageAdapter extends FragmentStatePagerAdapter {
 
         private List<Fragment> fragmentList;
@@ -89,6 +127,28 @@ public class ScreenSliderActivity extends BaseActivity {
         @Override
         public int getCount() {
             return fragmentList.size();
+        }
+    }
+
+    @Override
+    public void nextSlide() {
+        if (currentSlide + 1 < pageAdapter.getCount()) {
+            viewPager.setCurrentItem(currentSlide + 1, true);
+
+            progressBar.next();
+
+            currentSlide++;
+        }
+    }
+
+    @Override
+    public void previousSlide() {
+        if (currentSlide - 1 >= 0) {
+            viewPager.setCurrentItem(currentSlide - 1, true);
+
+            progressBar.prev();
+
+            currentSlide--;
         }
     }
 }
