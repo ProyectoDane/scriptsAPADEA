@@ -1,12 +1,12 @@
 package com.globant.scriptsapadea.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.software.shell.fab.ActionButton;
@@ -18,16 +18,21 @@ public class SliderFragment extends BaseFragment {
 
     private static final String EXTRA_MESSAGE = "message";
 
+    private SliderCallback listener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        listener = (SliderCallback)activity;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String message = getArguments().getString(EXTRA_MESSAGE);
 
         View view = inflater.inflate(R.layout.slider_layout, container, false);
-
-        // TODO Remove
-        final TextView titleTmp = (TextView) view.findViewById(R.id.txt_title);
-        titleTmp.setText(message);
 
         // TODO Set image
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
@@ -36,7 +41,7 @@ public class SliderFragment extends BaseFragment {
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO go to the next slide
+                listener.nextSlide();
             }
         });
 
@@ -44,7 +49,7 @@ public class SliderFragment extends BaseFragment {
         fabPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO go to the previous slide
+                listener.previousSlide();
             }
         });
 
@@ -60,5 +65,10 @@ public class SliderFragment extends BaseFragment {
         slider.setArguments(bundle);
 
         return slider;
+    }
+
+    public interface SliderCallback {
+        public void nextSlide();
+        public void previousSlide();
     }
 }
