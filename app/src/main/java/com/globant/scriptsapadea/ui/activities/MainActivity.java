@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.ui.fragments.ScreenplayFragment;
 import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
 import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
@@ -62,6 +63,16 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+
+    public void onCreateNewGuion(View view){
+
+        Fragment screenplayFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (screenplayFragment == null) {
+            navigator.to(new ScreenplayFragment()).navigate();
+        } else {
+            getSupportFragmentManager().beginTransaction().remove(screenplayFragment).commit();
+        }
+    }
     // TODO This methods should go inside property class.
     public void clickRemove(View view) {
         Log.i("INFO", "clickRemove");

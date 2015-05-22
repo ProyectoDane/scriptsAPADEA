@@ -21,6 +21,11 @@ tools:context=".MainActivity">
         android:layout_height="wrap_content"
         android:text="Scripts View"
         android:onClick="onScriptsClicked"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create a new guion"
+        android:onClick="onCreateNewGuion"/>
 
     <Button
         android:layout_width="match_parent"
