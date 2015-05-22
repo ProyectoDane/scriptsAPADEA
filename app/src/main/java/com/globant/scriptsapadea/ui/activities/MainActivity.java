@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.ui.fragments.GuionFragment;
+import com.globant.scriptsapadea.ui.fragments.ScreenplayFragment;
 import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
 import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
@@ -65,9 +65,13 @@ public class MainActivity extends BaseActivity {
 
 
     public void onCreateNewGuion(View view){
-        setNextFragment(new GuionFragment(),R.id.fragment_container);
 
-
+        Fragment screenplayFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (screenplayFragment == null) {
+            navigator.to(new ScreenplayFragment()).navigate();
+        } else {
+            getSupportFragmentManager().beginTransaction().remove(screenplayFragment).commit();
+        }
     }
     // TODO This methods should go inside property class.
     public void clickRemove(View view) {
@@ -87,14 +91,5 @@ public class MainActivity extends BaseActivity {
     // TODO This methods should go inside property class.
     public void clickReadScript(View view) {
         Log.i("INFO", "clickReadScript");
-    }
-
-    private void setNextFragment(Fragment fragment, int container){
-        Fragment commonFragment = getSupportFragmentManager().findFragmentById(container);
-        if (commonFragment == null) {
-            getSupportFragmentManager().beginTransaction().add(container, fragment).commit();
-        } else {
-            getSupportFragmentManager().beginTransaction().remove(commonFragment).commit();
-        }
     }
 }
