@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.ui.activities.MainActivity;
 
 import roboguice.inject.InjectView;
 
@@ -41,6 +42,8 @@ public class ScreenplayFragment extends BaseFragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new PictureFragment()).addToBackStack("picture_fragment").commit();
             }
         });
     }

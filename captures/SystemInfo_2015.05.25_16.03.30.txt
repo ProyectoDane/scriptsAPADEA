@@ -1,0 +1,89 @@
+TASK com.globant.scriptsapadea id=1365
+  ACTIVITY com.globant.scriptsapadea/.ui.activities.MainActivity 1dc38bb pid=31853
+    Local FragmentActivity 1a6ef9aa State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    Active Fragments in 3e9d1f2f:
+      #0: ScreenplayFragment{15c0c93c #0 id=0x7f0a0043}
+        mFragmentId=#7f0a0043 mContainerId=#7f0a0043 mTag=null
+        mState=1 mIndex=0 mWho=android:fragment:0 mBackStackNesting=1
+        mAdded=false mRemoving=true mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{3e9d1f2f in MainActivity{1a6ef9aa}}
+        mActivity=com.globant.scriptsapadea.ui.activities.MainActivity@1a6ef9aa
+        mSavedViewState={2131361865=android.view.AbsSavedState$1@20ce26c5, 2131361866=android.view.AbsSavedState$1@20ce26c5, 2131361867=android.view.AbsSavedState$1@20ce26c5, 2131361868=android.view.AbsSavedState$1@20ce26c5, 2131361869=android.view.AbsSavedState$1@20ce26c5, 2131361870=TextView.SavedState{8f4b81a start=6 end=6 text=LEONEL}, 2131361871=android.view.AbsSavedState$1@20ce26c5}
+        Child FragmentManager{1e667f4b in ScreenplayFragment{15c0c93c}}:
+          FragmentManager misc state:
+            mActivity=com.globant.scriptsapadea.ui.activities.MainActivity@1a6ef9aa
+            mContainer=android.support.v4.app.Fragment$1@2b6f3d28
+            mParent=ScreenplayFragment{15c0c93c #0 id=0x7f0a0043}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #1: PictureFragment{180be9a4 #1 id=0x7f0a0043}
+        mFragmentId=#7f0a0043 mContainerId=#7f0a0043 mTag=null
+        mState=5 mIndex=1 mWho=android:fragment:1 mBackStackNesting=1
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{3e9d1f2f in MainActivity{1a6ef9aa}}
+        mActivity=com.globant.scriptsapadea.ui.activities.MainActivity@1a6ef9aa
+        mContainer=android.widget.FrameLayout{17ef6a41 V.E..... ........ 0,864-984,1759 #7f0a0043 app:id/fragment_container}
+        mView=android.support.v4.app.NoSaveStateFrameLayout{12963be6 V.E..... ........ 0,0-984,895}
+        mInnerView=android.support.v4.app.NoSaveStateFrameLayout{12963be6 V.E..... ........ 0,0-984,895}
+        Child FragmentManager{2a1bc527 in PictureFragment{180be9a4}}:
+          FragmentManager misc state:
+            mActivity=com.globant.scriptsapadea.ui.activities.MainActivity@1a6ef9aa
+            mContainer=android.support.v4.app.Fragment$1@70f03d4
+            mParent=PictureFragment{180be9a4 #1 id=0x7f0a0043}
+            mCurState=5 mStateSaved=false mDestroyed=false
+    Added Fragments:
+      #0: PictureFragment{180be9a4 #1 id=0x7f0a0043}
+    Back Stack:
+      #0: BackStackEntry{1e87697d #0 picture_fragment}
+        mName=picture_fragment mIndex=0 mCommitted=true
+        Operations:
+          Op #0: REPLACE PictureFragment{180be9a4 #1 id=0x7f0a0043}
+            Removed: ScreenplayFragment{15c0c93c #0 id=0x7f0a0043}
+    Back Stack Indices:
+      #0: BackStackEntry{1e87697d #0 picture_fragment}
+    FragmentManager misc state:
+      mActivity=com.globant.scriptsapadea.ui.activities.MainActivity@1a6ef9aa
+      mContainer=android.support.v4.app.FragmentActivity$2@157a3072
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{9f58cc3 V.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{30428940 V.E..... ... 0,0-1080,1776}
+          android.view.ViewStub{39a62079 G.E..... ... 0,0-0,0 #1020373}
+          android.widget.FrameLayout{36e1be V.E..... ... 0,75-1080,1776}
+            android.support.v7.internal.widget.ActionBarOverlayLayout{271a321f V.E..... ... 0,0-1080,1701 #7f0a0033 app:id/decor_content_parent}
+              android.support.v7.internal.widget.NativeActionModeAwareLayout{466f96c V.E..... ... 0,168-1080,1701 #1020002 android:id/content}
+                android.widget.LinearLayout{155f4b35 V.E..... ... 0,0-1080,1533}
+                  android.widget.ScrollView{27b5bca VFED.V.. ... 48,48-1032,1485}
+                    android.widget.LinearLayout{2cb9d13b V.E..... ... 0,0-984,1759}
+                      android.widget.Button{37804058 VFED..C. ... 0,0-984,144 #7f0a0047 app:id/btn_preferences}
+                      android.widget.Button{114665b1 VFED..C. ... 0,144-984,288}
+                      android.widget.Button{25db6a96 VFED..C. ... 0,288-984,432}
+                      android.widget.Button{3eea4617 VFED..C. ... 0,432-984,576}
+                      android.widget.Button{37e50a04 VFED..C. ... 0,576-984,720}
+                      android.widget.Button{18aaabed VFED..C. ... 0,720-984,864}
+                      android.widget.FrameLayout{17ef6a41 V.E..... ... 0,864-984,1759 #7f0a0043 app:id/fragment_container}
+                        android.support.v4.app.NoSaveStateFrameLayout{12963be6 V.E..... ... 0,0-984,895}
+                          android.widget.LinearLayout{275b9a22 V.E..... ... 0,0-984,895}
+                            android.widget.LinearLayout{3432cb3 V.E..... ... 0,60-984,204}
+                              android.widget.TextView{20aac270 V.ED.... ... 72,0-455,57 #7f0a0050 app:id/textView}
+                              android.widget.ImageView{29319e9 V.ED.... ... 455,0-599,144 #7f0a0051 app:id/imageView}
+                              android.widget.TextView{1dbd366e V.ED.... ... 599,0-911,73 #7f0a0052 app:id/textView2}
+                            android.widget.TextView{1739e10f V.ED.... ... 0,240-984,405 #7f0a0053 app:id/textView3}
+                            android.widget.TextView{26d1959c V.ED.... ... 336,405-648,478 #7f0a0054 app:id/textView4}
+                            android.widget.TextView{357a6ba5 V.ED.... ... 190,478-793,535 #7f0a0055 app:id/textView5}
+                            android.widget.LinearLayout{388a4b7a V.E..... ... 0,535-984,751}
+                              android.widget.ImageView{103d7f2b V.ED..C. ... 312,36-456,180 #7f0a0056 app:id/fromGallery}
+                              android.widget.ImageView{2d306f88 V.ED..C. ... 528,36-672,180 #7f0a0057 app:id/fromCamera}
+                            android.widget.Button{acb1d21 VFED..C. ... 36,751-300,895 #7f0a0058 app:id/button}
+              android.support.v7.internal.widget.ActionBarContainer{23e1a546 V.ED.... ... 0,0-1080,168 #7f0a0034 app:id/action_bar_container}
+                android.support.v7.widget.Toolbar{2192e307 V.E..... ... 0,0-1080,168 #7f0a0035 app:id/action_bar}
+                  android.widget.TextView{2b20fc34 V.ED.... ... 48,43-457,124}
+                  android.support.v7.widget.ActionMenuView{2e1b6a5d V.E..... ... 1080,0-1080,168}
+                android.support.v7.internal.widget.ActionBarContextView{1d02cfd2 G.E..... ... 0,0-0,0 #7f0a0036 app:id/action_context_bar}
+        android.view.View{3f0a8a3 V.ED.... ... 0,0-1080,75 #102002f android:id/statusBarBackground}
+        android.view.View{11eba7a0 V.ED.... ... 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}

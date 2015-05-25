@@ -11,6 +11,8 @@ import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
 import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
+import com.globant.scriptsapadea.utils.ActivityResultBus;
+import com.globant.scriptsapadea.utils.ActivityResultEvent;
 
 import roboguice.inject.ContentView;
 
@@ -91,5 +93,12 @@ public class MainActivity extends BaseActivity {
     // TODO This methods should go inside property class.
     public void clickReadScript(View view) {
         Log.i("INFO", "clickReadScript");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ActivityResultBus.getInstance().post(new ActivityResultEvent(requestCode,resultCode,data));
     }
 }
