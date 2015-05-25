@@ -26,25 +26,11 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private static int GALLERY = 0x001;
     private static int CAMERA = 0x010;
 
-    private Object mActivityResultSubscriber;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        /**
-        mActivityResultSubscriber = new Object(){
-            @Subscribe
-            public void onActivityResultReceived(ActivityResultEvent event){
-                onActivityResult(event.getRequestCode(),event.getResultCode(),event.getData());
-            }
-
-
-        }
-         **/
     }
 
     @Override
