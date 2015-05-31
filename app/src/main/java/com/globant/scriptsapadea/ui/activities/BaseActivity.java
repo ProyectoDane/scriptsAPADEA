@@ -17,7 +17,7 @@ import roboguice.activity.RoboActionBarActivity;
 public abstract class BaseActivity extends RoboActionBarActivity {
 
     @Inject
-    private Bus bus;
+    protected Bus bus;
 
     protected Navigator navigator;
 
