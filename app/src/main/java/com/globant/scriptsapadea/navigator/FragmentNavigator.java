@@ -11,6 +11,8 @@ public class FragmentNavigator extends NavigatorEntry<Fragment> {
     private final Fragment target;
     private final Navigator navigator;
     private boolean noPush;
+    // TODO Must be final an setup with the builder
+    private String tag;
 
     public FragmentNavigator(Navigator navigator, Fragment target) {
         super(navigator);
@@ -21,6 +23,10 @@ public class FragmentNavigator extends NavigatorEntry<Fragment> {
 
     public Fragment getTarget() {
         return target;
+    }
+
+    public String getTag() {
+        return tag == null ? getTarget().getClass().getSimpleName() : tag;
     }
 
     @Override
