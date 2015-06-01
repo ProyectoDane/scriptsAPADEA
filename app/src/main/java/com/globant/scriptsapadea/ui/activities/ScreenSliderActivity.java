@@ -7,12 +7,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.manager.PageResult;
+import com.globant.scriptsapadea.manager.ResponseEvent;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
 import com.globant.scriptsapadea.ui.views.MyProgressBar;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +149,12 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
             progressBar.next();
 
             currentSlide++;
+
+            //TODO This should be refavtor to be one line statement.
+            MovedPageEvent movedPageEvent = new MovedPageEvent();
+            movedPageEvent.setResult(new PageResult(currentSlide));
+            movedPageEvent.setResult(true);
+            bus.post(movedPageEvent);
         }
     }
 
@@ -158,6 +168,20 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
             progressBar.prev();
 
             currentSlide--;
+
+            //TODO This should be refavtor to be one line statement.
+            MovedPageEvent movedPageEvent = new MovedPageEvent();
+            movedPageEvent.setResult(new PageResult(currentSlide));
+            movedPageEvent.setResult(true);
+            bus.post(movedPageEvent);
         }
+    }
+
+    @Subscribe
+    public void logPageMoved(MovedPageEvent event) {
+        Log.i("INFO", "Page moved to: " + event.getPayload().getPageId());
+    }
+
+    public static class MovedPageEvent extends ResponseEvent<PageResult> {
     }
 }
