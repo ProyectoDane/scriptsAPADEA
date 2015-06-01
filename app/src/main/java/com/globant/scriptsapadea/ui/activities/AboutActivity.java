@@ -17,7 +17,7 @@ public class AboutActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            navigator.to(new AboutFragment()).navigate();
+            navigator.to(new AboutFragment()).noPush().navigate();
         }
     }
 

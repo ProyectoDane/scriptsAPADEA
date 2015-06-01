@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.globant.scriptsapadea.ui.activities.BaseActivity;
 
@@ -75,14 +76,32 @@ public class Navigator {
         }
     }
 
-    // TODO: replace() transaction must replace add()
     public void navigateTo(FragmentNavigator fragmentNavigator) {
         if (fragmentNavigator.isNoPush()) {
-            // TODO: Assign Tag
-            activity.getSupportFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).addToBackStack(null).commit();
+            pushFragment(layoutId, fragmentNavigator.getTarget(), fragmentNavigator.getTag(), false, fragmentNavigator.getAnimations());
         } else {
-            activity.getSupportFragmentManager().beginTransaction().add(layoutId, fragmentNavigator.getTarget()).commit();
+            pushFragment(layoutId, fragmentNavigator.getTarget(), fragmentNavigator.getTag(), true, fragmentNavigator.getAnimations());
         }
+    }
+
+    private int pushFragment(int containerId, Fragment fragment, String tag, boolean addToBackStack,
+                             Navigator.CustomAnimations animation) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+
+        String res = activity.getResources().getResourceName(containerId);
+        if (res == null || !res.startsWith(activity.getPackageName())) {
+            throw new IllegalArgumentException("Layout id provided to navigator is invalid.");
+        }
+
+        if (animation != null) {
+            transaction.setCustomAnimations(animation.enter, animation.exit, animation.popEnter, animation.popExit);
+        }
+
+        if (addToBackStack) {
+            transaction.addToBackStack(tag);
+        }
+
+        return transaction.replace(containerId, fragment, tag).commitAllowingStateLoss();
     }
 
     public interface NavigationListener {
