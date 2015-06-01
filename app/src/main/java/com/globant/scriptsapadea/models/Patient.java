@@ -17,8 +17,11 @@ public class Patient {
         this.avatar = avatar;
     }
 
-    public Patient() {
 
+    public Patient(String id, String name, int avatar) {
+        this.id = id;
+        this.name = name;
+        this.avatar = avatar;
     }
 
     public String getId() {

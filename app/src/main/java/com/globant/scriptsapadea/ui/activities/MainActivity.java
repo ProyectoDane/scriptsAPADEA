@@ -19,34 +19,7 @@ import roboguice.inject.ContentView;
  */
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
-
-
-
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        /*DBTesting
-        super.onCreate(savedInstanceState);
-        SQLiteHelper ayuda= new SQLiteHelper(getApplicationContext());
-        Patient patient = new Patient("Guillermo",2);
-        long id = ayuda.createPatient(patient);
-        Script script = new Script("Ir al baño",2);
-        ayuda.createScript(script,id);
-
-        Log.d("All patients", ayuda.getAllPatients().toString());
-        Log.d("All scripts patient",ayuda.getAllScriptsFromPatient(patient.getName()).toString());
-        */
-
-
-
-    }
-
-
-
-
+    
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
         Fragment scriptsSelectorFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
