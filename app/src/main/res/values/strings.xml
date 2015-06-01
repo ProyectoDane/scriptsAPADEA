@@ -16,6 +16,10 @@
     <string name="select_script">Seleccione un Script</string>
 
     <string name="default_script_name">Nuevo Script</string>
+    <string name="edit_text_name_hint">Nombre</string>
+    <string name="next_action_text">Siguiente</string>
+    <string name="what_is_guion_name_text">¿Cuál es el nombre del guión?</string>
+    <string name="whose_is_guion_text">¿Este guíon es para?</string>
     <string name="default_script_example">Guiones de ejemplo</string>
 
     <string name="list_patient_create">Crear una nueva persona</string>
@@ -34,4 +38,9 @@
 
     <string name="scriptlist_new_script">Nuevo Guión</string>
     <string name="scriptlist_edit">Editar</string>
+    <string name="cover_picture_title">ELEGÍ UNA FOTO DE PORTADA PARA:</string>
+    <string name="you_can_change_title">(LA PODÉS CAMBIAR DESPUÉS)</string>
+    <string name="back_title">ATRÁS</string>
+
+    <string name="gallery_title">Selecciona una fotografía</string>
 </resources>
