@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicola.quartieri
+ * Created by nicola.
  */
 public class Patient {
 
@@ -14,6 +14,11 @@ public class Patient {
     private String name;
     private int avatar;
     private List<Script> scriptList;
+
+    public Patient(String name, int avatar) {
+        this.name = name;
+        this.avatar = avatar;
+    }
 
 
     public Patient(String id, String name, int avatar) {
@@ -54,7 +59,18 @@ public class Patient {
         this.scriptList = scriptList;
     }
 
-    // TODO Mocked services
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", avatar=" + avatar +
+                ", scriptList=" + scriptList +
+                '}';
+    }
+
+
     public static List<Patient> fetchAllPatients() {
 
         LinkedList listScript = new LinkedList<Patient>();
@@ -66,4 +82,5 @@ public class Patient {
 
         return listScript;
     }
+
 }
