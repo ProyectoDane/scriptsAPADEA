@@ -1,5 +1,6 @@
 package com.globant.scriptsapadea.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.interfaces.OnChangeFragmentListener;
+import com.globant.scriptsapadea.navigator.FragmentNavigator;
 import com.globant.scriptsapadea.ui.activities.MainActivity;
 
 import roboguice.inject.InjectView;
@@ -22,35 +25,43 @@ import roboguice.inject.InjectView;
 public class ScreenplayFragment extends BaseFragment {
 
 
-
+        private OnChangeFragmentListener onChangeFragmentListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_guion,container,false);
+        return inflater.inflate(R.layout.fragment_guion, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        EditText screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
+        Button nextButton = (Button) view.findViewById(R.id.next_button);
 
-
-        EditText screenplayName = (EditText)view.findViewById(R.id.screenplay_name);
-        Button nextButton = (Button)view.findViewById(R.id.next_button);
-
-        showNextButton(screenplayName,nextButton);
+        showNextButton(screenplayName, nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new PictureFragment()).addToBackStack("picture_fragment").commit();
+                onChangeFragmentListener.onChangeFragment(new PictureFragment(), true, new PictureFragment().toString());
             }
         });
     }
 
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+    try{
+        onChangeFragmentListener  = (OnChangeFragmentListener)activity;
+    }catch (ClassCastException e){
+        throw new ClassCastException(activity.toString() + "must be implement OnChangeFragmentListener");
+    }
+    }
+
     //Method to show the hidden next button
-    private void showNextButton(EditText screenplayName, final Button nextButton){
+    private void showNextButton(EditText screenplayName, final Button nextButton) {
         screenplayName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -71,8 +82,6 @@ public class ScreenplayFragment extends BaseFragment {
             }
         });
     }
-
-
 
 
 }

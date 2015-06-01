@@ -7,15 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.utils.ActivityResultBus;
-import com.globant.scriptsapadea.utils.ActivityResultEvent;
+import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.squareup.otto.Subscribe;
-
-import javax.xml.transform.Result;
 
 /**
  * Created by leonel.mendez on 5/19/2015.
@@ -36,7 +31,7 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-        ActivityResultBus.getInstance().register(PictureFragment.this);
+
 
     }
 
@@ -72,7 +67,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public void onStop() {
         super.onStop();
 
-        ActivityResultBus.getInstance().unregister(PictureFragment.this);
     }
 
     @Subscribe

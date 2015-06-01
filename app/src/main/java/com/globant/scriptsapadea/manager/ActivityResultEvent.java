@@ -1,12 +1,11 @@
-package com.globant.scriptsapadea.utils;
+package com.globant.scriptsapadea.manager;
 
 import android.content.Intent;
 
 /**
  * Created by leonel.mendez on 5/25/2015.
- *
+ * <p/>
  * Class to manage of picture capture from camera and gallery
- *
  */
 public class ActivityResultEvent {
 

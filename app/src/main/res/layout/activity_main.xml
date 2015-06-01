@@ -33,7 +33,7 @@ tools:context=".MainActivity">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Create a new guion"
-        android:onClick="onCreateNewGuion"/>
+        android:onClick="onCreateNewScreenplay"/>
 
     <Button
         android:layout_width="match_parent"
