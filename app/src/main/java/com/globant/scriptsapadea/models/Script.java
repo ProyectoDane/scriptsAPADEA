@@ -2,6 +2,7 @@ package com.globant.scriptsapadea.models;
 
 import com.globant.scriptsapadea.R;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,12 +13,22 @@ public class Script {
 
     private String id;
     private String name;
-    private int image;
+    private List<Image> images;
 
-    public Script(String id, String name, int image) {
+    public Script(String id, String name, List<Image> images) {
         this.id = id;
         this.name = name;
-        this.image = image;
+        this.images = images;
+    }
+
+    public Script(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Script(String name, List<Image> images ) {
+        this.name = name;
+        this.images = images;
     }
 
     public void setName(String name) {
@@ -36,23 +47,32 @@ public class Script {
         this.id = id;
     }
 
-    public int getImageScripts() {
-        return image;
+    public List<Image> getImageScripts() {
+        return images;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public void setImage(List<Image> images) {
+        this.images = images;
     }
 
     public static List<Script> fetchAllScripts(String idPacient) {
         // TODO get all scripts from idPacient
         LinkedList listScript = new LinkedList<Script>();
-        listScript.add(new Script("0", "Pepe", R.drawable.ic_launcher));
-        listScript.add(new Script("1", "Juan", R.drawable.ic_launcher));
-        listScript.add(new Script("2", "Marcelo", R.drawable.ic_launcher));
-        listScript.add(new Script("3", "Pepe", R.drawable.ic_launcher));
-        listScript.add(new Script("4", "Juan", R.drawable.ic_launcher));
+        listScript.add(new Script("0", "Pepe", new ArrayList<Image>(R.drawable.ic_launcher)));
+        listScript.add(new Script("1", "Juan", new ArrayList<Image>(R.drawable.ic_launcher)));
+        listScript.add(new Script("2", "Marcelo", new ArrayList<Image>(R.drawable.ic_launcher)));
+        listScript.add(new Script("3", "Pepe", new ArrayList<Image>(R.drawable.ic_launcher)));
+        listScript.add(new Script("4", "Juan", new ArrayList<Image>(R.drawable.ic_launcher)));
 
         return listScript;
+    }
+
+    @Override
+    public String toString() {
+        return "Script{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", image=" + images.toString() +
+                '}';
     }
 }
