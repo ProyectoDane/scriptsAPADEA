@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.interfaces.OnChangeFragmentListener;
+import com.globant.scriptsapadea.interfaces.OnScreenplayChangeFragmentListener;
 import com.globant.scriptsapadea.navigator.FragmentNavigator;
 import com.globant.scriptsapadea.ui.activities.MainActivity;
 
@@ -25,7 +25,7 @@ import roboguice.inject.InjectView;
 public class ScreenplayFragment extends BaseFragment {
 
 
-        private OnChangeFragmentListener onChangeFragmentListener;
+    private OnScreenplayChangeFragmentListener screenplayChangeFragmentListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class ScreenplayFragment extends BaseFragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onChangeFragmentListener.onChangeFragment(new PictureFragment(), true, new PictureFragment().toString());
+                screenplayChangeFragmentListener.onChangeFragment(new PictureFragment(),true);
             }
         });
     }
@@ -52,12 +52,11 @@ public class ScreenplayFragment extends BaseFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
-    try{
-        onChangeFragmentListener  = (OnChangeFragmentListener)activity;
-    }catch (ClassCastException e){
-        throw new ClassCastException(activity.toString() + "must be implement OnChangeFragmentListener");
-    }
+        try {
+            screenplayChangeFragmentListener = (OnScreenplayChangeFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.getLocalClassName() +  "must be implements OnScreenplayChangeFragmentListener");
+        }
     }
 
     //Method to show the hidden next button

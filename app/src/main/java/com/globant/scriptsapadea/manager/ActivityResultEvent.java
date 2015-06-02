@@ -24,23 +24,15 @@ public class ActivityResultEvent {
         return requestCode;
     }
 
-    public void setRequestCode(int requestCode) {
-        this.requestCode = requestCode;
-    }
 
     public int getResultCode() {
         return resultCode;
     }
 
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
-    }
 
     public Intent getData() {
         return data;
     }
 
-    public void setData(Intent data) {
-        this.data = data;
-    }
+
 }

@@ -15,7 +15,7 @@ import com.squareup.otto.Subscribe;
 /**
  * Created by leonel.mendez on 5/19/2015.
  */
-public class PictureFragment extends BaseFragment implements View.OnClickListener{
+public class PictureFragment extends BaseFragment implements View.OnClickListener {
 
 
     private static int GALLERY = 0x001;
@@ -37,9 +37,8 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_picture,container,false);
+        return inflater.inflate(R.layout.fragment_picture, container, false);
     }
-
 
 
     @Override
@@ -52,14 +51,14 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
-          case  R.id.fromGallery:
-              pickPhotoFromGallery();
-            break;
-           case R.id.fromCamera:
-               takePhotoFromCamera();
-            break;
+            case R.id.fromGallery:
+                pickPhotoFromGallery();
+                break;
+            case R.id.fromCamera:
+                takePhotoFromCamera();
+                break;
         }
     }
 
@@ -70,27 +69,27 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     }
 
     @Subscribe
-    public void onActivityResultReceived(ActivityResultEvent event){
-        onActivityResult(event.getRequestCode(),event.getResultCode(),event.getData());
+    public void onActivityResultReceived(ActivityResultEvent event) {
+        onActivityResult(event.getRequestCode(), event.getResultCode(), event.getData());
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d(PictureFragment.class.toString(),requestCode + "");
+        Log.d(PictureFragment.class.toString(), requestCode + "");
     }
 
     private void pickPhotoFromGallery() {
 
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent,GALLERY);
+        startActivityForResult(galleryIntent, GALLERY);
     }
 
-    private void takePhotoFromCamera(){
+    private void takePhotoFromCamera() {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent,CAMERA);
+        startActivityForResult(cameraIntent, CAMERA);
     }
 }

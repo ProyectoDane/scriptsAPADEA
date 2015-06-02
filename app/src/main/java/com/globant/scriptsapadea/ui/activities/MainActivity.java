@@ -8,7 +8,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.interfaces.OnChangeFragmentListener;
+
+import com.globant.scriptsapadea.interfaces.OnScreenplayChangeFragmentListener;
 import com.globant.scriptsapadea.ui.fragments.ScreenplayFragment;
 import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
 import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
@@ -22,7 +23,7 @@ import roboguice.inject.ContentView;
  * @author nicolas.quartieri.
  */
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements OnChangeFragmentListener {
+public class MainActivity extends BaseActivity implements OnScreenplayChangeFragmentListener {
 
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
@@ -106,12 +107,11 @@ public class MainActivity extends BaseActivity implements OnChangeFragmentListen
 
     // TODO: Use Otto to create this event
     @Override
-    public void onChangeFragment(Fragment fragment, boolean addInStack, String tag) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
+    public void onChangeFragment(Fragment fragment, boolean addInStack) {
         if (addInStack)
-            fragmentTransaction.replace(R.id.fragment_container, fragment).addToBackStack(tag).commit();
+            navigator.to(fragment).navigate();
         else
-            fragmentTransaction.replace(R.id.fragment_container, fragment).commit();
+            navigator.to(fragment).noPush().navigate();
     }
+
 }
