@@ -1,8 +1,5 @@
 package com.globant.scriptsapadea.models;
 
-import com.globant.scriptsapadea.R;
-
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -69,18 +66,4 @@ public class Patient {
                 ", scriptList=" + scriptList +
                 '}';
     }
-
-
-    public static List<Patient> fetchAllPatients() {
-
-        LinkedList listScript = new LinkedList<Patient>();
-        listScript.add(new Patient("0", "Pepe", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("1", "Juan", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("2", "Marcelo", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("3", "Roberto", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("4", "Juan", R.drawable.avatar_placeholder));
-
-        return listScript;
-    }
-
 }
