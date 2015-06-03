@@ -105,13 +105,9 @@ public class MainActivity extends BaseActivity implements OnScreenplayChangeFrag
         bus.post(new ActivityResultEvent(requestCode, resultCode, data));
     }
 
-    // TODO: Use Otto to create this event
     @Override
-    public void onChangeFragment(Fragment fragment, boolean addInStack) {
-        if (addInStack)
-            navigator.to(fragment).navigate();
-        else
-            navigator.to(fragment).noPush().navigate();
+    public void onChangeFragment(Fragment fragment) {
+        navigator.to(fragment).navigate();
     }
 
 }

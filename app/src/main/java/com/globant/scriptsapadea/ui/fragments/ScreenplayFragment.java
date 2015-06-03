@@ -43,7 +43,7 @@ public class ScreenplayFragment extends BaseFragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                screenplayChangeFragmentListener.onChangeFragment(new PictureFragment(),true);
+                screenplayChangeFragmentListener.onChangeFragment(new PictureFragment());
             }
         });
     }

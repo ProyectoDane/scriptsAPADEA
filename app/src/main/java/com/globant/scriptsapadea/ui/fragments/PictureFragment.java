@@ -17,22 +17,17 @@ import com.squareup.otto.Subscribe;
  */
 public class PictureFragment extends BaseFragment implements View.OnClickListener {
 
-
     private static int GALLERY = 0x001;
     private static int CAMERA = 0x010;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override
@@ -45,18 +40,18 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        (view.findViewById(R.id.fromGallery)).setOnClickListener(PictureFragment.this);
-        (view.findViewById(R.id.fromCamera)).setOnClickListener(PictureFragment.this);
+        (view.findViewById(R.id.from_gallery)).setOnClickListener(PictureFragment.this);
+        (view.findViewById(R.id.from_camera)).setOnClickListener(PictureFragment.this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.fromGallery:
+            case R.id.from_gallery:
                 pickPhotoFromGallery();
                 break;
-            case R.id.fromCamera:
+            case R.id.from_camera:
                 takePhotoFromCamera();
                 break;
         }
@@ -81,14 +76,12 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void pickPhotoFromGallery() {
-
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, GALLERY);
     }
 
     private void takePhotoFromCamera() {
-
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA);
     }

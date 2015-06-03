@@ -8,5 +8,5 @@ import android.support.v4.app.Fragment;
  * Interface to manage replacing fragments
  */
 public interface OnScreenplayChangeFragmentListener {
-    void onChangeFragment(Fragment fragment, boolean addInStack);
+    void onChangeFragment(Fragment fragment);
 }
