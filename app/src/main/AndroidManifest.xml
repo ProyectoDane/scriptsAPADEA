@@ -25,6 +25,10 @@
             android:label="@string/app_name" />
 
         <activity android:name=".ui.activities.ScreenSliderActivity" />
+
+        <provider
+            android:authorities="com.globant.scriptsapadea.contentprovider"
+            android:name="com.globant.scriptsapadea.contentprovider.SSContentProvider" />
     </application>
 
 </manifest>
