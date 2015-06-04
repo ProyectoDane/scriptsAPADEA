@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicola.quartieri
+ * Created by nicolas.quartieri
  */
 public class Patient {
 
@@ -36,18 +36,6 @@ public class Patient {
 
     public List<Script> getScriptList() {
         return scriptList;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAvatar(int avatar) {
-        this.avatar = avatar;
     }
 
     public void setScriptList(List<Script> scriptList) {
