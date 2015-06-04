@@ -60,7 +60,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onStop() {
         super.onStop();
-
     }
 
     @Subscribe
