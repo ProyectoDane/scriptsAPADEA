@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.globant.scriptsapadea" >
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".scriptsAPADEAApplication"
@@ -20,15 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.activities.AboutActivity"
+        <activity
+            android:name=".ui.activities.AboutActivity"
             android:label="@string/app_name" />
-
         <activity android:name=".ui.activities.ScreenSliderActivity" />
 
         <provider
-            android:authorities="com.globant.scriptsapadea.contentprovider"
-            android:name="com.globant.scriptsapadea.contentprovider.SSContentProvider" />
+            android:name=".contentprovider.SSContentProvider"
+            android:authorities="com.globant.scriptsapadea.contentprovider" />
+
+        <activity
+            android:name=".ui.activities.ScreenplayActivity"
+            android:label="@string/title_activity_screenplay" >
+        </activity>
     </application>
 
 </manifest>

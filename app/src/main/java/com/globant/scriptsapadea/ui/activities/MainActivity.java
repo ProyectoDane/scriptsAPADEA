@@ -3,14 +3,11 @@ package com.globant.scriptsapadea.ui.activities;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
 
-import com.globant.scriptsapadea.interfaces.OnScreenplayChangeFragmentListener;
-import com.globant.scriptsapadea.ui.fragments.ScreenplayFragment;
 import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
 import com.globant.scriptsapadea.ui.fragments.PrincipalFragment;
 import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
@@ -23,7 +20,7 @@ import roboguice.inject.ContentView;
  * @author nicolas.quartieri.
  */
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements OnScreenplayChangeFragmentListener {
+public class MainActivity extends BaseActivity  {
 
     public void onScriptsClicked(View view) {
         // TODO Create Navigation Module
@@ -70,13 +67,7 @@ public class MainActivity extends BaseActivity implements OnScreenplayChangeFrag
 
 
     public void onCreateNewScreenplay(View view) {
-
-        Fragment screenplayFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (screenplayFragment == null) {
-            navigator.to(new ScreenplayFragment()).navigate();
-        } else {
-            getSupportFragmentManager().beginTransaction().remove(screenplayFragment).commit();
-        }
+            navigator.to(new Intent(this,ScreenplayActivity.class)).navigate();
     }
 
     // TODO This methods should go inside property class.
@@ -105,9 +96,5 @@ public class MainActivity extends BaseActivity implements OnScreenplayChangeFrag
         bus.post(new ActivityResultEvent(requestCode, resultCode, data));
     }
 
-    @Override
-    public void onChangeFragment(Fragment fragment) {
-        navigator.to(fragment).navigate();
-    }
 
 }

@@ -43,4 +43,5 @@
     <string name="back_title">ATRÁS</string>
 
     <string name="gallery_title">Selecciona una fotografía</string>
+    <string name="title_activity_screenplay">ScreenplayActivity</string>
 </resources>
