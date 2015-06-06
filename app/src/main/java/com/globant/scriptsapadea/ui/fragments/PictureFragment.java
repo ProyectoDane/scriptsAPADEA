@@ -21,20 +21,9 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     private static int CAMERA = 0x010;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_picture, container, false);
     }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -55,11 +44,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
                 takePhotoFromCamera();
                 break;
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Subscribe

@@ -30,9 +30,9 @@
             android:authorities="com.globant.scriptsapadea.contentprovider" />
 
         <activity
-            android:name=".ui.activities.ScreenplayActivity"
-            android:label="@string/title_activity_screenplay" >
-        </activity>
+            android:name=".ui.activities.ScreenPlayActivity"
+            android:label="@string/title_activity_screenplay" />
+
     </application>
 
 </manifest>

@@ -2,10 +2,8 @@ package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.interfaces.OnScreenplayChangeFragmentListener;
-import com.globant.scriptsapadea.navigator.FragmentNavigator;
-import com.globant.scriptsapadea.ui.activities.MainActivity;
-
-import roboguice.inject.InjectView;
 
 /**
  * Created by leonel.mendez on 5/8/2015.
  */
-public class ScreenplayFragment extends BaseFragment {
-
+public class ScreenPlayFragment extends BaseFragment {
 
     private OnScreenplayChangeFragmentListener screenplayChangeFragmentListener;
 
@@ -43,15 +35,15 @@ public class ScreenplayFragment extends BaseFragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                screenplayChangeFragmentListener.onChangeFragment(new PictureFragment());
+                screenplayChangeFragmentListener.onNextButtonClicked();
             }
         });
     }
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         try {
             screenplayChangeFragmentListener = (OnScreenplayChangeFragmentListener) activity;
         } catch (ClassCastException e) {
@@ -82,5 +74,7 @@ public class ScreenplayFragment extends BaseFragment {
         });
     }
 
-
+    public interface OnScreenplayChangeFragmentListener {
+        void onNextButtonClicked();
+    }
 }

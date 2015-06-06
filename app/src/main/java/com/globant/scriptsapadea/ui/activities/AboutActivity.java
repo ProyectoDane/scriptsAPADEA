@@ -3,6 +3,7 @@ package com.globant.scriptsapadea.ui.activities;
 import android.os.Bundle;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.ui.fragments.AboutFragment;
 
 import roboguice.inject.ContentView;
 

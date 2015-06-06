@@ -1,5 +1,6 @@
 package com.globant.scriptsapadea.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,20 +17,42 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicola.quartieri
+ * Created by nicolas.quartieri
  */
-public class PrincipalFragment extends BaseFragment {
+public class PatientListFragment extends BaseFragment {
 
     private List<Patient> pacientList = new LinkedList<>();
 
     private RecyclerView mPatientView;
     private PatientSelectorGridRecycleAdapter adapter;
 
+    private PatientListFragmentListener mListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mListener = (PatientListFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement PatientListFragmentListener");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_principal_view, container, false);
 
         setHasOptionsMenu(true);
+
+        View cardCreatePatient = view.findViewById(R.id.crd_create_patient);
+        cardCreatePatient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onNavigateToCreateNewPatient();
+            }
+        });
 
         mPatientView = (RecyclerView) view.findViewById(R.id.grid_patient);
         mPatientView.setHasFixedSize(true);
@@ -78,5 +101,9 @@ public class PrincipalFragment extends BaseFragment {
         }, 500);
 
         hideProgress();
+    }
+
+    public interface PatientListFragmentListener {
+        void onNavigateToCreateNewPatient();
     }
 }

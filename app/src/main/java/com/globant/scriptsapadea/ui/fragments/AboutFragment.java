@@ -1,4 +1,4 @@
-package com.globant.scriptsapadea.ui.activities;
+package com.globant.scriptsapadea.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.ui.fragments.BaseFragment;
 
 /**
  * Created by nicolas.quartieri
