@@ -37,8 +37,8 @@ public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragme
     }
 
     @Override
-    public void onNextButtonClicked() {
-        navigator.to(new PictureFragment()).navigate();
+    public void onNextButtonClicked(String name) {
+        navigator.to(PictureFragment.newInstance(name)).navigate();
     }
 
     @Override

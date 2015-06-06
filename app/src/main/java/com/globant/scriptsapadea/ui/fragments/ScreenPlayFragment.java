@@ -19,6 +19,8 @@ public class ScreenPlayFragment extends BaseFragment {
 
     private OnScreenplayChangeFragmentListener screenplayChangeFragmentListener;
 
+    private EditText screenplayName;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_guion, container, false);
@@ -28,14 +30,14 @@ public class ScreenPlayFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        EditText screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
+        screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
         showNextButton(screenplayName, nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                screenplayChangeFragmentListener.onNextButtonClicked();
+                screenplayChangeFragmentListener.onNextButtonClicked(screenplayName.getText().toString());
             }
         });
     }
@@ -77,6 +79,6 @@ public class ScreenPlayFragment extends BaseFragment {
     }
 
     public interface OnScreenplayChangeFragmentListener {
-        void onNextButtonClicked();
+        void onNextButtonClicked(String name);
     }
 }

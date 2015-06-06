@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
@@ -17,12 +18,31 @@ import com.squareup.otto.Subscribe;
  */
 public class PictureFragment extends BaseFragment implements View.OnClickListener {
 
+    private static final String PATIENT_NAME = "patientname";
+
     private static int GALLERY = 0x001;
     private static int CAMERA = 0x010;
 
+    public static PictureFragment newInstance(String patientName) {
+        PictureFragment fragment = new PictureFragment();
+        Bundle args = new Bundle();
+        args.putString(PATIENT_NAME, patientName);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_picture, container, false);
+        View view = inflater.inflate(R.layout.fragment_picture, container, false);
+
+        TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
+
+        if (getArguments() != null) {
+            String name = getArguments().getString(PATIENT_NAME);
+            txtPatientName.setText(name);
+        }
+
+        return view;
     }
 
     @Override
