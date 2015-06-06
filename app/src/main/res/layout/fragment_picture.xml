@@ -8,7 +8,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/cover_picture_title"
-        android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_medium"
         />
@@ -18,7 +17,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/textView4"
+        android:id="@+id/txt_patient_name"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -26,7 +25,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/you_can_change_title"
-        android:id="@+id/textView5"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
@@ -39,7 +37,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/from_gallery"
+            android:id="@+id/img_gallery"
             android:src="@drawable/photo_gallery"
             android:layout_margin="@dimen/margin_medium"
             />
@@ -47,17 +45,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/from_camera"
+            android:id="@+id/img_camera"
             android:src="@drawable/take_photo"
             android:layout_margin="@dimen/margin_medium"
             />
+        
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back_title"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:id="@+id/button" />
 
 </LinearLayout>

@@ -29,18 +29,18 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        (view.findViewById(R.id.from_gallery)).setOnClickListener(PictureFragment.this);
-        (view.findViewById(R.id.from_camera)).setOnClickListener(PictureFragment.this);
+        (view.findViewById(R.id.img_gallery)).setOnClickListener(PictureFragment.this);
+        (view.findViewById(R.id.img_camera)).setOnClickListener(PictureFragment.this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.from_gallery:
+            case R.id.img_gallery:
                 pickPhotoFromGallery();
                 break;
-            case R.id.from_camera:
+            case R.id.img_camera:
                 takePhotoFromCamera();
                 break;
         }

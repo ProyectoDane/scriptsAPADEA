@@ -1,5 +1,7 @@
 package com.globant.scriptsapadea.ui.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.globant.scriptsapadea.R;
@@ -12,6 +14,12 @@ import roboguice.inject.ContentView;
  */
 @ContentView(R.layout.about_container)
 public class AboutActivity extends BaseActivity {
+
+    public static Intent createIntent(Context context) {
+        Intent intent = new Intent(context, AboutActivity.class);
+
+        return intent;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

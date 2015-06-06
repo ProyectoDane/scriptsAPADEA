@@ -1,6 +1,8 @@
 package com.globant.scriptsapadea.ui.activities;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -16,6 +18,12 @@ public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragme
 
     @InjectView(R.id.toolbar_actionbar)
     private Toolbar toolbar;
+
+    public static Intent createIntent(Context context) {
+        Intent intent = new Intent(context, ScreenPlayActivity.class);
+
+        return intent;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

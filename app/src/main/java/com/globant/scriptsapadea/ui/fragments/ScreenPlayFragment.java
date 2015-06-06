@@ -54,17 +54,19 @@ public class ScreenPlayFragment extends BaseFragment {
     //Method to show the hidden next button
     private void showNextButton(EditText screenplayName, final Button nextButton) {
         screenplayName.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Not used
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Not used
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 nextButton.setVisibility(View.VISIBLE);
                 if (s.toString().length() == 0) {
                     nextButton.setVisibility(View.GONE);

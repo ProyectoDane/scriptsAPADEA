@@ -1,6 +1,5 @@
 package com.globant.scriptsapadea.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -34,6 +33,6 @@ public class MainActivity extends BaseActivity implements PatientListFragment.Pa
 
     @Override
     public void onNavigateToCreateNewPatient() {
-        navigator.to(new Intent(this, ScreenPlayActivity.class)).withAnimations(new SlidingUpAnimation()).navigate();
+        navigator.to(ScreenPlayActivity.createIntent(this)).withAnimations(new SlidingUpAnimation()).navigate();
     }
 }
