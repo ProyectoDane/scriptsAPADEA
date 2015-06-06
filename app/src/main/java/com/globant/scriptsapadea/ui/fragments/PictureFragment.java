@@ -70,7 +70,6 @@ public class PictureFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         Log.d(PictureFragment.class.toString(), requestCode + "");
     }
 
