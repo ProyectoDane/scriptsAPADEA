@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -39,6 +40,12 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
     @InjectView(R.id.progress_bar)
     private MyProgressBar progressBar;
+
+    public static Intent createIntent(Context context) {
+        Intent intent = new Intent(context, ScreenSliderActivity.class);
+
+        return intent;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
