@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by nicola.quartieri.
  */
-public class ScriptsSelectorFragment extends BaseFragment {
+public class ScreenScriptsSelectorFragment extends BaseFragment {
 
     private List<Script> scritpList = new LinkedList<Script>();
 

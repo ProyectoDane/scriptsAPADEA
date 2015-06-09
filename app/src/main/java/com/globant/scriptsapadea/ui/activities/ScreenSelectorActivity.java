@@ -7,20 +7,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.ui.fragments.PictureFragment;
-import com.globant.scriptsapadea.ui.fragments.ScreenPlayFragment;
+import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.activity_screen)
-public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnScreenplayChangeFragmentListener {
+public class ScreenSelectorActivity extends BaseActivity {
 
     @InjectView(R.id.toolbar_actionbar)
     private Toolbar toolbar;
 
     public static Intent createIntent(Context context) {
-        Intent intent = new Intent(context, ScreenPlayActivity.class);
+        Intent intent = new Intent(context, ScreenSelectorActivity.class);
 
         return intent;
     }
@@ -33,12 +32,7 @@ public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragme
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null)
-            navigator.to(new ScreenPlayFragment()).noPush().navigate();
-    }
-
-    @Override
-    public void onNextButtonClicked(String name) {
-        navigator.to(PictureFragment.newInstance(name)).navigate();
+            navigator.to(new ScreenScriptsSelectorFragment()).noPush().navigate();
     }
 
     @Override
