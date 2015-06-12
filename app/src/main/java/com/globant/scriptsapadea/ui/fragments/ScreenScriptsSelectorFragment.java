@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
 
@@ -17,14 +18,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicola.quartieri.
+ * Created by nicolas.quartieri.
  */
 public class ScreenScriptsSelectorFragment extends BaseFragment {
 
-    private List<Script> scritpList = new LinkedList<Script>();
+    private List<Script> scriptList = new LinkedList<Script>();
 
     private RecyclerView mGridView;
     private ScriptsSelectorGridRecycleAdapter adapter;
+    private Patient patient;
+
+    public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
+        ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Patient.class.getName(), patient);
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            patient = (Patient)getArguments().getSerializable(Patient.class.getName());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +54,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
         mGridView.setLayoutManager(glm);
 
-        adapter = new ScriptsSelectorGridRecycleAdapter(scritpList, getActivity());
+        adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity());
         mGridView.setAdapter(adapter);
 
         return view;
@@ -51,12 +70,12 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private void updateScriptsView() {
         showProgress();
 
-        scritpList.clear();
+        scriptList.clear();
         // TODO create injectable id or pacient
-        scritpList = Script.fetchAllScripts("0");
+        scriptList = Script.fetchAllScripts("0");
 
-        if (scritpList != null && !scritpList.isEmpty()) {
-            adapter = new ScriptsSelectorGridRecycleAdapter(scritpList, getActivity());
+        if (scriptList != null && !scriptList.isEmpty()) {
+            adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity());
             mGridView.setAdapter(adapter);
         }
 

@@ -30,12 +30,11 @@
 
         <ImageView
             android:id="@+id/img_avatar_item"
-            android:layout_width="156dp"
-            android:layout_height="156dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:clickable="true"
             android:layout_gravity="center"
             android:duplicateParentState="true"
-            android:padding="5dp"
             android:onClick="clickReadScript" />
 
     </LinearLayout>
