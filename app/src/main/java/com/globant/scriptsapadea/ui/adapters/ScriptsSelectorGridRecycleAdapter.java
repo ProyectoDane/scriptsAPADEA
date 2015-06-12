@@ -20,7 +20,7 @@ import com.globant.scriptsapadea.models.Script;
 import java.util.List;
 
 /**
- * Created by nicola.quartieri.
+ * Created by nicolas.quartieri.
  */
 public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder> {
 

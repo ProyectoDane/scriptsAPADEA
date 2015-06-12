@@ -13,7 +13,7 @@ import com.globant.scriptsapadea.ui.fragments.ScreenPlayFragment;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
-@ContentView(R.layout.activity_screenplay)
+@ContentView(R.layout.activity_screen)
 public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnScreenplayChangeFragmentListener {
 
     @InjectView(R.id.toolbar_actionbar)

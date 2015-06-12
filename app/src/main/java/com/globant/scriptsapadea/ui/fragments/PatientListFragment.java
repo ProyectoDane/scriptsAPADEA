@@ -105,5 +105,6 @@ public class PatientListFragment extends BaseFragment {
 
     public interface PatientListFragmentListener {
         void onNavigateToCreateNewPatient();
+        void onNavigateToPatient(Patient patient);
     }
 }
