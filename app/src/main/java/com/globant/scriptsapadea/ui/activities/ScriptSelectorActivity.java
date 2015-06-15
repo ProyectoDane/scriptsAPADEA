@@ -1,6 +1,5 @@
 package com.globant.scriptsapadea.ui.activities;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,13 +7,15 @@ import android.support.v7.widget.Toolbar;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.activity_screen)
-public class ScreenSelectorActivity extends BaseActivity {
+public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener {
 
     private static final String PATIENT = "patient";
 
@@ -22,7 +23,7 @@ public class ScreenSelectorActivity extends BaseActivity {
     private Toolbar toolbar;
 
     public static Intent createIntent(Context context, Patient patient) {
-        Intent intent = new Intent(context, ScreenSelectorActivity.class);
+        Intent intent = new Intent(context, ScriptSelectorActivity.class);
         intent.putExtra(PATIENT, patient);
         return intent;
     }
@@ -41,6 +42,11 @@ public class ScreenSelectorActivity extends BaseActivity {
                 navigator.to(fragment).noPush().navigate();
             }
         }
+    }
+
+    @Override
+    public void onNavigateToScriptSlider(Script script) {
+        navigator.to(ScreenSliderActivity.createIntent(this, script)).withAnimations(new SlidingLeftAnimation()).navigate();
     }
 
     @Override

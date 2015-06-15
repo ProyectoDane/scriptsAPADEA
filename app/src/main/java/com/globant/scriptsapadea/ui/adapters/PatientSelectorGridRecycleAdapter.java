@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
@@ -128,15 +127,13 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
             //v.setTag(patientList.get(getPosition()));
 
-	    // TODO Find a way to decouple this-
+            // TODO Find a way to decouple this
             v.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             mListener.onNavigateToPatient(patientList.get(getPosition()));
-            
-            Toast.makeText(context, "Click, Position:" + getPosition() + " " + patientList.get(getPosition()).getName(), Toast.LENGTH_SHORT).show();
         }
     }
 }

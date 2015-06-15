@@ -28,13 +28,14 @@ public class MyProgressBar extends LinearLayout {
         TypedArray theAttrs = context.obtainStyledAttributes(attrs, R.styleable.MyProgressBar);
         this.size = theAttrs.getInt(R.styleable.MyProgressBar_dotsize, 1) ;
         this.context = context;
-
-        prepareLayout();
     }
 
     public MyProgressBar(Context context) {
         super(context);
         this.context = context;
+    }
+
+    public void build() {
         prepareLayout();
     }
 
@@ -83,5 +84,9 @@ public class MyProgressBar extends LinearLayout {
 
             current--;
         }
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

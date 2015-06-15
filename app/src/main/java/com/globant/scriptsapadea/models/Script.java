@@ -12,8 +12,10 @@ import java.util.List;
 public class Script implements Serializable {
 
     private String id;
+    private List<Slide> slides = new LinkedList<Slide>();
     private String name;
     private int image;
+
 
     public Script(String id, String name, int image) {
         this.id = id;
@@ -33,8 +35,8 @@ public class Script implements Serializable {
         return image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public List<Slide> getSlides() {
+        return slides;
     }
 
     public static List<Script> fetchAllScripts(String idPacient) {
