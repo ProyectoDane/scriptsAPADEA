@@ -1,90 +1,62 @@
 package com.globant.scriptsapadea.ui.fragments;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.manager.ActivityResultEvent;
-import com.squareup.otto.Subscribe;
+import com.globant.scriptsapadea.utils.ImageRealPath;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 /**
- * Created by leonel.mendez on 5/19/2015.
+ * Created by leonel.mendez on 6/11/2015.
  */
-public class PictureFragment extends BaseFragment implements View.OnClickListener {
+public class PictureFragment extends BaseFragment {
 
-    private static final String PATIENT_NAME = "patientname";
+    public static final String SCREENPLAY_IMAGE = "picture_image";
+    public static final String PICTURE_FROM_CAMERA = "picture_from_camera";
+    public static final String PATIENT_NAME = "patient_name";
 
-    private static int GALLERY = 0x001;
-    private static int CAMERA = 0x010;
-
-    public static PictureFragment newInstance(String patientName) {
-        PictureFragment fragment = new PictureFragment();
-        Bundle args = new Bundle();
-        args.putString(PATIENT_NAME, patientName);
-        fragment.setArguments(args);
-        return fragment;
+    public static PictureFragment newInstance(Bundle imageBundle){
+        PictureFragment pictureFragment = new PictureFragment();
+        pictureFragment.setArguments(imageBundle);
+        return pictureFragment;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_picture, container, false);
-
-        TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
-
-        if (getArguments() != null) {
-            String name = getArguments().getString(PATIENT_NAME);
-            txtPatientName.setText(name);
-        }
-
-        return view;
+        return inflater.inflate(R.layout.fragment_picture,container,false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        (view.findViewById(R.id.img_gallery)).setOnClickListener(PictureFragment.this);
-        (view.findViewById(R.id.img_camera)).setOnClickListener(PictureFragment.this);
+        showImage(getArguments(), (ImageView) view.findViewById(R.id.screenplay_image));
+        ((TextView)view.findViewById(R.id.txt_patient_name)).setText(getArguments().getString(PATIENT_NAME));
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    private void showImage(Bundle imageBundle,ImageView imageContainer){
 
-            case R.id.img_gallery:
-                pickPhotoFromGallery();
-                break;
-            case R.id.img_camera:
-                takePhotoFromCamera();
-                break;
+        boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
+        if(pictureFromCamera){
+            imageContainer.setImageBitmap((Bitmap)imageBundle.getParcelable(SCREENPLAY_IMAGE));
+        }else{
+            Log.d(PictureFragment.class.getSimpleName(),imageBundle.getString(SCREENPLAY_IMAGE));
+            Picasso.with(getActivity())
+                    .load(new File(imageBundle.getString(SCREENPLAY_IMAGE)))
+                    .into(imageContainer);
         }
     }
 
-    @Subscribe
-    public void onActivityResultReceived(ActivityResultEvent event) {
-        onActivityResult(event.getRequestCode(), event.getResultCode(), event.getData());
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(PictureFragment.class.toString(), requestCode + "");
-    }
-
-    private void pickPhotoFromGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        startActivityForResult(galleryIntent, GALLERY);
-    }
-
-    private void takePhotoFromCamera() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA);
+   public interface OnSetPictureFragmentImageListener {
+        void onSetImage(Bundle imageBundle);
     }
 }

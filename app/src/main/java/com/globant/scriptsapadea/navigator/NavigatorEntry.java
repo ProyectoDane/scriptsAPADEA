@@ -16,7 +16,6 @@ public abstract class NavigatorEntry<T> {
 
     public NavigatorEntry withAnimations(Navigator.CustomAnimations animation) {
         this.animation = animation;
-
         return this;
     }
 

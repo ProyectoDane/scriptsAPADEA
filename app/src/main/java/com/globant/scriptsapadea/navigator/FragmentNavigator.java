@@ -36,7 +36,6 @@ public class FragmentNavigator extends NavigatorEntry<Fragment> {
 
     public NavigatorEntry noPush() {
         this.noPush = true;
-
         return this;
     }
 

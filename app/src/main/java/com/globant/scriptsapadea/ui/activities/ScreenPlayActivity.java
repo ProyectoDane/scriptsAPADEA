@@ -8,13 +8,14 @@ import android.support.v7.widget.Toolbar;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.ui.fragments.PictureFragment;
+import com.globant.scriptsapadea.ui.fragments.TakePictureFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenPlayFragment;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.activity_screenplay)
-public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnScreenplayChangeFragmentListener {
+public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnScreenplayChangeFragmentListener,PictureFragment.OnSetPictureFragmentImageListener {
 
     @InjectView(R.id.toolbar_actionbar)
     private Toolbar toolbar;
@@ -38,12 +39,17 @@ public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragme
 
     @Override
     public void onNextButtonClicked(String name) {
-        navigator.to(PictureFragment.newInstance(name)).navigate();
+        navigator.to(TakePictureFragment.newInstance(name)).navigate();
     }
 
     @Override
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.do_nothing, R.anim.pull_down_to_bottom);
+    }
+
+    @Override
+    public void onSetImage(Bundle imageBundle) {
+        navigator.to(PictureFragment.newInstance(imageBundle)).navigate();
     }
 }
