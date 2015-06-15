@@ -25,6 +25,8 @@
 
         <activity android:name=".ui.activities.ScreenSliderActivity" />
 
+        <activity android:name=".ui.activities.ScreenSelectorActivity" />
+
         <provider
             android:name=".contentprovider.SSContentProvider"
             android:authorities="com.globant.scriptsapadea.contentprovider" />

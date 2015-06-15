@@ -14,8 +14,8 @@ import com.globant.scriptsapadea.ui.fragments.ScreenPlayFragment;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
-@ContentView(R.layout.activity_screenplay)
-public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnScreenplayChangeFragmentListener,PictureFragment.OnSetPictureFragmentImageListener {
+@ContentView(R.layout.activity_screen)
+public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnScreenplayChangeFragmentListener,PictureFragment.OnSetPictureFragmentImageListener  {
 
     @InjectView(R.id.toolbar_actionbar)
     private Toolbar toolbar;

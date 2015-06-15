@@ -2,13 +2,14 @@ package com.globant.scriptsapadea.models;
 
 import com.globant.scriptsapadea.R;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by nicolas.quartieri
  */
-public class Patient {
+public class Patient implements Serializable {
 
     private String id;
     private String name;

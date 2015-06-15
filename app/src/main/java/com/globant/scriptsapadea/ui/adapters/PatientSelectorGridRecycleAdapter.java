@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.ui.fragments.PatientListFragment;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +29,7 @@ import java.util.List;
 public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<PatientSelectorGridRecycleAdapter.PatientViewHolder> {
 
     private final Context context;
+    private PatientListFragment.PatientListFragmentListener mListener;
 
     private static List<Patient> patientList;
     private boolean showLoadingView;
@@ -43,6 +45,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
     public PatientSelectorGridRecycleAdapter(List<Patient> patientList, Activity context) {
         this.patientList = patientList;
         this.context = context;
+        this.mListener = (PatientListFragment.PatientListFragmentListener) context;
     }
 
     @Override
@@ -122,11 +125,18 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vNamePatient =  (TextView) v.findViewById(R.id.txt_patient_name_item);
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);
             vTextLeyend =  (TextView) v.findViewById(R.id.txt_patient_leyend_item);
+
+            //v.setTag(patientList.get(getPosition()));
+
+	    // TODO Find a way to decouple this-
+            v.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(context, "Click Text, Position:" + getPosition() + " " + patientList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
+            mListener.onNavigateToPatient(patientList.get(getPosition()));
+            
+            Toast.makeText(context, "Click, Position:" + getPosition() + " " + patientList.get(getPosition()).getName(), Toast.LENGTH_SHORT).show();
         }
     }
 }
