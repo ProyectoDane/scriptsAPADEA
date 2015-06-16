@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
@@ -19,7 +20,7 @@ import com.squareup.otto.Subscribe;
 /**
  * Created by leonel.mendez on 5/19/2015.
  */
-public class TakePictureFragment extends BaseFragment implements View.OnClickListener {
+public class TakePictureFragment extends BaseFragment {
 
     private static final String PATIENT_NAME = "patientname";
     private static final int GALLERY = 0x001;
@@ -37,13 +38,11 @@ public class TakePictureFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try{
-            onSetPictureFragmentImageListener = (PictureFragment.OnSetPictureFragmentImageListener)activity;
+        try {
+            onSetPictureFragmentImageListener = (PictureFragment.OnSetPictureFragmentImageListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnSetPictureFragmentImageListener");
         }
-
-
     }
 
     @Override
@@ -57,28 +56,25 @@ public class TakePictureFragment extends BaseFragment implements View.OnClickLis
             txtPatientName.setText(name);
         }
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        (view.findViewById(R.id.img_gallery)).setOnClickListener(TakePictureFragment.this);
-        (view.findViewById(R.id.img_camera)).setOnClickListener(TakePictureFragment.this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.img_gallery:
+        ImageView pickPhotoGallery = (ImageView) view.findViewById(R.id.img_gallery);
+        pickPhotoGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 pickPhotoFromGallery();
-                break;
-            case R.id.img_camera:
+
+            }
+        });
+
+        ImageView takePhotoCamera = (ImageView) view.findViewById(R.id.img_camera);
+        takePhotoCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 takePhotoFromCamera();
-                break;
-        }
+
+            }
+        });
+
+        return view;
     }
 
     @Subscribe
@@ -91,17 +87,17 @@ public class TakePictureFragment extends BaseFragment implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle imageArguments = new Bundle();
-        imageArguments.putString(PictureFragment.PATIENT_NAME,getArguments().getString(PATIENT_NAME));
+        imageArguments.putString(PictureFragment.PATIENT_NAME, getArguments().getString(PATIENT_NAME));
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
-                imageArguments.putString(PictureFragment.SCREENPLAY_IMAGE,ImageRealPath.getImagePath(getActivity(),data.getData()));
-                imageArguments.putBoolean(PictureFragment.PICTURE_FROM_CAMERA,false);
+                imageArguments.putString(PictureFragment.SCREENPLAY_IMAGE, ImageRealPath.getImagePath(getActivity(), data.getData()));
+                imageArguments.putBoolean(PictureFragment.PICTURE_FROM_CAMERA, false);
                 onSetPictureFragmentImageListener.onSetImage(imageArguments);
             }
-        }else{
-            if(data != null && data.getExtras() != null){
+        } else {
+            if (data != null && data.getExtras() != null) {
                 // TODO: Create folder to save images from camera
-                imageArguments.putParcelable(PictureFragment.SCREENPLAY_IMAGE,((Bitmap)data.getExtras().get("data")));
+                imageArguments.putParcelable(PictureFragment.SCREENPLAY_IMAGE, ((Bitmap) data.getExtras().get("data")));
                 imageArguments.putBoolean(PictureFragment.PICTURE_FROM_CAMERA, true);
                 onSetPictureFragmentImageListener.onSetImage(imageArguments);
             }

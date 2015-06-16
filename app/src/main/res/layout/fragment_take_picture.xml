@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,6 +43,7 @@
             android:id="@+id/img_gallery"
             android:src="@drawable/photo_gallery"
             android:layout_margin="@dimen/margin_medium"
+            android:onClick="clickPickPhotoFromGallery"
             />
 
         <ImageView
@@ -48,6 +52,7 @@
             android:id="@+id/img_camera"
             android:src="@drawable/take_photo"
             android:layout_margin="@dimen/margin_medium"
+            android:onClick="clickTakePhotoFromCamera"
             />
         
     </LinearLayout>

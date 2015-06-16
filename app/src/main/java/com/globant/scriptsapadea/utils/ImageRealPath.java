@@ -52,6 +52,7 @@ public class ImageRealPath {
                     cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             result = cursor.getString(column_index);
+            cursor.close();
         }
 
         return result;
@@ -64,6 +65,7 @@ public class ImageRealPath {
         int column_index
                 = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
+        cursor.close();
         return cursor.getString(column_index);
     }
 
