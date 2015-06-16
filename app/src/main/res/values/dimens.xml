@@ -24,4 +24,7 @@
     <dimen name="font_size_heading">20sp</dimen>
     <dimen name="font_size_body">16sp</dimen>
     <dimen name="font_size_caption">12sp</dimen>
+
+    <dimen name="screenplay_image_width_size">360dp</dimen>
+    <dimen name="screenplay_image_height_size">300dp</dimen>
 </resources>
