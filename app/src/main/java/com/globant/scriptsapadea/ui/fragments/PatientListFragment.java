@@ -85,7 +85,7 @@ public class PatientListFragment extends BaseFragment {
 
         pacientList.clear();
         // TODO create injectable id or pacient
-        pacientList = Patient.fetchAllPatients();
+        pacientList = Patient.fetchAllPatients(null);
 
         if (pacientList != null && !pacientList.isEmpty()) {
             adapter = new PatientSelectorGridRecycleAdapter(pacientList, getActivity());

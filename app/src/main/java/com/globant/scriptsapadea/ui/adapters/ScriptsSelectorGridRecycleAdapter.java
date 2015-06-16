@@ -12,10 +12,10 @@ import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 
 import java.util.List;
 
@@ -25,8 +25,10 @@ import java.util.List;
 public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder> {
 
     private final Context context;
+    private final ScreenScriptsSelectorFragment.ScreenScriptSelectorListener mListener;
 
     private static List<Script> scriptList;
+
     private boolean showLoadingView;
 
     private int lastPosition = -1;
@@ -40,6 +42,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     public ScriptsSelectorGridRecycleAdapter(List<Script> scriptList, Context context) {
         this.scriptList = scriptList;
         this.context = context;
+        this.mListener = (ScreenScriptsSelectorFragment.ScreenScriptSelectorListener) context;
     }
 
     @Override
@@ -48,11 +51,11 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     }
 
     @Override
-    public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-        runAnimation(contactViewHolder.itemView, i);
+    public void onBindViewHolder(ContactViewHolder contactViewHolder, int position) {
+        runAnimation(contactViewHolder.itemView, position);
 
         contactViewHolder.vImageAvatar.setImageResource(R.drawable.canilla);
-        contactViewHolder.vNameAvatar.setText(scriptList.get(i).getName());
+        contactViewHolder.vNameAvatar.setText(scriptList.get(position).getName());
         // TODO asign images to viewHolder
     }
 
@@ -117,21 +120,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
         @Override
         public void onClick(View view) {
-            // TODO Go to the Selected Script
-            //showProgress();
-            //profileManager.updateAvatar(authenticationManager.getUserSwid(),mScriptAdapter.getItem(position).getId());
-
-            switch (view.getId()) {
-                case R.id.txt_avatar_name_item:
-                    Toast.makeText(context, "Click Text, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
-                    break;
-                case R.id.img_avatar_item:
-                    Toast.makeText(context, "Click Avatar, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
-                    break;
-                default:
-                    Toast.makeText(context, "Click Other, Position:" + getPosition() + " " + scriptList.get(getPosition()).getName(), Toast.LENGTH_LONG).show();
-                    break;
-            }
+            mListener.onNavigateToScriptSlider(scriptList.get(getPosition()));
         }
     }
 }

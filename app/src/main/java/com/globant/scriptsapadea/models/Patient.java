@@ -14,7 +14,7 @@ public class Patient implements Serializable {
     private String id;
     private String name;
     private int avatar;
-    private List<Script> scriptList;
+    private List<Script> scriptList = new LinkedList<Script>();
 
 
     public Patient(String id, String name, int avatar) {
@@ -44,14 +44,35 @@ public class Patient implements Serializable {
     }
 
     // TODO Mocked services
-    public static List<Patient> fetchAllPatients() {
+    public static List<Patient> fetchAllPatients(String idPacient) {
+		// TODO Remove this
+        List<Patient> listScript = new LinkedList<Patient>();
 
-        LinkedList listScript = new LinkedList<Patient>();
-        listScript.add(new Patient("0", "Pepe", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("1", "Juan", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("2", "Marcelo", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("3", "Roberto", R.drawable.avatar_placeholder));
-        listScript.add(new Patient("4", "Juan", R.drawable.avatar_placeholder));
+        if (idPacient == null) {
+            // TODO Retrive ALL Patients from DB
+            Patient patientJuan = new Patient("0", "Juan", R.drawable.avatar_placeholder);
+            Script scriptJuan = new Script("0", "Lavar los platos", R.drawable.ic_launcher);
+            scriptJuan.getSlides().add(new Slide("0", "Primero....", 0));
+            scriptJuan.getSlides().add(new Slide("1", "Segundo....", 0));
+            scriptJuan.getSlides().add(new Slide("2", "Tercero....", 0));
+
+
+            Patient patient = new Patient("0", "Pepe", R.drawable.avatar_placeholder);
+            Script script = new Script("0", "Lavar los platos", R.drawable.ic_launcher);
+            script.getSlides().add(new Slide("0", "Primero....", 0));
+            script.getSlides().add(new Slide("1", "Segundo....", 0));
+            script.getSlides().add(new Slide("2", "Tercero....", 0));
+            Script scriptPepe = new Script("0", "Lavar los platos", R.drawable.ic_launcher);
+            patient.getScriptList().add(script);
+            scriptPepe.getSlides().add(new Slide("0", "Primero....", 0));
+            scriptPepe.getSlides().add(new Slide("1", "Segundo....", 0));
+            scriptPepe.getSlides().add(new Slide("2", "Tercero....", 0));
+            patient.getScriptList().add(scriptPepe);
+
+            listScript.add(patient);
+        } else {
+            // TODO Retrive from DB
+        }
 
         return listScript;
     }

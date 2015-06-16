@@ -25,7 +25,7 @@
 
         <activity android:name=".ui.activities.ScreenSliderActivity" />
 
-        <activity android:name=".ui.activities.ScreenSelectorActivity" />
+        <activity android:name=".ui.activities.ScriptSelectorActivity" />
 
         <provider
             android:name=".contentprovider.SSContentProvider"

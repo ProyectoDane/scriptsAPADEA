@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Slide;
 import com.software.shell.fab.ActionButton;
 
 /**
@@ -20,6 +22,8 @@ public class SliderFragment extends BaseFragment {
 
     private SliderCallback listener;
 
+    private Slide slide;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -30,12 +34,20 @@ public class SliderFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        String message = getArguments().getString(EXTRA_MESSAGE);
+        slide = (Slide)getArguments().getSerializable(EXTRA_MESSAGE);
 
         View view = inflater.inflate(R.layout.slider_layout, container, false);
 
-        // TODO Set image
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
+        if (slide.getImage() != 0) {
+            imgCard.setImageResource(slide.getImage());
+        } else {
+            imgCard.setImageResource(R.drawable.ic_launcher);
+        }
+        final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
+        txtSlideLegend.setText(slide.getText());
+
+        // TODO Set text below image
 
         ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
         fabNext.setOnClickListener(new View.OnClickListener() {
@@ -56,15 +68,15 @@ public class SliderFragment extends BaseFragment {
         return view;
     }
 
-    public static Object newInstance(String message) {
-        SliderFragment slider = new SliderFragment();
+    public static Object newInstance(Slide slide) {
+        SliderFragment fragment = new SliderFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putString(EXTRA_MESSAGE, message);
+        bundle.putSerializable(EXTRA_MESSAGE, slide);
 
-        slider.setArguments(bundle);
+        fragment.setArguments(bundle);
 
-        return slider;
+        return fragment;
     }
 
     public interface SliderCallback {

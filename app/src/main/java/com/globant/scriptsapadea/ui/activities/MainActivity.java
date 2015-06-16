@@ -39,6 +39,6 @@ public class MainActivity extends BaseActivity implements PatientListFragment.Pa
 
     @Override
     public void onNavigateToPatient(Patient patient) {
-        navigator.to(ScreenSelectorActivity.createIntent(this, patient)).withAnimations(new SlidingUpAnimation()).navigate();
+        navigator.to(ScriptSelectorActivity.createIntent(this, patient)).withAnimations(new SlidingUpAnimation()).navigate();
     }
 }

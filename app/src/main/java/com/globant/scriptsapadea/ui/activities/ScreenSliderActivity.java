@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PageResult;
 import com.globant.scriptsapadea.manager.ResponseEvent;
+import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
 import com.globant.scriptsapadea.ui.views.MyProgressBar;
 import com.squareup.otto.Subscribe;
@@ -31,9 +33,12 @@ import roboguice.inject.InjectView;
 @ContentView(R.layout.screen_slider_layout)
 public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback {
 
-    private ScreenSliderPageAdapter pageAdapter;
+    private static final String SCRIPT = "script";
 
+    private ScreenSliderPageAdapter pageAdapter;
     private ViewPager viewPager;
+
+    private Script script;
 
     private int currentSlide;
     private boolean avoid = false;
@@ -41,9 +46,9 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     @InjectView(R.id.progress_bar)
     private MyProgressBar progressBar;
 
-    public static Intent createIntent(Context context) {
+    public static Intent createIntent(Context context, Script script) {
         Intent intent = new Intent(context, ScreenSliderActivity.class);
-
+        intent.putExtra(SCRIPT, script);
         return intent;
     }
 
@@ -51,6 +56,15 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_slider_layout);
+
+        if (savedInstanceState == null) {
+            if (getIntent().hasExtra(SCRIPT)) {
+                script = (Script)getIntent().getExtras().getSerializable(SCRIPT);
+
+                progressBar.setSize(script.getSlides().size());
+                progressBar.build();
+            }
+        }
 
         initActionBar(getApplicationContext());
         initViewPager(getApplicationContext());
@@ -116,11 +130,9 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     private List<Fragment> getFragments() {
         ArrayList fragments = new ArrayList<>();
 
-        // TODO The number of Fragments depends on the numbers of images of the Social Script selected.
-        fragments.add(SliderFragment.newInstance("page1"));
-        fragments.add(SliderFragment.newInstance("page2"));
-        fragments.add(SliderFragment.newInstance("page3"));
-        fragments.add(SliderFragment.newInstance("page4"));
+        for (Slide slide : script.getSlides()) {
+            fragments.add(SliderFragment.newInstance(slide));
+        }
 
         return fragments;
     }
@@ -157,7 +169,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
             currentSlide++;
 
-            //TODO This should be refavtor to be one line statement.
+            //TODO This should be refactor to be one line statement.
             MovedPageEvent movedPageEvent = new MovedPageEvent();
             movedPageEvent.setResult(new PageResult(currentSlide));
             movedPageEvent.setResult(true);
@@ -176,7 +188,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
             currentSlide--;
 
-            //TODO This should be refavtor to be one line statement.
+            //TODO This should be refactor to be one line statement.
             MovedPageEvent movedPageEvent = new MovedPageEvent();
             movedPageEvent.setResult(new PageResult(currentSlide));
             movedPageEvent.setResult(true);
@@ -190,5 +202,11 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     }
 
     public static class MovedPageEvent extends ResponseEvent<PageResult> {
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.do_nothing, R.anim.pull_right_to_left);
     }
 }

@@ -1,5 +1,6 @@
 package com.globant.scriptsapadea.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,7 +15,7 @@ import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,11 +23,13 @@ import java.util.List;
  */
 public class ScreenScriptsSelectorFragment extends BaseFragment {
 
-    private List<Script> scriptList = new LinkedList<Script>();
+    private List<Script> scriptList = new ArrayList<Script>();
 
     private RecyclerView mGridView;
     private ScriptsSelectorGridRecycleAdapter adapter;
     private Patient patient;
+
+    private ScreenScriptSelectorListener mListener;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
         ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
@@ -35,6 +38,18 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         fragment.setArguments(bundle);
 
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            mListener = (ScreenScriptSelectorListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement ScreenScriptSelectorListener");
+        }
     }
 
     @Override
@@ -70,9 +85,8 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private void updateScriptsView() {
         showProgress();
 
-        scriptList.clear();
         // TODO create injectable id or pacient
-        scriptList = Script.fetchAllScripts("0");
+        scriptList = patient.getScriptList();
 
         if (scriptList != null && !scriptList.isEmpty()) {
             adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity());
@@ -88,5 +102,9 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         }, 500);
 
         hideProgress();
+    }
+
+    public interface ScreenScriptSelectorListener {
+        public void onNavigateToScriptSlider(Script script);
     }
 }
