@@ -42,7 +42,8 @@ public class SliderFragment extends BaseFragment {
         if (slide.getImage() != 0) {
             imgCard.setImageResource(slide.getImage());
         } else {
-            imgCard.setImageResource(R.drawable.ic_launcher);
+            // TODO take this from slide
+            //imgCard.setImageResource(R.drawable.ic_launcher);
         }
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
         txtSlideLegend.setText(slide.getText());
