@@ -3,7 +3,7 @@ package com.globant.scriptsapadea.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
@@ -12,15 +12,11 @@ import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 
 import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 
 @ContentView(R.layout.activity_screen)
 public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener {
 
     private static final String PATIENT = "patient";
-
-    @InjectView(R.id.toolbar_actionbar)
-    private Toolbar toolbar;
 
     public static Intent createIntent(Context context, Patient patient) {
         Intent intent = new Intent(context, ScriptSelectorActivity.class);
@@ -32,8 +28,13 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO Place in BaseActivity
-        setSupportActionBar(toolbar);
+        View pullDownView = findViewById(R.id.img_pulldown_button);
+        pullDownView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         if (savedInstanceState == null) {
             ScreenScriptsSelectorFragment fragment;

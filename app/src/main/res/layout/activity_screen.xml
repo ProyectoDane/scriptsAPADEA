@@ -3,7 +3,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/include_toolbar" />
+    <FrameLayout
+        android:id="@+id/img_pulldown_button"
+        style="@style/Panel.Sliding"
+        android:layout_width="match_parent">
+
+        <ImageView
+            android:layout_width="@dimen/button_height"
+            android:layout_height="@dimen/slide_panel_height"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:duplicateParentState="true"
+            android:scaleType="center"
+            android:src="@drawable/pulldown_selector" />
+
+    </FrameLayout>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fragment_container"
