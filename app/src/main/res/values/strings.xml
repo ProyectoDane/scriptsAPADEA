@@ -45,4 +45,6 @@
     <string name="gallery_title">Selecciona una fotografía</string>
     <string name="title_activity_screenplay">ScreenplayActivity</string>
     <string name="start_screenplay_edit">Comenzar a editar</string>
+
+    <string name="script_select_edit">EDITAR</string>
 </resources>

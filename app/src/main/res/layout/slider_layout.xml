@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginRight="74dp"
         android:layout_marginBottom="8dp"
         card_view:cardUseCompatPadding="true"
         card_view:cardCornerRadius="4dp"
@@ -34,7 +34,6 @@
                 android:id="@+id/txt_slide_legend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="bottom|center_horizontal"/>
 
         </LinearLayout>
@@ -48,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/fab_margin"
+        fab:image_size="24dp"
         fab:button_color="@color/fab_material_cyan_500"
         fab:button_colorPressed="@color/fab_material_cyan_900"
         fab:type="DEFAULT"/>
@@ -59,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/fab_margin"
+        fab:image_size="24dp"
         fab:button_color="@color/fab_material_cyan_500"
         fab:button_colorPressed="@color/fab_material_cyan_900"
         fab:type="DEFAULT"/>

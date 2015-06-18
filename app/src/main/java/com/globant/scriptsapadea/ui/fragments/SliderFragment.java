@@ -50,6 +50,8 @@ public class SliderFragment extends BaseFragment {
         // TODO Set text below image
 
         ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
+        fabNext.setImageResource(R.drawable.rightarrow_icon);
+        fabNext.setShadowResponsiveEffectEnabled(true);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +60,8 @@ public class SliderFragment extends BaseFragment {
         });
 
         ActionButton fabPrev = (ActionButton) view.findViewById(R.id.fab_prev);
+        fabPrev.setImageResource(R.drawable.leftarrow_icon);
+        fabPrev.setShadowResponsiveEffectEnabled(true);
         fabPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
