@@ -78,9 +78,13 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         if (position > lastPosition) {
             lastPosition = position;
 
+            int yPosition = 0;
+            if (patientList.size() == 1) {
+                yPosition = 150;
+            }
             viewToAnimate.setTranslationY(getScreenHeight(context));
             viewToAnimate.animate()
-                    .translationY(0)
+                    .translationY(yPosition)
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(700)
                     .start();

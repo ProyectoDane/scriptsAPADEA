@@ -22,7 +22,7 @@
     <string name="whose_is_guion_text">¿Este guíon es para?</string>
     <string name="default_script_example">Guiones de ejemplo</string>
 
-    <string name="list_patient_create">Crear una nueva persona</string>
+    <string name="list_patient_create">CREAR UNA NUEVA PERSONA</string>
 
     <string name="title_back">SALIR</string>
 
@@ -45,4 +45,6 @@
     <string name="gallery_title">Selecciona una fotografía</string>
     <string name="title_activity_screenplay">ScreenplayActivity</string>
     <string name="start_screenplay_edit">Comenzar a editar</string>
+
+    <string name="script_select_edit">EDITAR</string>
 </resources>

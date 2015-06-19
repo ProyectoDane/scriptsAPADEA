@@ -17,6 +17,13 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="Panel.Sliding">
+        <item name="android:background">@color/panel_gray</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_height">@dimen/slide_panel_height</item>
+    </style>
+
     <style name="HR">
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>

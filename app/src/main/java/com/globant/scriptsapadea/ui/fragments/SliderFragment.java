@@ -42,7 +42,8 @@ public class SliderFragment extends BaseFragment {
         if (slide.getImage() != 0) {
             imgCard.setImageResource(slide.getImage());
         } else {
-            imgCard.setImageResource(R.drawable.ic_launcher);
+            // TODO take this from slide
+            //imgCard.setImageResource(R.drawable.ic_launcher);
         }
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
         txtSlideLegend.setText(slide.getText());
@@ -50,6 +51,8 @@ public class SliderFragment extends BaseFragment {
         // TODO Set text below image
 
         ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
+        fabNext.setImageResource(R.drawable.rightarrow_icon);
+        fabNext.setShadowResponsiveEffectEnabled(true);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +61,8 @@ public class SliderFragment extends BaseFragment {
         });
 
         ActionButton fabPrev = (ActionButton) view.findViewById(R.id.fab_prev);
+        fabPrev.setImageResource(R.drawable.leftarrow_icon);
+        fabPrev.setShadowResponsiveEffectEnabled(true);
         fabPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

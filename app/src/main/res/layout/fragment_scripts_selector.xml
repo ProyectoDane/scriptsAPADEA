@@ -12,22 +12,13 @@
         android:padding="0dp">
 
         <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/scriptlist_edit"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <Button
             android:id="@+id/btn_new_script"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/scriptlist_new_script"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/btn_edit"
-            android:layout_toStartOf="@+id/btn_edit" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
