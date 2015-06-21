@@ -42,11 +42,11 @@ public class Script implements Serializable {
     public static List<Script> fetchAllScripts(String idPacient) {
         // TODO get all scripts from idPacient
         LinkedList listScript = new LinkedList<Script>();
-        listScript.add(new Script("0", "Pepe", R.drawable.ic_launcher));
-        listScript.add(new Script("1", "Juan", R.drawable.ic_launcher));
-        listScript.add(new Script("2", "Marcelo", R.drawable.ic_launcher));
-        listScript.add(new Script("3", "Pepe", R.drawable.ic_launcher));
-        listScript.add(new Script("4", "Juan", R.drawable.ic_launcher));
+        listScript.add(new Script("0", "Pepe", R.drawable.apadea_dientes));
+        listScript.add(new Script("1", "Juan", R.drawable.apadea_dientes));
+        listScript.add(new Script("2", "Marcelo", R.drawable.apadea_dientes));
+        listScript.add(new Script("3", "Pepe", R.drawable.apadea_dientes));
+        listScript.add(new Script("4", "Juan", R.drawable.apadea_dientes));
 
         return listScript;
     }
