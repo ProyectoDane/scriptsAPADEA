@@ -17,18 +17,20 @@
 
         <ImageView
             android:id="@+id/img_avatar_item"
-            android:layout_width="156dp"
-            android:layout_height="156dp"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
             android:layout_gravity="center"
             android:duplicateParentState="true"
             android:padding="5dp"
-            android:src="@drawable/avatar_placeholder" />
+            android:src="@drawable/avatar_placeholder"
+            android:layout_marginLeft="15dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp">
 
             <TextView
                 android:id="@+id/txt_patient_name_item"

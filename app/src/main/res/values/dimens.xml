@@ -16,6 +16,7 @@
     <dimen name="slide_panel_height">32dp</dimen>
 
     <dimen name="button_height">48dp</dimen>
+    <dimen name="button_height_medium">18dp</dimen>
 
     <dimen name="avatar_image_size">60dp</dimen>
     <dimen name="avatar_background_size">70dp</dimen>
