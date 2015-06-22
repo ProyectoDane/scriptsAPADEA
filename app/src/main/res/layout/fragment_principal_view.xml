@@ -24,7 +24,7 @@
         android:layout_marginLeft="240dp"
         android:layout_marginRight="240dp"
         android:clickable="true"
-
+        android:background="@color/status_bar"
         card_view:cardUseCompatPadding="true"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="4dp">
