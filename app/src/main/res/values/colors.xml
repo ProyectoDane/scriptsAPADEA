@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="status_bar">#0097a7</color>
+    <color name="status_bar_light">#00bcd4</color>
+    <color name="not_enable">#7fcbd3</color>
+    <color name="background">#b2ebf2</color>
+    <color name="welcome_orange">#ff6738</color>
+    <color name="fafafa">#fafafa</color>
+    <color name="light_gray_not_enable">#cccccc</color>
+    <color name="gray_back">#999999</color>
+    <color name="gray_dark">#666666</color>
+
     <color name="search_back_color">#ecf1f4</color>
     <color name="white">#ffffff</color>
     <color name="dark_blue">#243A55</color>

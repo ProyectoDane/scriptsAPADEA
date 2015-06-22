@@ -20,7 +20,7 @@
     <string name="next_action_text">Siguiente</string>
     <string name="what_is_guion_name_text">¿Cuál es el nombre del guión?</string>
     <string name="whose_is_guion_text">¿Este guíon es para?</string>
-    <string name="default_script_example">Guiones de ejemplo</string>
+    <string name="default_script_example">Guiones sociales de ejemplo</string>
 
     <string name="list_patient_create">CREAR UNA NUEVA PERSONA</string>
 
@@ -36,7 +36,7 @@
 
     <string name="use_guide_btn_entendido">Ok, entendido</string>
 
-    <string name="scriptlist_new_script">Nuevo Guión</string>
+    <string name="scriptlist_new_script">NUEVO GUIÓN</string>
     <string name="scriptlist_edit">Editar</string>
     <string name="cover_picture_title">ELEGÍ UNA FOTO DE PORTADA PARA:</string>
     <string name="you_can_change_title">(LA PODÉS CAMBIAR DESPUÉS)</string>
