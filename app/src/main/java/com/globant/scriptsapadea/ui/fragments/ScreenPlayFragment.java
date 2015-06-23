@@ -9,27 +9,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.interfaces.OnNavigateToFragmentListener;
 
 /**
  * Created by leonel.mendez on 5/8/2015.
  */
 public class ScreenPlayFragment extends BaseFragment {
 
-    private OnScreenplayChangeFragmentListener screenplayChangeFragmentListener;
+   private OnNavigateToFragmentListener navigateToFragmentListener;
 
     private EditText screenplayName;
+    public static final String PATIENT_NAME = "patientname";
+    public static final String IS_CREATING_SCREENPLAY = "is_creating_guion";
+
+    public static ScreenPlayFragment newInstance(Bundle args){
+        ScreenPlayFragment screenPlayFragment = new ScreenPlayFragment();
+        screenPlayFragment.setArguments(args);
+        return screenPlayFragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_guion, container, false);
+        return inflater.inflate(R.layout.fragment_screenplay, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(getArguments() != null){
+            setScreenPlayPanelConfiguration(getArguments().getBoolean(IS_CREATING_SCREENPLAY),view);
+        }
         screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
@@ -37,7 +50,10 @@ public class ScreenPlayFragment extends BaseFragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                screenplayChangeFragmentListener.onNextButtonClicked(screenplayName.getText().toString());
+                Bundle takePictureArgs = new Bundle();
+                takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
+                takePictureArgs.putBoolean(IS_CREATING_SCREENPLAY, getArguments() != null);
+                navigateToFragmentListener.onNavigateToFragment(TakePictureFragment.newInstance(takePictureArgs));
             }
         });
     }
@@ -47,13 +63,12 @@ public class ScreenPlayFragment extends BaseFragment {
         super.onAttach(activity);
 
         try {
-            screenplayChangeFragmentListener = (OnScreenplayChangeFragmentListener) activity;
+            navigateToFragmentListener = (OnNavigateToFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.getLocalClassName() +  "must be implements OnScreenplayChangeFragmentListener");
         }
     }
 
-    //Method to show the hidden next button
     private void showNextButton(EditText screenplayName, final Button nextButton) {
         screenplayName.addTextChangedListener(new TextWatcher() {
 
@@ -78,7 +93,12 @@ public class ScreenPlayFragment extends BaseFragment {
         });
     }
 
-    public interface OnScreenplayChangeFragmentListener {
-        void onNextButtonClicked(String name);
+    private void setScreenPlayPanelConfiguration(boolean isCreatingScreenPlay,View mainContainer){
+        TextView panelType = (TextView)mainContainer.findViewById(R.id.whose_is_screenplay_text);
+        if(isCreatingScreenPlay){
+            panelType.setText(getString(R.string.what_is_guion_name_text));
+        }else{
+            panelType.setText(getString(R.string.what_is_person_name));
+        }
     }
 }

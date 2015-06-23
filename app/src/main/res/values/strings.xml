@@ -19,6 +19,7 @@
     <string name="edit_text_name_hint">Nombre</string>
     <string name="next_action_text">Siguiente</string>
     <string name="what_is_guion_name_text">¿Cuál es el nombre del guión?</string>
+    <string name="what_is_person_name">¿Cómo se llama la persona</string>
     <string name="whose_is_guion_text">¿Este guíon es para?</string>
     <string name="default_script_example">Guiones sociales de ejemplo</string>
 
