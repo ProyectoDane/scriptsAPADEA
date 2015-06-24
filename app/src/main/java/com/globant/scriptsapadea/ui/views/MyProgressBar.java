@@ -54,9 +54,9 @@ public class MyProgressBar extends LinearLayout {
             imageView.setId(i);
 
             if (i == 0) {
-                imageView.setImageResource(R.drawable.bar);
+                imageView.setImageResource(R.drawable.progressbar_top_left);
             } else if (i == size - 1) {
-                imageView.setImageResource(R.drawable.bar_empty);
+                imageView.setImageResource(R.drawable.progress_bar_right);
             } else {
                 imageView.setImageResource(R.drawable.bar_empty);
             }
@@ -70,7 +70,11 @@ public class MyProgressBar extends LinearLayout {
         if (current + 1 < count) {
 
             ImageView image = (ImageView) parent.getChildAt(current + 1);
-            image.setImageResource(R.drawable.bar);
+            if (current + 1 == size - 1) {
+                image.setImageResource(R.drawable.progressbar_top_right_blue);
+            } else {
+                image.setImageResource(R.drawable.bar);
+            }
 
             current++;
         }
@@ -80,7 +84,12 @@ public class MyProgressBar extends LinearLayout {
         if (current - 1 >= 0) {
 
             ImageView imageBefore = (ImageView) parent.getChildAt(current);
-            imageBefore.setImageResource(R.drawable.bar_empty);
+            if (current + 1 == size) {
+                imageBefore.setImageResource(R.drawable.progress_bar_right);
+            } else {
+                imageBefore.setImageResource(R.drawable.bar_empty);
+            }
+
 
             current--;
         }
