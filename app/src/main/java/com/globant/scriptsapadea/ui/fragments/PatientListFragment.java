@@ -1,13 +1,18 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
@@ -65,6 +70,20 @@ public class PatientListFragment extends BaseFragment {
         if (savedInstanceState != null) {
             adapter.updateItems(false);
         }
+
+        // TODO this must became from a XML animation file
+        View welcomePanel = view.findViewById(R.id.fragment_welcome);
+        welcomePanel.setVisibility(View.VISIBLE);
+        WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        welcomePanel.setTranslationY(size.y);
+        welcomePanel.animate().setStartDelay(500)
+                .translationY(200)
+                .setInterpolator(new DecelerateInterpolator(3.f))
+                .setDuration(1000)
+                .start();
 
         return view;
     }
