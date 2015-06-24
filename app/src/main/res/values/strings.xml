@@ -48,4 +48,6 @@
     <string name="start_screenplay_edit">Comenzar a editar</string>
 
     <string name="script_select_edit">EDITAR</string>
+    <string name="editor_take_photo">TOMAR FOTO</string>
+    <string name="editor_pick_photo">ELEGIR FOTO</string>
 </resources>
