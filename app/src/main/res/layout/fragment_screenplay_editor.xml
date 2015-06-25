@@ -26,7 +26,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/editor_border_drawable"
+            >
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -37,6 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
+                android:background="@drawable/editor_border_drawable"
                 >
 
                 <TextView
@@ -76,7 +79,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textSize="@dimen/font_size_big"
-            android:id="@+id/editText" />
+            android:id="@+id/editText"
+            android:paddingLeft="@dimen/margin_xxlarge"
+            android:background="@drawable/editor_border_drawable"
+            />
 
     </RelativeLayout>
 </LinearLayout>
