@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.interfaces.OnNavigateToFragmentListener;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.globant.scriptsapadea.utils.ImageRealPath;
 import com.squareup.otto.Subscribe;
@@ -25,7 +25,7 @@ public class TakePictureFragment extends BaseFragment {
 
     private static final int GALLERY = 0x001;
     private static final int CAMERA = 0x010;
-    private OnNavigateToFragmentListener onNavigateToFragmentListener;
+    private OnShowPictureFragmentListener showPictureFragmentListener;
 
     public static TakePictureFragment newInstance(Bundle args) {
         TakePictureFragment fragment = new TakePictureFragment();
@@ -37,7 +37,7 @@ public class TakePictureFragment extends BaseFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            onNavigateToFragmentListener = (OnNavigateToFragmentListener) activity;
+            showPictureFragmentListener = (OnShowPictureFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnSetPictureFragmentImageListener");
         }
@@ -91,7 +91,7 @@ public class TakePictureFragment extends BaseFragment {
                 imageArguments.putString(ShowPictureFragment.SCREENPLAY_IMAGE, ImageRealPath.getImagePath(getActivity(), data.getData()));
                 imageArguments.putBoolean(ShowPictureFragment.PICTURE_FROM_CAMERA, false);
                 imageArguments.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,getArguments().getBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,false));
-                onNavigateToFragmentListener.onNavigateToFragment(ShowPictureFragment.newInstance(imageArguments));
+                showPictureFragmentListener.onShowPictureFragment(ShowPictureFragment.newInstance(imageArguments));
             }
         } else {
             if (data != null && data.getExtras() != null) {
@@ -99,7 +99,7 @@ public class TakePictureFragment extends BaseFragment {
                 imageArguments.putParcelable(ShowPictureFragment.SCREENPLAY_IMAGE, ((Bitmap) data.getExtras().get("data")));
                 imageArguments.putBoolean(ShowPictureFragment.PICTURE_FROM_CAMERA, true);
                 imageArguments.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,getArguments().getBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,false));
-                onNavigateToFragmentListener.onNavigateToFragment(ShowPictureFragment.newInstance(imageArguments));
+                showPictureFragmentListener.onShowPictureFragment(ShowPictureFragment.newInstance(imageArguments));
             }
         }
     }
@@ -123,4 +123,8 @@ public class TakePictureFragment extends BaseFragment {
         startActivityForResult(cameraIntent, CAMERA);
     }
 
+
+    public interface OnShowPictureFragmentListener{
+        void onShowPictureFragment(Fragment fragment);
+    }
 }
