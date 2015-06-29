@@ -7,12 +7,14 @@
     style="@style/Panel.White">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/screenplay_list_width_size"
         android:layout_height="match_parent">
-        <ListView
-            android:layout_width="@dimen/screenplay_list_width_size"
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/screenplay_list"
+            android:id="@+id/screenplay_slide_list"
+            android:scrollbars="vertical"
             />
     </LinearLayout>
     <RelativeLayout
@@ -33,6 +35,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
+                android:id="@+id/screenplay_slide_image"
                 />
             <LinearLayout
                 android:layout_width="0dp"
@@ -50,6 +53,7 @@
                     android:drawableTop="@drawable/ic_launcher"
                     android:gravity="center"
                     android:layout_margin="@dimen/margin_medium"
+                    android:id="@+id/editor_gallery"
                     />
                 <View
                     android:layout_width="match_parent"
@@ -66,6 +70,7 @@
                     android:drawableTop="@drawable/ic_launcher"
                     android:gravity="center"
                     android:layout_margin="@dimen/margin_medium"
+                    android:id="@+id/editor_camera"
 
                     />
             </LinearLayout>

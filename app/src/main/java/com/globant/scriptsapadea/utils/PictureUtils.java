@@ -3,16 +3,25 @@ package com.globant.scriptsapadea.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 /**
  * Created by leonel.mendez on 6/11/2015.
  */
-public class ImageRealPath {
+public class PictureUtils {
 
     @SuppressLint("NewApi")
     private static String getRealPathFromURI_API19(Context context, Uri uri) {
@@ -85,4 +94,24 @@ public class ImageRealPath {
         }
         return realPath;
     }
+
+    public static void pickPhotoFromGallery(Fragment fragment, int requestCode) {
+        if (Build.VERSION.SDK_INT < 19) {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            fragment.startActivityForResult(intent, requestCode);
+        } else {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            fragment.startActivityForResult(intent, requestCode);
+        }
+    }
+
+    public static void takePhotoFromCamera(Fragment fragment,int requestCode) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        fragment.startActivityForResult(cameraIntent, requestCode);
+    }
+
 }
