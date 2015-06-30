@@ -14,10 +14,12 @@ import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
 import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
 
+import java.net.CookieHandler;
+
 /**
  * Created by leonel.mendez on 6/26/2015.
  */
-public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSelectorRecyclerAdapter.SlideViewHolder>{
+public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSelectorRecyclerAdapter.CommonViewHolder>{
 
     private ScreenPlayEditorManager screenPlayEditorManager;
 
@@ -27,18 +29,28 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     }
 
     @Override
-    public SlideViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View mainView = LayoutInflater.from(parent.getContext()).inflate(R.layout.slide_card_layout,parent);
-        return new SlideViewHolder(mainView);
+    public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType){
+            case Slide.ONLY_TEXT:
+                return new TextViewHolder(parent);
+            case Slide.ONLY_IMAGE:
+                return new ImageViewHolder(parent);
+            case Slide.IMAGE_TEXT:
+                return new ImageAndTextViewHolder(parent);
+            default:
+                return null;
+        }
+
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return screenPlayEditorManager.getSlide(position).getType();
+    }
 
     @Override
-    public void onBindViewHolder(SlideViewHolder holder, int position) {
-
-        Slide slide = screenPlayEditorManager.getSlide(position);
-        holder.slideDesc.setText(slide.getText());
-        holder.slideImage.setImageResource(slide.getImage());
+    public void onBindViewHolder(CommonViewHolder holder, int position) {
+        
     }
 
     @Override
@@ -46,12 +58,31 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         return screenPlayEditorManager.getItemCount();
     }
 
-    public class SlideViewHolder extends RecyclerView.ViewHolder {
+    public class CommonViewHolder extends RecyclerView.ViewHolder{
+
+        public CommonViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class TextViewHolder extends CommonViewHolder{
+        public TextViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public class ImageViewHolder extends CommonViewHolder{
+
+        public ImageViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+    public class ImageAndTextViewHolder extends CommonViewHolder {
         public CardView slideCard;
         public ImageView slideImage;
         public TextView slideDesc;
 
-        public SlideViewHolder(View itemView) {
+        public ImageAndTextViewHolder(View itemView) {
             super(itemView);
             slideCard = (CardView)itemView.findViewById(R.id.slide_container);
             slideImage = (ImageView)itemView.findViewById(R.id.slide_img);

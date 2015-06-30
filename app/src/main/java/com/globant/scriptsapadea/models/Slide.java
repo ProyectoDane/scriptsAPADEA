@@ -7,10 +7,18 @@ import java.io.Serializable;
  */
 public class Slide implements Serializable {
 
+    public static final int ONLY_TEXT = 0;
+    public static final int ONLY_IMAGE = 1;
+    public static final int IMAGE_TEXT = 2;
+
+
     private String id;
     private int image = 0;
     private String urlImage;
     private String text;
+    private int type;
+
+
 
     public Slide(String id, String text, int image) {
         this.id = id;
@@ -34,5 +42,13 @@ public class Slide implements Serializable {
 
     public String getText() {
         return text;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

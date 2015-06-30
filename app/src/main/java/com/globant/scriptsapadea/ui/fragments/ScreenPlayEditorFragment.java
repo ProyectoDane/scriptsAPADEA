@@ -84,6 +84,11 @@ public class ScreenPlayEditorFragment extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        showImage(data,requestCode);
+    }
+
+    private void showImage(Intent data, int requestCode){
         if (data != null) {
             if (requestCode == REQUEST_CODE_GALLERY) {
                 Picasso.with(getActivity())
