@@ -30,13 +30,14 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
 
     @Override
     public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         switch (viewType){
             case Slide.ONLY_TEXT:
-                return new TextViewHolder(parent);
+                return new TextViewHolder(layoutInflater.inflate(R.layout.slide_card_text_layout,parent));
             case Slide.ONLY_IMAGE:
-                return new ImageViewHolder(parent);
+                return new ImageViewHolder(layoutInflater.inflate(R.layout.slide_card_image_layout,parent));
             case Slide.IMAGE_TEXT:
-                return new ImageAndTextViewHolder(parent);
+                return new ImageAndTextViewHolder(layoutInflater.inflate(R.layout.slide_card_image_text_layout,parent));
             default:
                 return null;
         }
@@ -50,7 +51,18 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
 
     @Override
     public void onBindViewHolder(CommonViewHolder holder, int position) {
-        
+            Slide slide = screenPlayEditorManager.getSlide(position);
+            switch (slide.getType()){
+                case Slide.ONLY_TEXT:
+                    break;
+                case Slide.ONLY_IMAGE:
+                    break;
+                case Slide.IMAGE_TEXT:
+                    ImageAndTextViewHolder imageAndTextViewHolder = (ImageAndTextViewHolder)holder;
+                    imageAndTextViewHolder.slideImage.setImageResource(slide.getImage());
+                    imageAndTextViewHolder.slideDesc.setText(slide.getText());
+                    break;
+            }
     }
 
     @Override
@@ -59,7 +71,6 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     }
 
     public class CommonViewHolder extends RecyclerView.ViewHolder{
-
         public CommonViewHolder(View itemView) {
             super(itemView);
         }
@@ -72,11 +83,11 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     }
 
     public class ImageViewHolder extends CommonViewHolder{
-
         public ImageViewHolder(View itemView) {
             super(itemView);
         }
     }
+
     public class ImageAndTextViewHolder extends CommonViewHolder {
         public CardView slideCard;
         public ImageView slideImage;
