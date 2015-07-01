@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
+import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
@@ -71,7 +73,14 @@ public class ScreenPlayEditorFragment extends Fragment{
         view.findViewById(R.id.editor_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this,REQUEST_CODE_CAMERA);
+                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
+            }
+        });
+        screenPlayEditorManager.addSlide(new Slide("add_button", "add_button", 0));
+        slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
+            @Override
+            public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
+                Toast.makeText(getActivity(),"position: " + position,Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -84,7 +93,6 @@ public class ScreenPlayEditorFragment extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         showImage(data,requestCode);
     }
 

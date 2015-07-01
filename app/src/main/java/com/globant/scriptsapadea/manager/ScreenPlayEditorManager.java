@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.globant.scriptsapadea.models.Slide;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,10 +18,13 @@ public class ScreenPlayEditorManager {
 
     public ScreenPlayEditorManager(){
         this.slides = new LinkedList<>();
+        Collections.reverse(slides);
+
     }
 
     public ScreenPlayEditorManager(List<Slide> slides) {
         this.slides = slides;
+        Collections.reverse(this.slides);
     }
 
     public void addSlide(Slide slide){

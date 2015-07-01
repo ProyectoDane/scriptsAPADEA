@@ -16,7 +16,7 @@ public class Slide implements Serializable {
     private int image = 0;
     private String urlImage;
     private String text;
-    private int type;
+    private int type = 0x110;
 
 
 
