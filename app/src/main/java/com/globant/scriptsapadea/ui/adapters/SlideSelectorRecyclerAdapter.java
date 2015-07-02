@@ -1,5 +1,6 @@
 package com.globant.scriptsapadea.ui.adapters;
 
+import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -14,9 +15,11 @@ import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
 import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.net.CookieHandler;
 
 /**
@@ -35,8 +38,6 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     @Override
     public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        Log.d(SlideSelectorRecyclerAdapter.class.getSimpleName(),"type: " +viewType);
-
         switch (viewType){
             case Slide.ONLY_TEXT:
                 return new TextViewHolder(layoutInflater.inflate(R.layout.slide_card_text_layout,parent,false));
@@ -65,11 +66,12 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
                     break;
                 case Slide.ONLY_IMAGE:
                     ImageViewHolder imageViewHolder = (ImageViewHolder)holder;
-                    imageViewHolder.imageView.setImageResource(slide.getImage());
+                    showSlideImage(imageViewHolder.imageView.getContext(),slide.getUrlImage(),imageViewHolder.imageView);
+
                     break;
                 case Slide.IMAGE_TEXT:
                     ImageAndTextViewHolder imageAndTextViewHolder = (ImageAndTextViewHolder)holder;
-                    imageAndTextViewHolder.slideImage.setImageResource(slide.getImage());
+                    showSlideImage(imageAndTextViewHolder.slideImage.getContext(),slide.getUrlImage(),imageAndTextViewHolder.slideImage);
                     imageAndTextViewHolder.slideDesc.setText(slide.getText());
                     break;
                 default:
@@ -94,6 +96,12 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
                 }
             });
         }
+    }
+
+    private void showSlideImage(Context context,String urlImage,ImageView imageContainer){
+        Picasso.with(context)
+                .load(new File(urlImage))
+                .into(imageContainer);
     }
 
     public class TextViewHolder extends CommonViewHolder{

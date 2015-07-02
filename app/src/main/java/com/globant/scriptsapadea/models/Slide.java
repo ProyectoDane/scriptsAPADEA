@@ -51,4 +51,12 @@ public class Slide implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
+
+    public String getUrlImage() {
+        return urlImage;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class ScreenPlayEditorFragment extends Fragment{
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private ImageView slidePicture;
+    private String imageGalleryUrl;
+
 
     public static ScreenPlayEditorFragment newInstance(Bundle args){
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
@@ -57,6 +60,7 @@ public class ScreenPlayEditorFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         slidePicture = (ImageView)view.findViewById(R.id.screenplay_slide_image);
+        final EditText slideDesc = (EditText)view.findViewById(R.id.editor_slide_text);
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.screenplay_slide_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -80,7 +84,12 @@ public class ScreenPlayEditorFragment extends Fragment{
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
-                Toast.makeText(getActivity(),"position: " + position,Toast.LENGTH_SHORT).show();
+                if(position == 0) {
+                    Slide slide = screenPlayEditorManager.createSlide("" + (position + 1), imageGalleryUrl, slideDesc.getText().toString());
+                    slide.setType(Slide.IMAGE_TEXT);
+                    screenPlayEditorManager.addSlide(slide);
+                    Toast.makeText(getActivity(), "position: " + position, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -97,10 +106,11 @@ public class ScreenPlayEditorFragment extends Fragment{
     }
 
     private void showImage(Intent data, int requestCode){
-        if (data != null) {
+        if (data != null ) {
             if (requestCode == REQUEST_CODE_GALLERY) {
+                imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData());
                 Picasso.with(getActivity())
-                        .load(new File(PictureUtils.getImagePath(getActivity(), data.getData())))
+                        .load(new File(imageGalleryUrl))
                         .into(slidePicture);
             } else {
                 if(data.getExtras() != null) {
