@@ -34,6 +34,6 @@
     <dimen name="screenplay_editor_height">570dp</dimen>
     <dimen name="screenplay_desc_editor_height">80dp</dimen>
     <dimen name="screenplay_editor_container">730dp</dimen>
-    <dimen name="slide_only_text_size">100sp</dimen>
+    <dimen name="slide_only_text_size">25sp</dimen>
 
 </resources>

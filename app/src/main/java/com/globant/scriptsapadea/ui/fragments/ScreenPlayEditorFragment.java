@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,11 +85,7 @@ public class ScreenPlayEditorFragment extends Fragment{
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
-                if(position == 0) {
-                    Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(),Slide.IMAGE_TEXT);
-                    screenPlayEditorManager.addSlide(slide);
-                    Toast.makeText(getActivity(), "position: " + position, Toast.LENGTH_SHORT).show();
-                }
+                addSlideInAdapter(position,slideDesc);
             }
         });
     }
@@ -101,7 +98,7 @@ public class ScreenPlayEditorFragment extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        showImage(data,requestCode);
+        showImage(data, requestCode);
     }
 
     private void showImage(Intent data, int requestCode){
@@ -116,6 +113,23 @@ public class ScreenPlayEditorFragment extends Fragment{
                     slidePicture.setImageBitmap((Bitmap) data.getExtras().get("data"));
                 }
             }
+        }
+    }
+
+    private void addSlideInAdapter(int position, EditText slideDesc){
+        if(position == 0) {
+            if(!TextUtils.isEmpty(imageGalleryUrl)) {
+                Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.IMAGE_TEXT);
+                screenPlayEditorManager.addSlide(slide);
+
+            }else if(!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDesc.getText().toString())){
+                Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_IMAGE);
+                screenPlayEditorManager.addSlide(slide);
+
+            }else if (!TextUtils.isEmpty(slideDesc.getText().toString())){
+                Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_TEXT);
+                screenPlayEditorManager.addSlide(slide);
+            }else{}
         }
     }
 }
