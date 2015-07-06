@@ -2,6 +2,7 @@ package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,14 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.interfaces.OnNavigateToFragmentListener;
 
 /**
  * Created by leonel.mendez on 5/8/2015.
  */
 public class ScreenPlayFragment extends BaseFragment {
 
-   private OnNavigateToFragmentListener navigateToFragmentListener;
+   private OnChangeToTakePictureFragmentListener changeToTakePictureFragmentListener;
 
     private EditText screenplayName;
     public static final String PATIENT_NAME = "patientname";
@@ -53,7 +53,8 @@ public class ScreenPlayFragment extends BaseFragment {
                 Bundle takePictureArgs = new Bundle();
                 takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
                 takePictureArgs.putBoolean(IS_CREATING_SCREENPLAY, getArguments() != null);
-                navigateToFragmentListener.onNavigateToFragment(ChoosePictureFragment.newInstance(takePictureArgs));
+
+               changeToTakePictureFragmentListener.onChangeToTakePictureFragment(ShowPictureFragment.newInstance(takePictureArgs));
             }
         });
     }
@@ -63,7 +64,7 @@ public class ScreenPlayFragment extends BaseFragment {
         super.onAttach(activity);
 
         try {
-            navigateToFragmentListener = (OnNavigateToFragmentListener) activity;
+            changeToTakePictureFragmentListener = (OnChangeToTakePictureFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.getLocalClassName() +  "must be implements OnScreenplayChangeFragmentListener");
         }
@@ -100,5 +101,9 @@ public class ScreenPlayFragment extends BaseFragment {
         }else{
             panelType.setText(getString(R.string.what_is_person_name));
         }
+    }
+
+    public interface OnChangeToTakePictureFragmentListener{
+            void onChangeToTakePictureFragment(Fragment fragment);
     }
 }

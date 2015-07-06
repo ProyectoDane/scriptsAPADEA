@@ -41,14 +41,10 @@ public class SliderFragment extends BaseFragment {
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
         if (slide.getImage() != 0) {
             imgCard.setImageResource(slide.getImage());
-        } else {
-            // TODO take this from slide
-            //imgCard.setImageResource(R.drawable.ic_launcher);
         }
+
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
         txtSlideLegend.setText(slide.getText());
-
-        // TODO Set text below image
 
         ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
         fabNext.setImageResource(R.drawable.rightarrow_icon);

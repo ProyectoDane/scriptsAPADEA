@@ -3,6 +3,7 @@ package com.globant.scriptsapadea.ui.fragments;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.interfaces.OnNavigateToFragmentListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -22,7 +22,7 @@ public class ShowPictureFragment extends BaseFragment {
 
     public static final String SCREENPLAY_IMAGE = "picture_image";
     public static final String PICTURE_FROM_CAMERA = "picture_from_camera";
-    private OnNavigateToFragmentListener onNavigateToFragmentListener;
+    private OnNextFragmentListener nextFragmentListener;
 
     public static ShowPictureFragment newInstance(Bundle imageBundle) {
         ShowPictureFragment showPictureFragment = new ShowPictureFragment();
@@ -34,7 +34,7 @@ public class ShowPictureFragment extends BaseFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            onNavigateToFragmentListener = (OnNavigateToFragmentListener) activity;
+           nextFragmentListener = (OnNextFragmentListener) activity;
         }catch (ClassCastException e){
             throw new ClassCastException(activity.getLocalClassName() + "must implement OnNavigateToFragmentListener");
         }
@@ -74,10 +74,14 @@ public class ShowPictureFragment extends BaseFragment {
     private void setNextFragment(boolean isCreatingScreenPlay){
         Bundle args = new Bundle();
         if(isCreatingScreenPlay){
-            onNavigateToFragmentListener.onNavigateToFragment(ScreenPlayEditorFragment.newInstance(args));
+            nextFragmentListener.onNextFragment(ScreenPlayEditorFragment.newInstance(args));
         }else{
             args.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,true);
-            onNavigateToFragmentListener.onNavigateToFragment(ScreenPlayFragment.newInstance(args));
+            nextFragmentListener.onNextFragment(ScreenPlayFragment.newInstance(args));
         }
+    }
+
+    public interface OnNextFragmentListener{
+        void onNextFragment(Fragment fragment);
     }
 }
