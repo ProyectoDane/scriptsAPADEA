@@ -54,7 +54,7 @@ public class ScreenPlayFragment extends BaseFragment {
                 takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
                 takePictureArgs.putBoolean(IS_CREATING_SCREENPLAY, getArguments() != null);
 
-               changeToTakePictureFragmentListener.onChangeToTakePictureFragment(ShowPictureFragment.newInstance(takePictureArgs));
+               changeToTakePictureFragmentListener.onChangeToTakePictureFragment(ChoosePictureFragment.newInstance(takePictureArgs));
             }
         });
     }

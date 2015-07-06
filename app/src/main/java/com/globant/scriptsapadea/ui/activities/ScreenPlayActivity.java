@@ -8,14 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.ui.fragments.ChoosePictureFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenPlayFragment;
 import com.globant.scriptsapadea.ui.fragments.ShowPictureFragment;
-import com.globant.scriptsapadea.ui.fragments.TakePictureFragment;
 
 import roboguice.inject.ContentView;
 
 @ContentView(R.layout.activity_screen)
-public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnChangeToTakePictureFragmentListener, TakePictureFragment.OnShowPictureFragmentListener, ShowPictureFragment.OnNextFragmentListener {
+public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragment.OnChangeToTakePictureFragmentListener, ChoosePictureFragment.OnShowPictureFragmentListener,ShowPictureFragment.OnNextFragmentListener {
 
     public static Intent createIntent(Context context) {
         Intent intent = new Intent(context, ScreenPlayActivity.class);
@@ -49,12 +49,12 @@ public class ScreenPlayActivity extends BaseActivity implements ScreenPlayFragme
     }
 
     @Override
-    public void onShowPictureFragment(Fragment pictureFragment) {
-        navigator.to(pictureFragment).navigate();
+    public void onNextFragment(Fragment nextFragment) {
+        navigator.to(nextFragment).navigate();
     }
 
     @Override
-    public void onNextFragment(Fragment nextFragment) {
-        navigator.to(nextFragment).navigate();
+    public void onShowPictureFragment(Fragment fragment) {
+        navigator.to(fragment).navigate();
     }
 }

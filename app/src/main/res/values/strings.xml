@@ -50,4 +50,6 @@
     <string name="script_select_edit">EDITAR</string>
     <string name="editor_take_photo">TOMAR FOTO</string>
     <string name="editor_pick_photo">ELEGIR FOTO</string>
+
+    <string name="editor_add_button">add_button</string>
 </resources>

@@ -80,12 +80,12 @@ public class ScreenPlayEditorFragment extends Fragment{
                 PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
             }
         });
-        screenPlayEditorManager.addSlide(new Slide("add_button", "add_button", 0));
+        screenPlayEditorManager.addSlide(new Slide(getString(R.string.editor_add_button), getString(R.string.editor_add_button), 0));
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
                 if(position == 0) {
-                    Slide slide = screenPlayEditorManager.createSlide("" + (position + 1), imageGalleryUrl, slideDesc.getText().toString(),Slide.IMAGE_TEXT);
+                    Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(),Slide.IMAGE_TEXT);
                     screenPlayEditorManager.addSlide(slide);
                     Toast.makeText(getActivity(), "position: " + position, Toast.LENGTH_SHORT).show();
                 }
