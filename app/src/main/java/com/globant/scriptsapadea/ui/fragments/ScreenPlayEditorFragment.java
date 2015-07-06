@@ -85,8 +85,7 @@ public class ScreenPlayEditorFragment extends Fragment{
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
                 if(position == 0) {
-                    Slide slide = screenPlayEditorManager.createSlide("" + (position + 1), imageGalleryUrl, slideDesc.getText().toString());
-                    slide.setType(Slide.IMAGE_TEXT);
+                    Slide slide = screenPlayEditorManager.createSlide("" + (position + 1), imageGalleryUrl, slideDesc.getText().toString(),Slide.IMAGE_TEXT);
                     screenPlayEditorManager.addSlide(slide);
                     Toast.makeText(getActivity(), "position: " + position, Toast.LENGTH_SHORT).show();
                 }

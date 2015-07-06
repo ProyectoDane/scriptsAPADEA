@@ -26,11 +26,13 @@ public class Slide implements Serializable {
         this.text = text;
     }
 
-    public Slide(String id, String urlImage, String text) {
+    public Slide(String id, String urlImage, String text,int type) {
         this.id = id;
         this.urlImage = urlImage;
         this.text = text;
+        this.type = type;
     }
+
 
     public String getId() {
         return id;
@@ -48,15 +50,7 @@ public class Slide implements Serializable {
         return type;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public String getUrlImage() {
         return urlImage;
-    }
-
-    public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
     }
 }

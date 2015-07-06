@@ -48,8 +48,8 @@ public class ScreenPlayEditorManager {
     }
 
 
-    public Slide createSlide(String id,String urlImage, String desc){
-        return new Slide(id,urlImage,desc);
+    public Slide createSlide(String id,String urlImage, String desc, int type){
+        return new Slide(id,urlImage,desc,type);
     }
 
     public void saveScript(){
