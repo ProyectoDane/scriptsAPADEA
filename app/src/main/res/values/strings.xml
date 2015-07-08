@@ -47,4 +47,5 @@
     <string name="start_screenplay_edit">Comenzar a editar</string>
 
     <string name="script_select_edit">EDITAR</string>
+    <string name="script_select_remove">BORRAR</string>
 </resources>
