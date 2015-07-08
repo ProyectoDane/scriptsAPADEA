@@ -121,8 +121,11 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         protected TextView vTextLeyend;
         protected ImageView vImageAvatar;
         protected TextView vNamePatient;
-        protected TextView vEditButton;
+        protected TextView vEditCardButton;
+        protected TextView vEditButtonAction;
+        protected TextView vRemoveButtonAction;
         protected CardView vCardView;
+
         private boolean editButtonStateOpen = false;
 
         public PatientViewHolder(View v) {
@@ -131,8 +134,11 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vNamePatient =  (TextView) v.findViewById(R.id.txt_patient_name_item);
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);
             vTextLeyend =  (TextView) v.findViewById(R.id.txt_patient_leyend_item);
-            vEditButton = (TextView) v.findViewById(R.id.btn_editar);
-            vEditButton.setOnClickListener(new View.OnClickListener() {
+            vEditCardButton = (TextView) v.findViewById(R.id.btn_editar);
+            vEditButtonAction = (TextView) v.findViewById(R.id.btn_editar_action);
+            vRemoveButtonAction = (TextView) v.findViewById(R.id.btn_remove_action);
+
+            vEditCardButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (!editButtonStateOpen) {
@@ -150,6 +156,21 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
                     editButtonStateOpen = !editButtonStateOpen;
                 }
             });
+
+            vEditButtonAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Navigate to Edit View
+                }
+            });
+
+            vRemoveButtonAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Remove this Patient
+                }
+            });
+
             //v.setTag(patientList.get(getPosition()));
 
             // TODO Find a way to decouple this
