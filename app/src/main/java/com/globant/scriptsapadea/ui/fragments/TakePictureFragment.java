@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,12 @@ import com.squareup.otto.Subscribe;
  */
 public class TakePictureFragment extends BaseFragment {
 
-    private static final String PATIENT_NAME = "patientname";
     private static final int GALLERY = 0x001;
     private static final int CAMERA = 0x010;
-    private PictureFragment.OnSetPictureFragmentImageListener onSetPictureFragmentImageListener;
+    private OnShowPictureFragmentListener showPictureFragmentListener;
 
-    public static TakePictureFragment newInstance(String patientName) {
+    public static TakePictureFragment newInstance(Bundle args) {
         TakePictureFragment fragment = new TakePictureFragment();
-        Bundle args = new Bundle();
-        args.putString(PATIENT_NAME, patientName);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +37,7 @@ public class TakePictureFragment extends BaseFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            onSetPictureFragmentImageListener = (PictureFragment.OnSetPictureFragmentImageListener) activity;
+            showPictureFragmentListener = (OnShowPictureFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnSetPictureFragmentImageListener");
         }
@@ -52,7 +50,7 @@ public class TakePictureFragment extends BaseFragment {
         TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
 
         if (getArguments() != null) {
-            String name = getArguments().getString(PATIENT_NAME);
+            String name = getArguments().getString(ScreenPlayFragment.PATIENT_NAME);
             txtPatientName.setText(name);
         }
 
@@ -87,19 +85,21 @@ public class TakePictureFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle imageArguments = new Bundle();
-        imageArguments.putString(PictureFragment.PATIENT_NAME, getArguments().getString(PATIENT_NAME));
+        imageArguments.putString(ScreenPlayFragment.PATIENT_NAME, getArguments().getString(ScreenPlayFragment.PATIENT_NAME));
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
-                imageArguments.putString(PictureFragment.SCREENPLAY_IMAGE, ImageRealPath.getImagePath(getActivity(), data.getData()));
-                imageArguments.putBoolean(PictureFragment.PICTURE_FROM_CAMERA, false);
-                onSetPictureFragmentImageListener.onSetImage(imageArguments);
+                imageArguments.putString(ShowPictureFragment.SCREENPLAY_IMAGE, ImageRealPath.getImagePath(getActivity(), data.getData()));
+                imageArguments.putBoolean(ShowPictureFragment.PICTURE_FROM_CAMERA, false);
+                imageArguments.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,getArguments().getBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,false));
+                showPictureFragmentListener.onShowPictureFragment(ShowPictureFragment.newInstance(imageArguments));
             }
         } else {
             if (data != null && data.getExtras() != null) {
                 // TODO: Create folder to save images from camera
-                imageArguments.putParcelable(PictureFragment.SCREENPLAY_IMAGE, ((Bitmap) data.getExtras().get("data")));
-                imageArguments.putBoolean(PictureFragment.PICTURE_FROM_CAMERA, true);
-                onSetPictureFragmentImageListener.onSetImage(imageArguments);
+                imageArguments.putParcelable(ShowPictureFragment.SCREENPLAY_IMAGE, ((Bitmap) data.getExtras().get("data")));
+                imageArguments.putBoolean(ShowPictureFragment.PICTURE_FROM_CAMERA, true);
+                imageArguments.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,getArguments().getBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,false));
+                showPictureFragmentListener.onShowPictureFragment(ShowPictureFragment.newInstance(imageArguments));
             }
         }
     }
@@ -123,4 +123,8 @@ public class TakePictureFragment extends BaseFragment {
         startActivityForResult(cameraIntent, CAMERA);
     }
 
+
+    public interface OnShowPictureFragmentListener{
+        void onShowPictureFragment(Fragment fragment);
+    }
 }

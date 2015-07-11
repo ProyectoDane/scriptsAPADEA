@@ -81,7 +81,6 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         updateScriptsView();
     }
 
-    // TODO
     private void updateScriptsView() {
         showProgress();
 
