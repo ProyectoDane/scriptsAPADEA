@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class PatientListFragment extends BaseFragment {
 
-    private List<Patient> pacientList = new LinkedList<>();
+    private List<Patient> patientList = new LinkedList<>();
 
     private RecyclerView mPatientView;
     private PatientSelectorGridRecycleAdapter adapter;
@@ -59,7 +59,7 @@ public class PatientListFragment extends BaseFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         mPatientView.setLayoutManager(llm);
 
-        adapter = new PatientSelectorGridRecycleAdapter(pacientList, getActivity());
+        adapter = new PatientSelectorGridRecycleAdapter(patientList, getActivity());
         mPatientView.setAdapter(adapter);
 
         if (savedInstanceState != null) {
@@ -83,12 +83,12 @@ public class PatientListFragment extends BaseFragment {
         // TODO
         //showProgress();
 
-        pacientList.clear();
+        patientList.clear();
         // TODO create injectable id or pacient
-        pacientList = Patient.fetchAllPatients(null);
+        patientList = Patient.fetchAllPatients(null);
 
-        if (pacientList != null && !pacientList.isEmpty()) {
-            adapter = new PatientSelectorGridRecycleAdapter(pacientList, getActivity());
+        if (patientList != null && !patientList.isEmpty()) {
+            adapter = new PatientSelectorGridRecycleAdapter(patientList, getActivity());
             mPatientView.setAdapter(adapter);
         }
 

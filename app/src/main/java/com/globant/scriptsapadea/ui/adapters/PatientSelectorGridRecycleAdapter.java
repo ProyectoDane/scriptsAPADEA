@@ -135,7 +135,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);
             vTextLeyend =  (TextView) v.findViewById(R.id.txt_patient_leyend_item);
             vEditCardButton = (TextView) v.findViewById(R.id.btn_editar);
-            vEditButtonAction = (TextView) v.findViewById(R.id.btn_editar_action);
+            vEditButtonAction = (TextView) v.findViewById(R.id.btn_edit_action);
             vRemoveButtonAction = (TextView) v.findViewById(R.id.btn_remove_action);
 
             vEditCardButton.setOnClickListener(new View.OnClickListener() {
