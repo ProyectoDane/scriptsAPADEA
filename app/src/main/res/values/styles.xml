@@ -1,4 +1,5 @@
 <resources>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -72,6 +73,7 @@
         <!-- Avenir Regular -->
     </style>
 
+
     <style name="Text.Body.Big.Gray">
         <item name="android:textColor">@color/panel_gray</item>
     </style>
@@ -122,11 +124,23 @@
         <item name="android:textSize">@dimen/button_height_medium</item>
     </style>
 
-    <style name="Button.Flat" parent="android:Widget.Holo.Button.Borderless">
+	<style name="Button.Flat" parent="android:Widget.Holo.Button.Borderless">
         <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">@dimen/font_size_body</item>
         <item name="android:visibility">gone</item>
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="Button.SelectedAction">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_size_body</item>
+    </style>
+
+    <style name="Button.SelectedAction.Edit">
+        <item name="android:background">@color/status_bar</item>
+    </style>
+
+    <style name="Button.SelectedAction.Remove">
+        <item name="android:background">@color/welcome_orange</item>
+    </style>
 </resources>

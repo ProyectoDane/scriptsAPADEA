@@ -44,34 +44,34 @@ public class Patient implements Serializable {
     }
 
     // TODO Mocked services
-    public static List<Patient> fetchAllPatients(String idPacient) {
+    public static List<Patient> fetchAllPatients(String idPatient) {
 		// TODO Remove this
         List<Patient> listScript = new LinkedList<Patient>();
 
-        if (idPacient == null) {
-            // TODO Retrive ALL Patients from DB
+        if (idPatient == null) {
+            // TODO Retrieve ALL Patients from DB
             Patient patientJuan = new Patient("0", "Juan", R.drawable.avatar_placeholder);
             Script scriptJuan = new Script("0", "Lavar los platos", R.drawable.ic_launcher);
             scriptJuan.getSlides().add(new Slide("0", "Primero....", 0));
             scriptJuan.getSlides().add(new Slide("1", "Segundo....", 0));
             scriptJuan.getSlides().add(new Slide("2", "Tercero....", 0));
 
-
-            Patient patient = new Patient("0", "APADEA", R.drawable.avatar_placeholder);
+            Patient patientApadea = new Patient("0", "APADEA", R.drawable.avatar_placeholder);
             Script script = new Script("0", "Lavar los platos", R.drawable.apadea_dientes);
             script.getSlides().add(new Slide("0", "Primero....", 0));
             script.getSlides().add(new Slide("1", "Segundo....", 0));
             script.getSlides().add(new Slide("2", "Tercero....", 0));
             Script scriptPepe = new Script("0", "Lavar los platos", R.drawable.apadea_dientes);
-            patient.getScriptList().add(script);
+            patientApadea.getScriptList().add(script);
             scriptPepe.getSlides().add(new Slide("0", "Primero....", 0));
             scriptPepe.getSlides().add(new Slide("1", "Segundo....", 0));
             scriptPepe.getSlides().add(new Slide("2", "Tercero....", 0));
-            patient.getScriptList().add(scriptPepe);
+            patientApadea.getScriptList().add(scriptPepe);
 
-            listScript.add(patient);
+            listScript.add(patientApadea);
+            //listScript.add(patientJuan);
         } else {
-            // TODO Retrive from DB
+            // TODO Retrieve from DB
         }
 
         return listScript;
