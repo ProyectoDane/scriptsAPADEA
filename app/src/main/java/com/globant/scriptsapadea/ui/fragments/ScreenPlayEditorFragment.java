@@ -3,7 +3,6 @@ package com.globant.scriptsapadea.ui.fragments;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,10 +26,11 @@ import java.io.File;
 /**
  * Created by leonel.mendez on 6/23/2015.
  */
-public class ScreenPlayEditorFragment extends Fragment {
+public class ScreenPlayEditorFragment extends BaseFragment {
 
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
+    private static final int INITIAL_POSITION = 0;
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
     private String imageGalleryUrl;
@@ -101,21 +101,22 @@ public class ScreenPlayEditorFragment extends Fragment {
 
     private void showImage(Intent data, int requestCode) {
         if (data != null) {
+            Bundle extras = data.getExtras();
             if (requestCode == REQUEST_CODE_GALLERY) {
                 imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData());
                 Picasso.with(getActivity())
                         .load(new File(imageGalleryUrl))
                         .into(slidePicture);
             } else {
-                if (data.getExtras() != null) {
-                    slidePicture.setImageBitmap((Bitmap) data.getExtras().get("data"));
+                if (extras != null) {
+                    slidePicture.setImageBitmap((Bitmap) extras.get("data"));
                 }
             }
         }
     }
 
     private void addSlideInAdapter(int position, EditText slideDesc) {
-        if (position == 0) {
+        if (position == INITIAL_POSITION) {
             if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDesc.getText().toString())) {
                 Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.IMAGE_TEXT);
                 screenPlayEditorManager.addSlide(slide);
@@ -133,7 +134,7 @@ public class ScreenPlayEditorFragment extends Fragment {
     }
 
     private void setSlideContentToEditor(int position, EditText slideDesc, ImageView slideImage) {
-        if (position != 0) {
+        if (position != INITIAL_POSITION) {
             Slide slide = screenPlayEditorManager.getSlide(position);
             if (slide != null) {
                 slideDesc.setText(slide.getText());
