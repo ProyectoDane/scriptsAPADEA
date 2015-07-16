@@ -19,6 +19,7 @@
     <string name="edit_text_name_hint">Nombre</string>
     <string name="next_action_text">Siguiente</string>
     <string name="what_is_guion_name_text">¿Cuál es el nombre del guión?</string>
+    <string name="what_is_person_name">¿Cómo se llama la persona</string>
     <string name="whose_is_guion_text">¿Este guíon es para?</string>
     <string name="default_script_example">Guiones sociales de ejemplo</string>
 
@@ -47,6 +48,7 @@
     <string name="start_screenplay_edit">Comenzar a editar</string>
 
     <string name="script_select_edit">EDITAR</string>
+    <string name="script_select_remove">BORRAR</string>
     <string name="popupmenu_edit">EDITAR</string>
     <string name="popupmenu_remove">ELIMINAR</string>
     <string name="popupmenu_copy">COPIAR</string>
