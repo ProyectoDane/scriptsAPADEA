@@ -8,7 +8,7 @@
     <dimen name="screenplay_image_width_size">560dp</dimen>
     <dimen name="screenplay_image_height_size">400dp</dimen>
     <dimen name="screenplay_container">650dp</dimen>
-    <dimen name="screenplay_list_width_size">230dp</dimen>
+    <dimen name="screenplay_list_width_size">300dp</dimen>
     <dimen name="screenplay_editor_width">730dp</dimen>
     <dimen name="screenplay_editor_height">390dp</dimen>
     <dimen name="screenplay_desc_editor_height">60dp</dimen>
