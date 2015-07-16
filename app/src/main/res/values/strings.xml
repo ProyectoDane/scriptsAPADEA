@@ -54,4 +54,8 @@
     <string name="editor_add_button">add_button</string>
     <string name="script_select_remove">BORRAR</string>
 
+    <string name="popupmenu_edit">EDITAR</string>
+    <string name="popupmenu_remove">ELIMINAR</string>
+    <string name="popupmenu_copy">COPIAR</string>
+
 </resources>
