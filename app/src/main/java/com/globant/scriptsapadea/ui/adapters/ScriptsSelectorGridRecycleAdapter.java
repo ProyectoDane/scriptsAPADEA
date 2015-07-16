@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
+import com.globant.scriptsapadea.ui.views.SSPopupMenuWindow;
 
 import java.util.List;
 
@@ -106,6 +108,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
         private ImageView vImageAvatar;
         protected TextView vNameAvatar;
         protected CardView vCardView;
+        private TextView vEditar;
 
         public ContactViewHolder(View v) {
             super(v);
@@ -113,9 +116,19 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vNameAvatar =  (TextView) v.findViewById(R.id.txt_avatar_name_item);
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);
+            vEditar =  (TextView) v.findViewById(R.id.txt_editar);
 
             vNameAvatar.setOnClickListener(this);
             vImageAvatar.setOnClickListener(this);
+
+            final PopupWindow popupWindow = SSPopupMenuWindow.createPopupWindow(context, false, null);
+            vEditar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO fix values
+                    popupWindow.showAsDropDown(vEditar, -30, -40);
+                }
+            });
         }
 
         @Override
