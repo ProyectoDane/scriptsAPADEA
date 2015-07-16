@@ -126,7 +126,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
                 @Override
                 public void onClick(View v) {
                     // TODO fix values
-                    popupWindow.showAsDropDown(vEditar, -10, -40);
+                    popupWindow.showAsDropDown(vEditar, -30, -40);
                 }
             });
         }
