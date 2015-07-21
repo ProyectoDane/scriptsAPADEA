@@ -67,12 +67,10 @@
     </style>
 
     <style name="Text.Body.Medium">
-
-        <item name="android:textSize">@dimen/font_size_body</item>
+        <item name="android:textSize">@dimen/font_size_medium</item>
         <item name="android:typeface">serif</item>
         <!-- Avenir Regular -->
     </style>
-
 
     <style name="Text.Body.Big.Gray">
         <item name="android:textColor">@color/panel_gray</item>
@@ -83,6 +81,11 @@
     </style>
 
     <style name="Text.Body.Big.Gray.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
+    <style name="Text.Body.Medium.Bold">
         <item name="android:typeface">sans</item>
         <!-- Avenir Heavy -->
     </style>
