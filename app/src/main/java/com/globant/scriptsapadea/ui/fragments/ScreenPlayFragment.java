@@ -53,7 +53,8 @@ public class ScreenPlayFragment extends BaseFragment {
                 Bundle takePictureArgs = new Bundle();
                 takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
                 takePictureArgs.putBoolean(IS_CREATING_SCREENPLAY, getArguments() != null);
-               changeToTakePictureFragmentListener.onChangeToTakePictureFragment(TakePictureFragment.newInstance(takePictureArgs));
+
+               changeToTakePictureFragmentListener.onChangeToTakePictureFragment(ChoosePictureFragment.newInstance(takePictureArgs));
             }
         });
     }
