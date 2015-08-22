@@ -9,22 +9,23 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/disneyland_logo"
-            android:src="@drawable/logo_splash"
+            android:src="@drawable/teayudo_logo_splash"
             android:layout_centerVertical="true"
             android:layout_alignRight="@+id/view"
             android:layout_alignEnd="@+id/view" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
             android:background="@android:color/white"
             android:id="@+id/view"
             android:layout_alignParentTop="true"
@@ -34,13 +35,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fantasy_name"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/fab_material_black"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/fab_material_grey_900"
             style="@style/Text.Body.Medium.Bold"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/disneyland_logo"
             android:layout_toEndOf="@+id/disneyland_logo"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="158dp"
+        android:layout_height="52dp"
+        android:src="@drawable/logo_splash"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
