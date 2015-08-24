@@ -63,7 +63,8 @@
                     android:duplicateParentState="true"
                     android:padding="5dp"
                     android:src="@drawable/teayudo_usuario"
-                    android:layout_marginLeft="15dp" />
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
 
                 <TextView
                     android:id="@+id/btn_editar"

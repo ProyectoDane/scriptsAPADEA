@@ -56,7 +56,7 @@ public class Patient implements Serializable {
             scriptJuan.getSlides().add(new Slide("1", "Segundo....", 0));
             scriptJuan.getSlides().add(new Slide("2", "Tercero....", 0));
 
-            Patient patientApadea = new Patient("0", "APADEA", R.drawable.avatar_placeholder);
+            Patient patientApadea = new Patient("0", "APADEA", R.drawable.teayudo_usuario);
             Script script = new Script("0", "Lavar los platos", R.drawable.apadea_dientes);
             script.getSlides().add(new Slide("0", "Primero....", 0));
             script.getSlides().add(new Slide("1", "Segundo....", 0));
