@@ -53,6 +53,7 @@
     <string name="editor_take_photo">TOMAR FOTO</string>
     <string name="editor_pick_photo">ELEGIR FOTO</string>
     <string name="editor_add_button">add_button</string>
+    <string name="script_select_add">GUARDAR</string>
     <string name="script_select_remove">BORRAR</string>
 
     <string name="popupmenu_edit">EDITAR</string>

@@ -32,7 +32,18 @@
         style="@style/Text.Body.Big"
         />
 
-    <TextView
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_screenplay_edit"
+            android:id="@+id/start_edit_button"
+            android:layout_gravity="right"
+            android:visibility="visible"
+            style="@style/Button.Flat"
+
+            />
+
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -49,17 +60,6 @@
         android:layout_marginTop="@dimen/margin_xxlarge"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_screenplay_edit"
-            android:id="@+id/start_edit_button"
-            android:layout_gravity="right"
-            android:visibility="visible"
-            style="@style/Button.Flat"
-
-            />
 
     </LinearLayout>
 

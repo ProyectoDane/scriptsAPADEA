@@ -11,34 +11,42 @@ public class Slide implements Serializable {
     public static final int ONLY_IMAGE = 1;
     public static final int IMAGE_TEXT = 2;
 
-
-    private String id;
-    private int image = 0;
+    private long id;
+    private String image;
     private String urlImage;
+
+    private int resImage;
     private String text;
     private int type = 0x110;
 
-
-
-    public Slide(String id, String text, int image) {
+    public Slide(long id, String text, String image) {
         this.id = id;
         this.image = image;
         this.text = text;
     }
 
-    public Slide(String id, String urlImage, String text,int type) {
+    public Slide(long id, String urlImage, String text, int type) {
         this.id = id;
         this.urlImage = urlImage;
         this.text = text;
         this.type = type;
     }
 
+    public Slide(long id, String text, int image) {
+        this.id = id;
+        this.resImage = image;
+        this.text = text;
+    }
 
-    public String getId() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -52,5 +60,13 @@ public class Slide implements Serializable {
 
     public String getUrlImage() {
         return urlImage;
+    }
+
+    public boolean isResourceAvatar() {
+        return resImage != 0;
+    }
+
+    public int getResImage() {
+        return resImage;
     }
 }

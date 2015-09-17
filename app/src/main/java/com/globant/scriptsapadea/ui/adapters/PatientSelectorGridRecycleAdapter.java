@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.globant.scriptsapadea.ui.fragments.PatientListFragment;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -59,10 +61,19 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
     public void onBindViewHolder(PatientViewHolder patientViewHolder, int position) {
         runAnimation(patientViewHolder.itemView, position);
 
-        // TODO Image will not be a resource
-        Picasso.with(context).load((patientList.get(position).getAvatar())).transform(new CropCircleTransformation())
-                .into(patientViewHolder.vImageAvatar);
+        Patient patient = patientList.get(position);
+        if (patient.isResourceAvatar()) {
+            Picasso.with(context).load(patient.getResAvatar()).error(R.drawable.teayudo_usuario)
+                    .transform(new CropCircleTransformation())
+                    .into(patientViewHolder.vImageAvatar);
+        } else {
+            Picasso.with(context).load(new File(patient.getAvatar())).error(R.drawable.teayudo_usuario)
+                    .transform(new CropCircleTransformation())
+                    .into(patientViewHolder.vImageAvatar);
+        }
+
         patientViewHolder.vNamePatient.setText(patientList.get(position).getName());
+        // TODO only en el primer element
         patientViewHolder.vTextLeyend.setText(R.string.default_script_example);
     }
 
@@ -160,14 +171,19 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vEditButtonAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO Navigate to Edit View
+                // TODO Navigate to Edit View
                 }
             });
 
             vRemoveButtonAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO Remove this Patient
+                    Patient selectedPatient = patientList.get(getPosition());
+                    if (selectedPatient != null) {
+                        mListener.deletePatient(selectedPatient);
+                    } else {
+                        Log.e("ERROR", "Selected patient for delete was null.");
+                    }
                 }
             });
 

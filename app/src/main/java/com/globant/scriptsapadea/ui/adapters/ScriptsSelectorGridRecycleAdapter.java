@@ -18,7 +18,9 @@ import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.views.SSPopupMenuWindow;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -56,9 +58,10 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     public void onBindViewHolder(ContactViewHolder contactViewHolder, int position) {
         runAnimation(contactViewHolder.itemView, position);
 
-        contactViewHolder.vImageAvatar.setImageResource(R.drawable.canilla);
-        contactViewHolder.vNameAvatar.setText(scriptList.get(position).getName());
-        // TODO asign images to viewHolder
+        Script script = scriptList.get(position);
+        Picasso.with(context).load(new File(script.getImageScripts())).error(R.drawable.teayudo_usuario)
+                .into(contactViewHolder.vImageAvatar);
+        contactViewHolder.vNameAvatar.setText(script.getName());
     }
 
     private void runAnimation(View viewToAnimate, int position) {

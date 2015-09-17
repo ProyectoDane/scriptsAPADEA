@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.software.shell.fab.ActionButton;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 /**
  * Created by nicolas.quartieri
@@ -39,8 +43,14 @@ public class SliderFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.slider_layout, container, false);
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
-        if (slide.getImage() != 0) {
-            imgCard.setImageResource(slide.getImage());
+        if (slide.isResourceAvatar()) {
+            Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
+                    .transform(new CropCircleTransformation())
+                    .into(imgCard);
+        } else {
+            Picasso.with(getActivity()).load(new File(slide.getImage())).error(R.drawable.teayudo_usuario)
+                    .transform(new CropCircleTransformation())
+                    .into(imgCard);
         }
 
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);

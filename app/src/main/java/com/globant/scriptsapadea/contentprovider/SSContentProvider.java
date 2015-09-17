@@ -14,7 +14,8 @@ public class SSContentProvider extends ContentProvider {
 
 	private SQLiteHelper mDBHelper;
 	private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-	private static final Uri BASE_CONTENT_URI = Uri.parse("content://com.globant.scriptsapadea.contentprovider");
+	private static final String PROVIDER = "com.globant.scriptsapadea.contentprovider";
+	private static final Uri BASE_CONTENT_URI = Uri.parse("content://" + PROVIDER);
 	public  static final Uri CONTENT_URI;
 	private static final int ALL = 10;
 	private static final int SINGLE_ID = 15;

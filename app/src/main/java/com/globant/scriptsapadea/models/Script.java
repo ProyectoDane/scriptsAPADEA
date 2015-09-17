@@ -1,7 +1,5 @@
 package com.globant.scriptsapadea.models;
 
-import com.globant.scriptsapadea.R;
-
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,42 +9,66 @@ import java.util.List;
  */
 public class Script implements Serializable {
 
-    private String id;
-    private List<Slide> slides = new LinkedList<Slide>();
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    private long id;
     private String name;
-    private int image;
+    private String image;
 
+    private int resImage;
 
-    public Script(String id, String name, int image) {
+    private List<Slide> slides = new LinkedList<Slide>();
+
+    public Script(long id, String name, String image) {
         this.id = id;
         this.name = name;
         this.image = image;
+    }
+
+    public Script(long id, String name, int resImage) {
+        this.id = id;
+        this.name = name;
+        this.resImage = resImage;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public int getImageScripts() {
+    public String getImageScripts() {
         return image;
+    }
+
+    public void setSlides(List<Slide> slides) {
+        this.slides = slides;
     }
 
     public List<Slide> getSlides() {
         return slides;
     }
 
+    public boolean isResourceAvatar() {
+        return resImage != 0;
+    }
+
+    public int getResImage() {
+        return resImage;
+    }
+
     public static List<Script> fetchAllScripts(String idPacient) {
         // TODO get all scripts from idPacient
         LinkedList listScript = new LinkedList<Script>();
-        listScript.add(new Script("0", "Pepe", R.drawable.apadea_dientes));
-        listScript.add(new Script("1", "Juan", R.drawable.apadea_dientes));
-        listScript.add(new Script("2", "Marcelo", R.drawable.apadea_dientes));
-        listScript.add(new Script("3", "Pepe", R.drawable.apadea_dientes));
-        listScript.add(new Script("4", "Juan", R.drawable.apadea_dientes));
+        listScript.add(new Script(0, "Pepe", null));
+        listScript.add(new Script(1, "Juan", null));
+        listScript.add(new Script(2, "Marcelo", null));
+        listScript.add(new Script(2, "Pepe", null));
+        listScript.add(new Script(4, "Juan", null));
 
         return listScript;
     }

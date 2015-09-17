@@ -54,7 +54,7 @@ public class ScriptsSelectorGridAdapter extends ArrayAdapter<Script> {
 
         Script script = getItem(position);
 
-        if (script.getId() == null) {
+        if (script.getId() == 0) {
             holder.name.setText(R.string.default_script_name);
             CropCircleTransformation circleTransformation = new CropCircleTransformation();
             Picasso.with(this.context).load(R.drawable.ic_launcher).transform(circleTransformation).into(holder.imageView);

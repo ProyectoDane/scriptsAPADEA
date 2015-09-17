@@ -16,10 +16,15 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.PatientSelectorGridRecycleAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by nicolas.quartieri
@@ -32,6 +37,9 @@ public class PatientListFragment extends BaseFragment {
     private PatientSelectorGridRecycleAdapter adapter;
 
     private PatientListFragmentListener mListener;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     @Override
     public void onAttach(Activity activity) {
@@ -48,6 +56,29 @@ public class PatientListFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_principal_view, container, false);
+
+        mDBHelper.deleteDataBase();
+
+        //loadFirstExample();
+
+        // Test DB
+        /*
+        Patient patientJuan = new Patient("0", "Juan", R.drawable.avatar_placeholder);
+        mDBHelper = new SQLiteHelper(getActivity());
+        mDBHelper.createPatient(patientJuan);
+        List<Patient> pacientes =  mDBHelper.getAllPatients();
+        if (pacientes.isEmpty()) {
+            Log.i("INFO", "Lista vacia");
+        } else {
+            Log.i("INFO", "Lista llena");
+
+            int size = pacientes.size();
+            for (int i = 0 ; i < size ; i++) {
+                Patient paciente = pacientes.get(i);
+                Log.i("INFO", paciente.getId() + " " + paciente.getName() + " " + paciente.getAvatar());
+            }
+        }
+        */
 
         setHasOptionsMenu(true);
 
@@ -104,7 +135,8 @@ public class PatientListFragment extends BaseFragment {
 
         patientList.clear();
         // TODO create injectable id or pacient
-        patientList = Patient.fetchAllPatients(null);
+        //patientList = Patient.fetchAllPatients(getActivity().getContentResolver(), null);
+        patientList = mDBHelper.getAllPatients();
 
         if (patientList != null && !patientList.isEmpty()) {
             adapter = new PatientSelectorGridRecycleAdapter(patientList, getActivity());
@@ -125,5 +157,32 @@ public class PatientListFragment extends BaseFragment {
     public interface PatientListFragmentListener {
         void onNavigateToCreateNewPatient();
         void onNavigateToPatient(Patient patient);
+        void deletePatient(Patient patient);
+    }
+
+    private void loadFirstExample() {
+        List<Patient> listScript = new LinkedList<Patient>();
+/*
+        Patient patientJuan = new Patient(0, "Juan", getRealPathFromResId(getActivity(), R.drawable.avatar_placeholder));
+        Script scriptJuan = new Script(0, "Lavar los platos", getRealPathFromResId(getActivity(), R.drawable.ic_launcher));
+        scriptJuan.getSlides().add(new Slide(0, "Primero....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
+        scriptJuan.getSlides().add(new Slide(1, "Segundo....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
+        scriptJuan.getSlides().add(new Slide(2, "Tercero....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
+*/
+        Patient patientApadea = new Patient(0, "APADEA", R.drawable.teayudo_usuario);
+
+        Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes);
+        script.getSlides().add(new Slide(0, "Primero....", R.drawable.cepillo));
+        script.getSlides().add(new Slide(1, "Segundo....", R.drawable.cepillo));
+        script.getSlides().add(new Slide(2, "Tercero....", R.drawable.cepillo));
+        patientApadea.getScriptList().add(script);
+
+        Script scriptPepe = new Script(0, "Lavar los platos", R.drawable.apadea_dientes);
+        scriptPepe.getSlides().add(new Slide(0, "Primero....", R.drawable.cepillo));
+        scriptPepe.getSlides().add(new Slide(1, "Segundo....", R.drawable.cepillo));
+        scriptPepe.getSlides().add(new Slide(2, "Tercero....", R.drawable.cepillo));
+        patientApadea.getScriptList().add(scriptPepe);
+
+        mDBHelper.createPatient(patientApadea);
     }
 }

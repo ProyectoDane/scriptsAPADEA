@@ -31,6 +31,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
+
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
     private String imageGalleryUrl;
@@ -78,7 +79,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                 PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
             }
         });
-        screenPlayEditorManager.addSlide(new Slide(getString(R.string.editor_add_button), getString(R.string.editor_add_button), 0));
+        screenPlayEditorManager.addSlide(new Slide(0, getString(R.string.editor_add_button), getString(R.string.editor_add_button), 0));
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
@@ -118,15 +119,15 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private void addSlideInAdapter(int position, EditText slideDesc) {
         if (position == INITIAL_POSITION) {
             if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.IMAGE_TEXT);
+                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.IMAGE_TEXT);
                 screenPlayEditorManager.addSlide(slide);
 
             } else if (!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_IMAGE);
+                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_IMAGE);
                 screenPlayEditorManager.addSlide(slide);
 
             } else if (!TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide("slide " + (position + 1), imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_TEXT);
+                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_TEXT);
                 screenPlayEditorManager.addSlide(slide);
             } else {
             }
@@ -138,10 +139,16 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             Slide slide = screenPlayEditorManager.getSlide(position);
             if (slide != null) {
                 slideDesc.setText(slide.getText());
-                if (!TextUtils.isEmpty(slide.getUrlImage())) {
+                if (slide.isResourceAvatar()) {
                     Picasso.with(getActivity())
-                            .load(new File(slide.getUrlImage()))
+                            .load(slide.getResImage())
                             .into(slideImage);
+                } else {
+                    if (!TextUtils.isEmpty(slide.getUrlImage())) {
+                        Picasso.with(getActivity())
+                                .load(new File(slide.getUrlImage()))
+                                .into(slideImage);
+                    }
                 }
             }
         }

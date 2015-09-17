@@ -25,7 +25,6 @@ public abstract class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //We cant inject views on lib project, so we wont use RoboFragment
         RoboGuice.getInjector(getActivity()).injectMembersWithoutViews(this);
-
     }
 
     @Override
