@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Slide;
-import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.software.shell.fab.ActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -45,11 +44,9 @@ public class SliderFragment extends BaseFragment {
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
         if (slide.isResourceImage()) {
             Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
-                    .transform(new CropCircleTransformation())
                     .into(imgCard);
         } else {
             Picasso.with(getActivity()).load(new File(slide.getUrlImage())).error(R.drawable.teayudo_usuario)
-                    .transform(new CropCircleTransformation())
                     .into(imgCard);
         }
 

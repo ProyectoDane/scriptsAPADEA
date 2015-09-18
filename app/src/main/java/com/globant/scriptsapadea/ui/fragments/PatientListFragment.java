@@ -59,7 +59,6 @@ public class PatientListFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_principal_view, container, false);
 
         //mDBHelper.deleteDataBase();
-        //loadFirstExample();
 
         setHasOptionsMenu(true);
 
@@ -106,6 +105,11 @@ public class PatientListFragment extends BaseFragment {
         // TODO create injectable id or pacient
         //patientList = Patient.fetchAllPatients(getActivity().getContentResolver(), null);
         patientList = mDBHelper.getAllPatients();
+
+        if (patientList.size() == 0) {
+            loadFirstExample();
+            patientList = mDBHelper.getAllPatients();
+        }
 
         // TODO this must became from a XML animation file
         WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
