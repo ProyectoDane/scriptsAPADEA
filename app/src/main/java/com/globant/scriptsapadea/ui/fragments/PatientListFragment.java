@@ -36,6 +36,7 @@ public class PatientListFragment extends BaseFragment {
     private View welcomePanel;
     private RecyclerView mPatientView;
     private PatientSelectorGridRecycleAdapter adapter;
+    private LinearLayoutManager patientLayoutManager;
 
     private PatientListFragmentListener mListener;
 
@@ -72,10 +73,10 @@ public class PatientListFragment extends BaseFragment {
 
         mPatientView = (RecyclerView) view.findViewById(R.id.grid_patient);
         mPatientView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        mPatientView.setLayoutManager(llm);
+        patientLayoutManager = new LinearLayoutManager(getActivity());
+        mPatientView.setLayoutManager(patientLayoutManager);
 
-        adapter = new PatientSelectorGridRecycleAdapter(patientList, getActivity());
+        adapter = new PatientSelectorGridRecycleAdapter(patientList, this);
         mPatientView.setAdapter(adapter);
 
         if (savedInstanceState != null) {
@@ -127,7 +128,7 @@ public class PatientListFragment extends BaseFragment {
         }
 
         if (patientList != null && !patientList.isEmpty()) {
-            adapter = new PatientSelectorGridRecycleAdapter(patientList, getActivity());
+            adapter = new PatientSelectorGridRecycleAdapter(patientList, this);
             mPatientView.setAdapter(adapter);
         }
 
@@ -145,7 +146,6 @@ public class PatientListFragment extends BaseFragment {
     public interface PatientListFragmentListener {
         void onNavigateToCreateNewPatient();
         void onNavigateToPatient(Patient patient);
-        void deletePatient(Patient patient);
     }
 
     private void loadFirstExample() {

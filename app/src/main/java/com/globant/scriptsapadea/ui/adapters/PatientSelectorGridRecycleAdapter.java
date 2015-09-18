@@ -1,6 +1,5 @@
 package com.globant.scriptsapadea.ui.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.support.v4.view.ViewCompat;
@@ -30,7 +29,7 @@ import java.util.List;
  */
 public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<PatientSelectorGridRecycleAdapter.PatientViewHolder> {
 
-    private final Context context;
+    private final PatientListFragment context;
     private PatientListFragment.PatientListFragmentListener mListener;
 
     private static List<Patient> patientList;
@@ -44,10 +43,10 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
     private boolean animateItems = true;
     private static int screenHeight = 0;
 
-    public PatientSelectorGridRecycleAdapter(List<Patient> patientList, Activity context) {
+    public PatientSelectorGridRecycleAdapter(List<Patient> patientList, PatientListFragment context) {
         this.patientList = patientList;
         this.context = context;
-        this.mListener = (PatientListFragment.PatientListFragmentListener) context;
+        this.mListener = (PatientListFragment.PatientListFragmentListener) context.getActivity();
     }
 
     @Override
@@ -63,11 +62,11 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
         Patient patient = patientList.get(position);
         if (patient.isResourceAvatar()) {
-            Picasso.with(context).load(patient.getResAvatar()).error(R.drawable.teayudo_usuario)
+            Picasso.with(context.getActivity()).load(patient.getResAvatar()).error(R.drawable.teayudo_usuario)
                     .transform(new CropCircleTransformation())
                     .into(patientViewHolder.vImageAvatar);
         } else {
-            Picasso.with(context).load(new File(patient.getAvatar())).error(R.drawable.teayudo_usuario)
+            Picasso.with(context.getActivity()).load(new File(patient.getAvatar())).error(R.drawable.teayudo_usuario)
                     .transform(new CropCircleTransformation())
                     .into(patientViewHolder.vImageAvatar);
         }
@@ -94,7 +93,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             if (patientList.size() == 1) {
                 yPosition = 400;
             }
-            viewToAnimate.setTranslationY(getScreenHeight(context));
+            viewToAnimate.setTranslationY(getScreenHeight(context.getActivity()));
             viewToAnimate.animate()
                     .translationY(yPosition)
                     .setInterpolator(new DecelerateInterpolator(3.f))
@@ -180,7 +179,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
                 public void onClick(View v) {
                     Patient selectedPatient = patientList.get(getPosition());
                     if (selectedPatient != null) {
-                        mListener.deletePatient(selectedPatient);
+                        removeAt(getPosition());
                     } else {
                         Log.e("ERROR", "Selected patient for delete was null.");
                     }
@@ -191,6 +190,12 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
             // TODO Find a way to decouple this
             v.setOnClickListener(this);
+        }
+
+        public void removeAt(int position) {
+            patientList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(getPosition(), patientList.size());
         }
 
         @Override

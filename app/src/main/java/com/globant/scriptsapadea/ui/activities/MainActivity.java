@@ -47,9 +47,4 @@ public class MainActivity extends BaseActivity implements PatientListFragment.Pa
     public void onNavigateToPatient(Patient patient) {
         navigator.to(ScriptSelectorActivity.createIntent(this, patient)).withAnimations(new SlidingUpAnimation()).navigate();
     }
-
-    @Override
-    public void deletePatient(Patient patient) {
-        mDBHelper.deletePatient(patient);
-    }
 }
