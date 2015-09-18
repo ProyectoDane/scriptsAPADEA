@@ -59,5 +59,6 @@
     <string name="popupmenu_edit">EDITAR</string>
     <string name="popupmenu_remove">ELIMINAR</string>
     <string name="popupmenu_copy">COPIAR</string>
+    <string name="hint_leyend">TEXTO</string>
 
 </resources>

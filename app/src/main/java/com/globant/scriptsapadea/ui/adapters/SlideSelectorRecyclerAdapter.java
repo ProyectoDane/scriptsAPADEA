@@ -58,16 +58,18 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
                     TextViewHolder textViewHolder = (TextViewHolder)holder;
                     textViewHolder.text.setText(slide.getText());
                     break;
+
                 case Slide.ONLY_IMAGE:
                     ImageViewHolder imageViewHolder = (ImageViewHolder)holder;
-                    showSlideImage(imageViewHolder.imageView.getContext(),slide.getUrlImage(),imageViewHolder.imageView);
+                    showSlideImage(imageViewHolder.imageView.getContext(), slide, imageViewHolder.imageView);
 
                     break;
                 case Slide.IMAGE_TEXT:
                     ImageAndTextViewHolder imageAndTextViewHolder = (ImageAndTextViewHolder)holder;
-                    showSlideImage(imageAndTextViewHolder.slideImage.getContext(),slide.getUrlImage(),imageAndTextViewHolder.slideImage);
+                    showSlideImage(imageAndTextViewHolder.slideImage.getContext(), slide, imageAndTextViewHolder.slideImage);
                     imageAndTextViewHolder.slideDesc.setText(slide.getText());
                     break;
+
                 default:
                     break;
             }
@@ -92,10 +94,16 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         }
     }
 
-    private void showSlideImage(Context context, String urlImage, ImageView imageContainer) {
-        Picasso.with(context)
-                .load(new File(urlImage))
-                .into(imageContainer);
+    private void showSlideImage(Context context, Slide slide, ImageView imageContainer) {
+        if (slide.isResourceImage()) {
+            Picasso.with(context)
+                    .load(slide.getResImage())
+                    .into(imageContainer);
+        } else {
+            Picasso.with(context)
+                    .load(new File(slide.getUrlImage()))
+                    .into(imageContainer);
+        }
     }
 
     public class TextViewHolder extends CommonViewHolder {

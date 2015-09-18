@@ -26,14 +26,12 @@
         android:layout_height="wrap_content"
         android:text="@string/script_select_add"
         android:id="@+id/next_button"
-
+        android:visibility="gone"
         />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,6 +42,7 @@
             android:orientation="horizontal"
             android:background="@drawable/editor_border_drawable"
             >
+
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -64,7 +63,7 @@
                     android:layout_height="wrap_content"
                     tools:text="@string/editor_pick_photo"
                     android:text="@string/editor_pick_photo"
-                    android:drawableTop="@drawable/ic_launcher"
+                    android:drawableTop="@drawable/elegir_foto"
                     android:gravity="center"
                     android:layout_margin="@dimen/margin_medium"
                     android:id="@+id/editor_gallery"
@@ -81,7 +80,7 @@
                     android:layout_height="wrap_content"
                     tools:text="@string/editor_take_photo"
                     android:text="@string/editor_take_photo"
-                    android:drawableTop="@drawable/ic_launcher"
+                    android:drawableTop="@drawable/elegir_foto_camara"
                     android:gravity="center"
                     android:layout_margin="@dimen/margin_medium"
                     android:id="@+id/editor_camera"
@@ -101,7 +100,7 @@
             android:id="@+id/editor_slide_text"
             android:paddingLeft="@dimen/margin_xxlarge"
             android:background="@drawable/editor_border_drawable"
-            />
+            android:hint="@string/hint_leyend" />
 
     </RelativeLayout>
 </LinearLayout>

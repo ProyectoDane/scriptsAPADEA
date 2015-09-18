@@ -60,11 +60,11 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
         slidePicture = (ImageView) view.findViewById(R.id.screenplay_slide_image);
         final EditText slideDesc = (EditText) view.findViewById(R.id.editor_slide_text);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
+        slidesListView.setHasFixedSize(true);
+        slidesListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
-        recyclerView.setAdapter(slideSelectorRecyclerAdapter);
+        slidesListView.setAdapter(slideSelectorRecyclerAdapter);
 
         view.findViewById(R.id.editor_gallery).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                 PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
             }
         });
-        screenPlayEditorManager.addSlide(new Slide(0, getString(R.string.editor_add_button), getString(R.string.editor_add_button), 0));
+        screenPlayEditorManager.addSlide(new Slide(0, R.drawable.agregar_foto, null, Slide.ONLY_IMAGE));
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
