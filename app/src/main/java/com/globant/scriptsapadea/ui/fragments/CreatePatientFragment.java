@@ -17,16 +17,16 @@ import com.globant.scriptsapadea.R;
 /**
  * Created by leonel.mendez on 5/8/2015.
  */
-public class ScreenPlayFragment extends BaseFragment {
+public class CreatePatientFragment extends BaseFragment {
 
-   private OnChangeToTakePictureFragmentListener changeToTakePictureFragmentListener;
+    private OnChangePictureFragmentListener listener;
 
     private EditText screenplayName;
-    public static final String PATIENT_NAME = "patientname";
-    public static final String IS_CREATING_SCREENPLAY = "is_creating_guion";
 
-    public static ScreenPlayFragment newInstance(Bundle args){
-        ScreenPlayFragment screenPlayFragment = new ScreenPlayFragment();
+    public static final String PATIENT_NAME = "patientname";
+
+    public static CreatePatientFragment newInstance(Bundle args){
+        CreatePatientFragment screenPlayFragment = new CreatePatientFragment();
         screenPlayFragment.setArguments(args);
         return screenPlayFragment;
     }
@@ -40,9 +40,9 @@ public class ScreenPlayFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(getArguments() != null){
-            setScreenPlayPanelConfiguration(getArguments().getBoolean(IS_CREATING_SCREENPLAY),view);
-        }
+        final TextView panelType = (TextView) view.findViewById(R.id.whose_is_screenplay_text);
+        panelType.setText(getString(R.string.what_is_person_name));
+
         screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
@@ -52,9 +52,8 @@ public class ScreenPlayFragment extends BaseFragment {
             public void onClick(View v) {
                 Bundle takePictureArgs = new Bundle();
                 takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
-                takePictureArgs.putBoolean(IS_CREATING_SCREENPLAY, getArguments() != null);
 
-               changeToTakePictureFragmentListener.onChangeToTakePictureFragment(ChoosePictureFragment.newInstance(takePictureArgs));
+                listener.onChangePictureFragment(ChoosePatientPictureFragment.newInstance(takePictureArgs));
             }
         });
     }
@@ -64,7 +63,7 @@ public class ScreenPlayFragment extends BaseFragment {
         super.onAttach(activity);
 
         try {
-            changeToTakePictureFragmentListener = (OnChangeToTakePictureFragmentListener) activity;
+            listener = (OnChangePictureFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.getLocalClassName() +  "must be implements OnScreenplayChangeFragmentListener");
         }
@@ -94,16 +93,7 @@ public class ScreenPlayFragment extends BaseFragment {
         });
     }
 
-    private void setScreenPlayPanelConfiguration(boolean isCreatingScreenPlay,View mainContainer){
-        TextView panelType = (TextView)mainContainer.findViewById(R.id.whose_is_screenplay_text);
-        if(isCreatingScreenPlay){
-            panelType.setText(getString(R.string.what_is_guion_name_text));
-        }else{
-            panelType.setText(getString(R.string.what_is_person_name));
-        }
-    }
-
-    public interface OnChangeToTakePictureFragmentListener{
-            void onChangeToTakePictureFragment(Fragment fragment);
+    public interface OnChangePictureFragmentListener {
+        void onChangePictureFragment(Fragment fragment);
     }
 }

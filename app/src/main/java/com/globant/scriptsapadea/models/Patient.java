@@ -1,6 +1,6 @@
 package com.globant.scriptsapadea.models;
 
-import com.globant.scriptsapadea.R;
+import android.content.Context;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -11,19 +11,30 @@ import java.util.List;
  */
 public class Patient implements Serializable {
 
-    private String id;
+    private long id;
     private String name;
-    private int avatar;
+    private String avatar;
+    private int resAvatar;
+
     private List<Script> scriptList = new LinkedList<Script>();
 
-
-    public Patient(String id, String name, int avatar) {
+    public Patient(long id, String name, String avatar) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
     }
 
-    public String getId() {
+    public Patient(long id, String name, int avatar) {
+        this.id = id;
+        this.name = name;
+        this.resAvatar = avatar;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
         return id;
     }
 
@@ -31,7 +42,7 @@ public class Patient implements Serializable {
         return name;
     }
 
-    public int getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
@@ -43,14 +54,24 @@ public class Patient implements Serializable {
         this.scriptList = scriptList;
     }
 
+    public boolean isResourceAvatar() {
+        return avatar == null;
+    }
+
+    public int getResAvatar() {
+        return resAvatar;
+    }
+
     // TODO Mocked services
-    public static List<Patient> fetchAllPatients(String idPatient) {
+    public static List<Patient> fetchAllPatients(Context context, String idPatient) {
+
 		// TODO Remove this
         List<Patient> listScript = new LinkedList<Patient>();
 
         if (idPatient == null) {
             // TODO Retrieve ALL Patients from DB
-            Patient patientJuan = new Patient("0", "Juan", R.drawable.avatar_placeholder);
+            /*
+            Patient patientJuan = new Patient("0", "Juan", resIdToUri(context, R.drawable.avatar_placeholder));
             Script scriptJuan = new Script("0", "Lavar los platos", R.drawable.ic_launcher);
             scriptJuan.getSlides().add(new Slide("0", "Primero....", 0));
             scriptJuan.getSlides().add(new Slide("1", "Segundo....", 0));
@@ -69,6 +90,7 @@ public class Patient implements Serializable {
             patientApadea.getScriptList().add(scriptPepe);
 
             listScript.add(patientApadea);
+            */
             //listScript.add(patientJuan);
         } else {
             // TODO Retrieve from DB

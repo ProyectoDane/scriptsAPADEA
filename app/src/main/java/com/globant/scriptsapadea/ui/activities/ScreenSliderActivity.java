@@ -72,8 +72,16 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         txtScriptName.setText(script.getName());
 
         ImageView imgProfile = (ImageView) findViewById(R.id.img_profile);
-        Picasso.with(getApplication()).load(script.getImageScripts()).placeholder(R.drawable.avatar_placeholder).transform(new CropCircleTransformation())
-                .into(imgProfile);
+
+        if (script.isResourceImage()) {
+            Picasso.with(getApplication()).load(script.getResImage()).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imgProfile);
+        } else {
+            Picasso.with(getApplication()).load(script.getImageScripts()).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imgProfile);
+        }
 
         initActionBar(getApplicationContext());
         initViewPager(getApplicationContext());

@@ -3,9 +3,7 @@ package com.globant.scriptsapadea.ui.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +13,31 @@ import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
+import com.globant.scriptsapadea.manager.PatientManager;
+import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by leonel.mendez on 5/19/2015.
  */
-public class ChoosePictureFragment extends BaseFragment {
+public class ChooseScriptPictureFragment extends BaseFragment {
 
     private static final int GALLERY = 0x001;
     private static final int CAMERA = 0x010;
-    private OnShowPictureFragmentListener showPictureFragmentListener;
 
-    public static ChoosePictureFragment newInstance(Bundle args) {
-        ChoosePictureFragment fragment = new ChoosePictureFragment();
+    private OnShowScriptPictureFragmentListener listener;
+
+    @Inject
+    private PatientManager patientManager;
+
+    public static ChooseScriptPictureFragment newInstance(Bundle args) {
+        ChooseScriptPictureFragment fragment = new ChooseScriptPictureFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -37,9 +46,9 @@ public class ChoosePictureFragment extends BaseFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            showPictureFragmentListener = (OnShowPictureFragmentListener) activity;
+            listener = (OnShowScriptPictureFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnSetPictureFragmentImageListener");
+            throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnShowScriptPictureFragmentListener");
         }
     }
 
@@ -50,7 +59,7 @@ public class ChoosePictureFragment extends BaseFragment {
         TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
 
         if (getArguments() != null) {
-            String name = getArguments().getString(ScreenPlayFragment.PATIENT_NAME);
+            String name = getArguments().getString(CreatePatientFragment.PATIENT_NAME);
             txtPatientName.setText(name);
         }
 
@@ -58,7 +67,7 @@ public class ChoosePictureFragment extends BaseFragment {
         pickPhotoGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PictureUtils.pickPhotoFromGallery(ChoosePictureFragment.this,GALLERY);
+                PictureUtils.pickPhotoFromGallery(ChooseScriptPictureFragment.this,GALLERY);
             }
         });
 
@@ -66,7 +75,7 @@ public class ChoosePictureFragment extends BaseFragment {
         takePhotoCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PictureUtils.takePhotoFromCamera(ChoosePictureFragment.this,CAMERA);
+                PictureUtils.takePhotoFromCamera(ChooseScriptPictureFragment.this,CAMERA);
             }
         });
 
@@ -83,29 +92,31 @@ public class ChoosePictureFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle imageArguments = new Bundle();
-        imageArguments.putString(ScreenPlayFragment.PATIENT_NAME, getArguments().getString(ScreenPlayFragment.PATIENT_NAME));
+
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
-                imageArguments.putString(ShowPictureFragment.SCREENPLAY_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
-                imageArguments.putBoolean(ShowPictureFragment.PICTURE_FROM_CAMERA, false);
-                imageArguments.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,getArguments().getBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,false));
-                showPictureFragmentListener.onShowPictureFragment(ShowPictureFragment.newInstance(imageArguments));
+                imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
+
+                List<Script> list = new ArrayList<>();
+                list.add(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                        PictureUtils.getImagePath(getActivity(), data.getData())));
+
+                patientManager.getSelectedPactient().setScriptList(list);
+
+                listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
         } else {
             if (data != null && data.getExtras() != null) {
                 // TODO: Create folder to save images from camera
-                imageArguments.putParcelable(ShowPictureFragment.SCREENPLAY_IMAGE, ((Bitmap) data.getExtras().get("data")));
-                imageArguments.putBoolean(ShowPictureFragment.PICTURE_FROM_CAMERA, true);
-                imageArguments.putBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,getArguments().getBoolean(ScreenPlayFragment.IS_CREATING_SCREENPLAY,false));
-                showPictureFragmentListener.onShowPictureFragment(ShowPictureFragment.newInstance(imageArguments));
+                imageArguments.putParcelable(ShowPatientPictureFragment.PATIENT_IMAGE, ((Bitmap) data.getExtras().get("data")));
+
+                listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
         }
     }
 
 
-
-
-    public interface OnShowPictureFragmentListener{
-        void onShowPictureFragment(Fragment fragment);
+    public interface OnShowScriptPictureFragmentListener{
+        void onShowScriptPictureFragment(Fragment fragment);
     }
 }

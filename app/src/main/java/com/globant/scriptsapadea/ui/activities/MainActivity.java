@@ -6,7 +6,10 @@ import android.support.v7.widget.Toolbar;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.fragments.PatientListFragment;
+
+import javax.inject.Inject;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -20,13 +23,16 @@ public class MainActivity extends BaseActivity implements PatientListFragment.Pa
     @InjectView(R.id.toolbar_actionbar)
     private Toolbar toolbar;
 
+    @Inject
+    private SQLiteHelper mDBHelper;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // TODO Place in BaseActivity
         setSupportActionBar(toolbar);
-        
+
         if (savedInstanceState == null) {
             navigator.to(new PatientListFragment()).noPush().navigate();
         }
@@ -34,7 +40,7 @@ public class MainActivity extends BaseActivity implements PatientListFragment.Pa
 
     @Override
     public void onNavigateToCreateNewPatient() {
-        navigator.to(ScreenPlayActivity.createIntent(this)).withAnimations(new SlidingUpAnimation()).navigate();
+        navigator.to(CreatePatientActivity.createIntent(this)).withAnimations(new SlidingUpAnimation()).navigate();
     }
 
     @Override
