@@ -73,7 +73,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
         ImageView imgProfile = (ImageView) findViewById(R.id.img_profile);
 
-        if (script.isResourceAvatar()) {
+        if (script.isResourceImage()) {
             Picasso.with(getApplication()).load(script.getResImage()).placeholder(R.drawable.avatar_placeholder).transform(new CropCircleTransformation())
                     .into(imgProfile);
         } else {

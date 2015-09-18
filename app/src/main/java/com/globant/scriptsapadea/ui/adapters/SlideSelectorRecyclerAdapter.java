@@ -1,10 +1,8 @@
 package com.globant.scriptsapadea.ui.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +12,9 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
 import com.globant.scriptsapadea.models.Slide;
-import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
-import java.net.CookieHandler;
 
 /**
  * Created by leonel.mendez on 6/26/2015.
@@ -98,13 +92,13 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         }
     }
 
-    private void showSlideImage(Context context,String urlImage,ImageView imageContainer){
+    private void showSlideImage(Context context, String urlImage, ImageView imageContainer) {
         Picasso.with(context)
                 .load(new File(urlImage))
                 .into(imageContainer);
     }
 
-    public class TextViewHolder extends CommonViewHolder{
+    public class TextViewHolder extends CommonViewHolder {
         public TextView text;
         public TextViewHolder(View itemView) {
             super(itemView);

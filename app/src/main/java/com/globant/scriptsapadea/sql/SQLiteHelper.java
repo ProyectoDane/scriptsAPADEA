@@ -33,17 +33,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     //Patient colum names
     public static final String PATIENT_COLUMN_NAME = "name_patient";
     public static final String PATIENT_COLUMN_AVATAR = "avatar";
+    public static final String PATIENT_COLUMN_IS_RES_AVATAR = "is_res_avatar";
 
     //Script colum names
     public static final String SCRIPT_COLUMN_NAME = "name_script";
     public static final String SCRIPT_COLUMN_IMAGE = "image";
     public static final String SCRIPT_COLUMN_KEY_PATIENT = "patient_id";
+    public static final String SCRIPT_COLUMN_IS_RES_IMAGE = "is_res_image";
 
     //Slide colum names
     public static final String SLIDE_COLUMN_NAME = "name_slide";
     public static final String SLIDE_COLUMN_IMAGE = "image";
     public static final String SLIDE_COLUMN_TYPE = "type";
     public static final String SLIDE_COLUMN_KEY_SCRIPT = "script_id";
+    public static final String SLIDE_COLUMN_IS_RES_IMAGE = "is_res_image";
 
     public static final int DATABASE_VERSION = 1;
 
@@ -58,14 +61,17 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_PATIENT + "(" + PATIENT_ID + " integer primary key autoincrement, " +
                 PATIENT_COLUMN_NAME + " text not null, " +
-                PATIENT_COLUMN_AVATAR + " integer not null ); ");
+                PATIENT_COLUMN_IS_RES_AVATAR + " integer not null, " +
+                PATIENT_COLUMN_AVATAR + " text null ); ");
         db.execSQL("create table " + TABLE_SCRIPT + "(" + SCRIPT_ID + " integer primary key autoincrement, " +
                 SCRIPT_COLUMN_NAME + " text not null, " +
-                SCRIPT_COLUMN_IMAGE + " integer not null, " +
+                SCRIPT_COLUMN_IS_RES_IMAGE + " integer not null, " +
+                SCRIPT_COLUMN_IMAGE + " text null, " +
                 SCRIPT_COLUMN_KEY_PATIENT + " integer null );");
         db.execSQL("create table " + TABLE_SLIDE + "(" + SLIDE_ID + " integer primary key autoincrement, " +
                 SLIDE_COLUMN_NAME + " text not null, " +
-                SLIDE_COLUMN_IMAGE + " integer not null, " +
+                SLIDE_COLUMN_IS_RES_IMAGE + " integer not null, " +
+                SLIDE_COLUMN_IMAGE + " text null, " +
                 SLIDE_COLUMN_TYPE + " integer not null, " +
                 SLIDE_COLUMN_KEY_SCRIPT + " integer null );");
 
@@ -87,7 +93,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(PATIENT_COLUMN_NAME, patient.getName());
-        values.put(PATIENT_COLUMN_AVATAR, patient.getAvatar());
+        if (patient.isResourceAvatar()) {
+            values.put(PATIENT_COLUMN_AVATAR, patient.getResAvatar());
+            values.put(PATIENT_COLUMN_IS_RES_AVATAR, 1);
+        } else {
+            values.put(PATIENT_COLUMN_AVATAR, patient.getAvatar());
+            values.put(PATIENT_COLUMN_IS_RES_AVATAR, 0);
+        }
 
         long patientId = db.insert(TABLE_PATIENT, null, values);
 
@@ -109,7 +121,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(SLIDE_COLUMN_NAME, slide.getText());
-        values.put(SLIDE_COLUMN_IMAGE, slide.getImage());
+        if (slide.isResourceImage()) {
+            values.put(SLIDE_COLUMN_IMAGE, slide.getResImage());
+            values.put(SLIDE_COLUMN_IS_RES_IMAGE, 1);
+        } else {
+            values.put(SLIDE_COLUMN_IMAGE, slide.getUrlImage());
+            values.put(SLIDE_COLUMN_IS_RES_IMAGE, 0);
+        }
+
         values.put(SLIDE_COLUMN_TYPE, slide.getType());
         values.put(SLIDE_COLUMN_KEY_SCRIPT, scriptId);
 
@@ -125,10 +144,24 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(SCRIPT_COLUMN_NAME, script.getName());
-        values.put(SCRIPT_COLUMN_IMAGE, script.getImageScripts());
+        if (script.isResourceImage()) {
+            values.put(SCRIPT_COLUMN_IMAGE, script.getResImage());
+            values.put(SCRIPT_COLUMN_IS_RES_IMAGE, 1);
+        } else {
+            values.put(SCRIPT_COLUMN_IMAGE, script.getImageScripts());
+            values.put(SCRIPT_COLUMN_IS_RES_IMAGE, 0);
+        }
         values.put(SCRIPT_COLUMN_KEY_PATIENT, patientId);
 
         long scriptId = db.insert(TABLE_SCRIPT, null, values);
+
+        List<Slide> slideList = script.getSlides();
+        if (!slideList.isEmpty()) {
+            int scriptListSize = slideList.size();
+            for (int i = 0 ; i < scriptListSize ; i++) {
+                createSlide(slideList.get(i), scriptId);
+            }
+        }
 
         script.setId(scriptId);
 
@@ -151,9 +184,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {
             do {
-                Script script = new Script(c.getLong((c.getColumnIndex(PATIENT_ID))),
-                                        (c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME))),
-                                        (c.getString(c.getColumnIndex(SCRIPT_COLUMN_IMAGE))));
+                Script script;
+                if (c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IS_RES_IMAGE)) == 1) {
+                    script = new Script(c.getLong(c.getColumnIndex(SCRIPT_ID)),
+                                (c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME))),
+                                (c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IMAGE))));
+                } else {
+                    script = new Script(c.getLong(c.getColumnIndex(SCRIPT_ID)),
+                                (c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME))),
+                                (c.getString(c.getColumnIndex(SCRIPT_COLUMN_IMAGE))));
+                }
 
                 scripts.add(script);
             } while (c.moveToNext());
@@ -178,10 +218,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {
             do {
-                Slide slide = new Slide(c.getLong((c.getColumnIndex(SLIDE_ID))),
-                        (c.getString(c.getColumnIndex(SLIDE_COLUMN_IMAGE))),
-                        (c.getString(c.getColumnIndex(SLIDE_COLUMN_NAME))),
-                        (c.getInt(c.getColumnIndex(SLIDE_COLUMN_TYPE))));
+                Slide slide;
+                if (c.getInt(c.getColumnIndex(SLIDE_COLUMN_IS_RES_IMAGE)) == 1) {
+                    slide = new Slide(c.getLong((c.getColumnIndex(SLIDE_ID))),
+                                        (c.getInt(c.getColumnIndex(SLIDE_COLUMN_IMAGE))),
+                                        (c.getString(c.getColumnIndex(SLIDE_COLUMN_NAME))),
+                                        (c.getInt(c.getColumnIndex(SLIDE_COLUMN_TYPE))));
+                } else {
+                    slide = new Slide(c.getLong((c.getColumnIndex(SLIDE_ID))),
+                                        (c.getString(c.getColumnIndex(SLIDE_COLUMN_IMAGE))),
+                                        (c.getString(c.getColumnIndex(SLIDE_COLUMN_NAME))),
+                                        (c.getInt(c.getColumnIndex(SLIDE_COLUMN_TYPE))));
+                }
 
                 slides.add(slide);
             } while (c.moveToNext());
@@ -246,6 +294,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void deleteDataBase() {
         context.deleteDatabase(SQLiteHelper.DATABASE_NAME);
+
+        Log.e("INFO", "DB deleted.");
     }
 
     public int updateScript(Script script) {

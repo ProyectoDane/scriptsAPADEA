@@ -87,7 +87,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
             // TODO
             //imageContainer.setImageBitmap((Bitmap) imageBundle.getParcelable(SCREENPLAY_IMAGE));
         } else {
-            if (script.isResourceAvatar()) {
+            if (script.isResourceImage()) {
                 Picasso.with(getActivity())
                         .load(script.getResImage())
                         .into(imageContainer);

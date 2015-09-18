@@ -43,12 +43,12 @@ public class SliderFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.slider_layout, container, false);
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
-        if (slide.isResourceAvatar()) {
+        if (slide.isResourceImage()) {
             Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
                     .transform(new CropCircleTransformation())
                     .into(imgCard);
         } else {
-            Picasso.with(getActivity()).load(new File(slide.getImage())).error(R.drawable.teayudo_usuario)
+            Picasso.with(getActivity()).load(new File(slide.getUrlImage())).error(R.drawable.teayudo_usuario)
                     .transform(new CropCircleTransformation())
                     .into(imgCard);
         }

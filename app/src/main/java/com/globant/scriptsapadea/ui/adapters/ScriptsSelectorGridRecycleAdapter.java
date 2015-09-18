@@ -59,8 +59,14 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
         runAnimation(contactViewHolder.itemView, position);
 
         Script script = scriptList.get(position);
-        Picasso.with(context).load(new File(script.getImageScripts())).error(R.drawable.teayudo_usuario)
-                .into(contactViewHolder.vImageAvatar);
+        if (script.isResourceImage()) {
+            Picasso.with(context).load(script.getResImage()).error(R.drawable.teayudo_usuario)
+                    .into(contactViewHolder.vImageAvatar);
+        } else {
+            Picasso.with(context).load(new File(script.getImageScripts())).error(R.drawable.teayudo_usuario)
+                    .into(contactViewHolder.vImageAvatar);
+        }
+
         contactViewHolder.vNameAvatar.setText(script.getName());
     }
 

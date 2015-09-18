@@ -16,7 +16,6 @@ public class Script implements Serializable {
     private long id;
     private String name;
     private String image;
-
     private int resImage;
 
     private List<Slide> slides = new LinkedList<Slide>();
@@ -53,8 +52,8 @@ public class Script implements Serializable {
         return slides;
     }
 
-    public boolean isResourceAvatar() {
-        return resImage != 0;
+    public boolean isResourceImage() {
+        return image == null;
     }
 
     public int getResImage() {

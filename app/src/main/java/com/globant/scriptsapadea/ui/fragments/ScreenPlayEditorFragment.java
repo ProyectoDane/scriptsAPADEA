@@ -139,7 +139,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             Slide slide = screenPlayEditorManager.getSlide(position);
             if (slide != null) {
                 slideDesc.setText(slide.getText());
-                if (slide.isResourceAvatar()) {
+                if (slide.isResourceImage()) {
                     Picasso.with(getActivity())
                             .load(slide.getResImage())
                             .into(slideImage);

@@ -12,18 +12,10 @@ public class Slide implements Serializable {
     public static final int IMAGE_TEXT = 2;
 
     private long id;
-    private String image;
     private String urlImage;
-
     private int resImage;
     private String text;
     private int type = 0x110;
-
-    public Slide(long id, String text, String image) {
-        this.id = id;
-        this.image = image;
-        this.text = text;
-    }
 
     public Slide(long id, String urlImage, String text, int type) {
         this.id = id;
@@ -32,10 +24,11 @@ public class Slide implements Serializable {
         this.type = type;
     }
 
-    public Slide(long id, String text, int image) {
+    public Slide(long id, int image, String text, int type) {
         this.id = id;
         this.resImage = image;
         this.text = text;
+        this.type = type;
     }
 
     public void setId(long id) {
@@ -44,10 +37,6 @@ public class Slide implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public String getText() {
@@ -62,8 +51,8 @@ public class Slide implements Serializable {
         return urlImage;
     }
 
-    public boolean isResourceAvatar() {
-        return resImage != 0;
+    public boolean isResourceImage() {
+        return urlImage == null;
     }
 
     public int getResImage() {
