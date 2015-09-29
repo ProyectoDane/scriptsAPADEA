@@ -284,6 +284,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         db.delete(TABLE_PATIENT, PATIENT_ID + " = ?",
                 new String[]{String.valueOf(patient.getId())});
+
+        Log.d("DEBUG", "Delete patient with ID: " + patient.getId());
     }
 
     public void deleteScript(Script script) {

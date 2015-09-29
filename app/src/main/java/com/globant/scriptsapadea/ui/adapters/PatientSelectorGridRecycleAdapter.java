@@ -193,6 +193,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         }
 
         public void removeAt(int position) {
+            mListener.deletgit ePatient(patientList.get(position));
             patientList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(getPosition(), patientList.size());
