@@ -300,6 +300,19 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         Log.e("INFO", "DB deleted.");
     }
 
+    // TODO
+    public int updateSlide(Slide slide) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SLIDE_COLUMN_NAME, slide.getText());
+        values.put(SLIDE_COLUMN_IMAGE, slide.getUrlImage());
+
+        return db.update(TABLE_SLIDE, values, SLIDE_ID + " = ?",
+                new String[] { String.valueOf(slide.getId()) });
+    }
+
+    // TODO
     public int updateScript(Script script) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -311,6 +324,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(script.getId()) });
     }
 
+    // TODO
     public int updatePatient(Patient patient) {
         SQLiteDatabase db = this.getWritableDatabase();
 

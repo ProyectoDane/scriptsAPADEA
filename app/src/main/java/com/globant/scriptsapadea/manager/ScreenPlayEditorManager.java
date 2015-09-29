@@ -4,9 +4,12 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by leonel.mendez on 6/26/2015.
@@ -16,6 +19,12 @@ public class ScreenPlayEditorManager {
     private List<Slide> slides;
     private RecyclerView.Adapter adapter;
     private Context mContext;
+
+    @Inject
+    private PatientManager patientManager;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     public ScreenPlayEditorManager(Context context){
         this.mContext = context;

@@ -14,14 +14,20 @@ import android.widget.ImageView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
+import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
+import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by leonel.mendez on 6/23/2015.
@@ -32,6 +38,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
 
+    private static final String SCRIPT = "script";
+
+    @Inject
+    private PatientManager patientManager;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
+
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
     private String imageGalleryUrl;
@@ -39,6 +53,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
     public static ScreenPlayEditorFragment newInstance(Bundle args) {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+        screenPlayEditorFragment.setArguments(args);
+        return screenPlayEditorFragment;
+    }
+
+    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+        args.putSerializable(SCRIPT, script);
+        screenPlayEditorFragment.setArguments(args);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
@@ -79,7 +101,17 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                 PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
             }
         });
-        screenPlayEditorManager.addSlide(new Slide(0, R.drawable.agregar_foto, null, Slide.ONLY_IMAGE));
+
+        Slide newSlide = new Slide(0, R.drawable.agregar_foto, null, Slide.ONLY_IMAGE);
+        screenPlayEditorManager.addSlide(newSlide);
+
+        List<Script> scriptList = patientManager.getSelectedPactient().getScriptList();
+        if (!scriptList.isEmpty() && scriptList.size() == 1) {
+            scriptList.get(0).getSlides().add(newSlide);
+            mDBHelper.createPatient(patientManager.getSelectedPactient());
+            patientManager.setSelectedScript(scriptList.get(0));
+        }
+
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {

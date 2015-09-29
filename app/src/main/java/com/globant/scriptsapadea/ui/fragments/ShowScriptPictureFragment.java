@@ -13,8 +13,6 @@ import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
-import com.globant.scriptsapadea.models.Slide;
-import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -33,9 +31,6 @@ public class ShowScriptPictureFragment extends BaseFragment {
 
     @Inject
     private PatientManager patientManager;
-
-    @Inject
-    private SQLiteHelper mDBHelper;
 
     public static ShowScriptPictureFragment newInstance(Bundle imageBundle) {
         ShowScriptPictureFragment showPictureFragment = new ShowScriptPictureFragment();
@@ -67,9 +62,6 @@ public class ShowScriptPictureFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle args = new Bundle();
-
-                    patientManager.getSelectedPactient().getScriptList().get(0).getSlides().add(Slide.createEmpty());
-                    mDBHelper.createPatient(patientManager.getSelectedPactient());
 
                     listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args));
                 }
