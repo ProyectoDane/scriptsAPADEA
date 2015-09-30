@@ -2,18 +2,18 @@ package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
 import roboguice.RoboGuice;
-import roboguice.fragment.provided.RoboPreferenceFragment;
 
 /**
  * Base Fragment for profile. Registers the fragment on the event bus.
  */
-public abstract class BaseFragment extends RoboPreferenceFragment {
+public abstract class BaseFragment extends Fragment {
 
     @Inject
     private Bus bus;
@@ -25,7 +25,6 @@ public abstract class BaseFragment extends RoboPreferenceFragment {
         super.onCreate(savedInstanceState);
         //We cant inject views on lib project, so we wont use RoboFragment
         RoboGuice.getInjector(getActivity()).injectMembersWithoutViews(this);
-
     }
 
     @Override

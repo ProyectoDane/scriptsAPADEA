@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="900dp"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="510dp">
+
+            <TextView
+                style="@style/Button.SelectedAction.Edit"
+                android:id="@+id/btn_edit_action"
+                android:text="@string/script_select_edit"
+                android:gravity="center_vertical|right"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:autoText="false"
+                android:paddingRight="20dp" />
+
+            <TextView
+                style="@style/Button.SelectedAction.Remove"
+                android:id="@+id/btn_remove_action"
+                android:text="@string/script_select_remove"
+                android:gravity="center_vertical|right"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:paddingRight="15dp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/card_view"
+            android:layout_width="500dp"
+            android:layout_height="116dp"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="4dp"
+            card_view:contentPadding="8dp"
+            android:layout_marginLeft="200dp">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_avatar_item"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
+                    android:layout_gravity="center"
+                    android:duplicateParentState="true"
+                    android:padding="5dp"
+                    android:src="@drawable/teayudo_usuario"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:id="@+id/btn_editar"
+                    android:background="@android:color/transparent"
+                    android:text="@string/script_select_edit"
+                    android:gravity="center_vertical|right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp" />
+
+                <TextView
+                    android:id="@+id/txt_patient_name_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text.Body.Big.Bold"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/img_avatar_item"
+                    android:layout_toEndOf="@+id/img_avatar_item" />
+
+                <TextView
+                    android:id="@+id/txt_patient_leyend_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text.Body"
+                    android:layout_below="@+id/txt_patient_name_item"
+                    android:layout_alignLeft="@+id/txt_patient_name_item"
+                    android:layout_alignStart="@+id/txt_patient_name_item" />
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
+</LinearLayout>

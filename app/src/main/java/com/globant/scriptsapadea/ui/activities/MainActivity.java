@@ -1,70 +1,55 @@
 package com.globant.scriptsapadea.ui.activities;
 
-import android.app.Fragment;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.ui.fragments.ScriptsSelectorFragment;
-import com.globant.scriptsapadea.ui.fragments.SettingsFragment;
+import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.navigator.anim.SlidingUpAnimation;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.PatientListFragment;
+
+import javax.inject.Inject;
 
 import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 
 /**
  * @author nicolas.quartieri.
  */
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements PatientListFragment.PatientListFragmentListener {
 
-    public void onScriptsClicked(View view) {
-        // TODO Create Navigation Module
-        Fragment scriptsSelectorFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-        if (scriptsSelectorFragment == null) {
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, new ScriptsSelectorFragment()).commit();
-        } else {
-            getFragmentManager().beginTransaction().remove(scriptsSelectorFragment).commit();
+    @InjectView(R.id.toolbar_actionbar)
+    private Toolbar toolbar;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // TODO Place in BaseActivity
+        setSupportActionBar(toolbar);
+
+        if (savedInstanceState == null) {
+            navigator.to(new PatientListFragment()).noPush().navigate();
         }
     }
 
-    public void onPreferenceClick(View view) {
-        // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-        if (settingsFragment == null) {
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, new SettingsFragment()).commit();
-        } else {
-            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
-        }
+    @Override
+    public void onNavigateToCreateNewPatient() {
+        navigator.to(CreatePatientActivity.createIntent(this)).withAnimations(new SlidingUpAnimation()).navigate();
     }
 
-    public void onAboutClicked(View view) {
-
-        // TODO Create Navigation Module
-        Fragment settingsFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-        if (settingsFragment == null) {
-            navigator.to(new Intent(this, AboutActivity.class)).navigate();
-        } else {
-            getFragmentManager().beginTransaction().remove(settingsFragment).commit();
-        }
+    @Override
+    public void onNavigateToPatient(Patient patient) {
+        navigator.to(ScriptSelectorActivity.createIntent(this, patient)).withAnimations(new SlidingUpAnimation()).navigate();
     }
 
-    // TODO This methods should go inside property class.
-    public void clickRemove(View view) {
-        Log.i("INFO", "clickRemove");
-    }
-
-    // TODO This methods should go inside property class.
-    public void clickView(View view) {
-        Log.i("INFO", "clickView");
-    }
-
-    // TODO This methods should go inside property class.
-    public void clickEdit(View view) {
-        Log.i("INFO", "clickEdit");
-    }
-
-    // TODO This methods should go inside property class.
-    public void clickReadScript(View view) {
-        Log.i("INFO", "clickReadScript");
+    @Override
+    public void deletePatient(Patient patient) {
+        mDBHelper.deletePatient(patient);
     }
 }

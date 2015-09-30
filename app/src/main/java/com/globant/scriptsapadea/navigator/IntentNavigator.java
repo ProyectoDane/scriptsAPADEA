@@ -17,8 +17,12 @@ public class IntentNavigator extends NavigatorEntry<Intent> {
         this.target = target;
     }
 
+    public Intent getTarget() {
+        return target;
+    }
+
     @Override
     public void navigate() {
-        navigator.navigateTo(target);
+        navigator.navigateTo(this);
     }
 }

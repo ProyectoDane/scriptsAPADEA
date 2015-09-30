@@ -1,18 +1,20 @@
 package com.globant.scriptsapadea.navigator;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.globant.scriptsapadea.ui.activities.BaseActivity;
+
+import java.io.Serializable;
 
 /**
  * Created by nicolas.quartieri.
  */
 public class Navigator {
-
 
     private final FragmentActivity activity;
     private final NavigationListener listener;
@@ -65,16 +67,81 @@ public class Navigator {
         return fragmentNavigator;
     }
 
-    public void navigateTo(Intent target) {
-        activity.startActivity(target);
+    public void navigateTo(IntentNavigator intentNavigator) {
+        activity.startActivity(intentNavigator.getTarget());
+
+        CustomAnimations animations = intentNavigator.getAnimations();
+        if (animations != null) {
+            activity.overridePendingTransition(animations.enter, animations.exit);
+        }
     }
 
-    public void navigateTo(Fragment target) {
+    public void navigateTo(FragmentNavigator fragmentNavigator) {
+        if (fragmentNavigator.isNoPush()) {
+            pushFragment(layoutId, fragmentNavigator.getTarget(), fragmentNavigator.getTag(), false, fragmentNavigator.getAnimations());
+        } else {
+            pushFragment(layoutId, fragmentNavigator.getTarget(), fragmentNavigator.getTag(), true, fragmentNavigator.getAnimations());
+        }
+    }
 
-        activity.getFragmentManager().beginTransaction().add(layoutId, target).commit();
+    private int pushFragment(int containerId, Fragment fragment, String tag, boolean addToBackStack,
+                             Navigator.CustomAnimations animation) {
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+
+        String res = activity.getResources().getResourceName(containerId);
+        if (res == null || !res.startsWith(activity.getPackageName())) {
+            throw new IllegalArgumentException("Layout id provided to navigator is invalid.");
+        }
+
+        if (animation != null) {
+            transaction.setCustomAnimations(animation.enter, animation.exit, animation.popEnter, animation.popExit);
+        }
+
+        if (addToBackStack) {
+            transaction.addToBackStack(tag);
+        }
+
+        return transaction.replace(containerId, fragment, tag).commitAllowingStateLoss();
     }
 
     public interface NavigationListener {
 
+    }
+
+    /**
+     * The custom transition animation configuration class.
+     */
+    public static class CustomAnimations implements Serializable {
+        public final int enter;
+        public final int exit;
+        public final int popEnter;
+        public final int popExit;
+
+        /**
+         * The {@link CustomAnimations} constructor.
+         *
+         * @param enter    the enter animation.
+         * @param exit     the exit animation.
+         * @param popEnter the pop backstack enter animation (only used for fragment transactions).
+         * @param popExit  the pop backstack exit animation (only used for fragment transactions).
+         */
+        public CustomAnimations(int enter, int exit, int popEnter, int popExit) {
+            this.enter = enter;
+            this.exit = exit;
+            this.popEnter = popEnter;
+            this.popExit = popExit;
+        }
+
+        /**
+         * The {@link CustomAnimations} constructor.
+         *
+         * @param enter A resource ID of the animation resource to use for
+         *              the incoming view.  Use 0 for no animation.
+         * @param exit A resource ID of the animation resource to use for
+         *             the outgoing view.  Use 0 for no animation.
+         */
+        public CustomAnimations(int enter, int exit) {
+            this(enter, exit, 0, 0);
+        }
     }
 }

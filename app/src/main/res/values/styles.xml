@@ -1,8 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="Panel">
@@ -14,6 +15,17 @@
 
     <style name="Panel.White">
         <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Panel.Blue">
+        <item name="android:background">@color/status_bar_light</item>
+    </style>
+
+    <style name="Panel.Sliding">
+        <item name="android:background">@color/panel_gray</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:layout_height">@dimen/slide_panel_height</item>
     </style>
 
     <style name="HR">
@@ -30,4 +42,108 @@
         <item name="android:layout_marginBottom">0dp</item>
     </style>
 
+    <!-- ******* -->
+    <!-- Text    -->
+    <!-- ******* -->
+
+    <!-- Heavy: sans -->
+    <!-- Regular/Roman: serif -->
+    <!-- Book: mono -->
+
+    <style name="Text">
+        <item name="android:textSize">@dimen/font_size_body</item>
+    </style>
+
+    <style name="Text.Body">
+        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
+    <style name="Text.Body.Big">
+        <item name="android:textSize">@dimen/font_size_big</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
+    <style name="Text.Body.Medium">
+        <item name="android:textSize">@dimen/font_size_medium</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
+    <style name="Text.Body.Big.Gray">
+        <item name="android:textColor">@color/panel_gray</item>
+    </style>
+
+    <style name="Text.Body.Medium.White">
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="Text.Body.Big.Gray.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
+    <style name="Text.Body.Medium.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
+    <style name="Text.Body.Big.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
+    <!-- ******* -->
+    <!-- Buttons -->
+    <!-- ******* -->
+
+    <style name="Button">
+        <item name="android:layout_height">@dimen/button_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="Button.Primary">
+        <item name="android:background">@color/status_bar</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Button.Secondary">
+        <item name="android:background">@color/status_bar_light</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_size_body</item>
+    </style>
+
+    <style name="Button.Custom">
+        <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:textSize">@dimen/margin_medium</item>
+    </style>
+
+    <style name="Button.Title">
+        <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:textSize">@dimen/button_height_medium</item>
+    </style>
+
+	<style name="Button.Flat" parent="android:Widget.Holo.Button.Borderless">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/font_size_body</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Button.SelectedAction">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/font_size_body</item>
+    </style>
+
+    <style name="Button.SelectedAction.Edit">
+        <item name="android:background">@color/status_bar</item>
+    </style>
+
+    <style name="Button.SelectedAction.Remove">
+        <item name="android:background">@color/welcome_orange</item>
+    </style>
 </resources>

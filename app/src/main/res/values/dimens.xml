@@ -16,11 +16,27 @@
     <dimen name="slide_panel_height">32dp</dimen>
 
     <dimen name="button_height">48dp</dimen>
+    <dimen name="button_height_medium">18dp</dimen>
 
     <dimen name="avatar_image_size">60dp</dimen>
     <dimen name="avatar_background_size">70dp</dimen>
 
+    <dimen name="font_size_big">34sp</dimen>
     <dimen name="font_size_heading">20sp</dimen>
+    <dimen name="font_size_medium">26sp</dimen>
     <dimen name="font_size_body">16sp</dimen>
     <dimen name="font_size_caption">12sp</dimen>
+
+    <dimen name="screenplay_image_width_size">560dp</dimen>
+    <dimen name="screenplay_image_height_size">400dp</dimen>
+    <dimen name="screenplay_container">650dp</dimen>
+    <dimen name="screenplay_list_width_size">400dp</dimen>
+    <dimen name="screenplay_editor_width">730dp</dimen>
+    <dimen name="screenplay_editor_height">470dp</dimen>
+    <dimen name="screenplay_desc_editor_height">80dp</dimen>
+    <dimen name="screenplay_editor_container">730dp</dimen>
+    <dimen name="screenplay_editor_card_height">200dp</dimen>
+    <dimen name="screenplay_editor_card_width">270dp</dimen>
+    <dimen name="slide_only_text_size">25sp</dimen>
+
 </resources>

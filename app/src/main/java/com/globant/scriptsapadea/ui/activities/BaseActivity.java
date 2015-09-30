@@ -7,17 +7,17 @@ import com.globant.scriptsapadea.navigator.Navigator;
 import com.google.inject.Inject;
 import com.squareup.otto.Bus;
 
-import roboguice.activity.RoboFragmentActivity;
+import roboguice.activity.RoboActionBarActivity;
 
 /**
  * Base Activity class provides access to the event bus.
  *
  * @author nicolas.quartieri
  */
-public abstract class BaseActivity extends RoboFragmentActivity {
+public abstract class BaseActivity extends RoboActionBarActivity {
 
     @Inject
-    private Bus bus;
+    protected Bus bus;
 
     protected Navigator navigator;
 

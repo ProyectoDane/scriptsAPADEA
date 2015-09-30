@@ -14,6 +14,7 @@ import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -54,15 +55,20 @@ public class ScriptsSelectorGridAdapter extends ArrayAdapter<Script> {
 
         Script script = getItem(position);
 
-        if (script.getId() == null) {
+        if (script.getId() == 0) {
             holder.name.setText(R.string.default_script_name);
             CropCircleTransformation circleTransformation = new CropCircleTransformation();
             Picasso.with(this.context).load(R.drawable.ic_launcher).transform(circleTransformation).into(holder.imageView);
         } else {
             holder.name.setText(script.getName());
             CropCircleTransformation circleTransformation = new CropCircleTransformation();
-            Picasso.with(this.context).load(script.getImageScripts()).transform(circleTransformation)
-                    .placeholder(R.drawable.ic_launcher).into(holder.imageView);
+            if (script.isResourceImage()) {
+                Picasso.with(this.context).load(script.getResImage()).transform(circleTransformation)
+                        .placeholder(R.drawable.ic_launcher).into(holder.imageView);
+            } else {
+                Picasso.with(this.context).load(new File(script.getImageScripts())).transform(circleTransformation)
+                        .placeholder(R.drawable.ic_launcher).into(holder.imageView);
+            }
         }
 
         return row;

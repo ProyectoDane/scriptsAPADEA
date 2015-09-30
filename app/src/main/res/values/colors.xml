@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="status_bar">#0097a7</color>
+    <color name="status_bar_light">#00bcd4</color>
+    <color name="not_enable">#7fcbd3</color>
+    <color name="background">#b2ebf2</color>
+    <color name="welcome_orange">#ff6738</color>
+    <color name="fafafa">#fafafa</color>
+    <color name="light_gray_not_enable">#cccccc</color>
+    <color name="gray_back">#999999</color>
+    <color name="gray_dark">#666666</color>
+
+    <color name="search_back_color">#ecf1f4</color>
     <color name="white">#ffffff</color>
     <color name="dark_blue">#243A55</color>
     <color name="blue">#1994D7</color>
     <color name="gray">#8193A9</color>
+    <color name="red">#CF4848</color>
     <color name="light_gray">#A0AEBF</color>
     <color name="panel_gray">#ecf1f4</color>
     <color name="hr_gray">#e1eaf4</color>
     <color name="button_light_blue">#d7edf4</color>
-    <color name="transparent_white">#66ffffff</color>
+    <color name="transparent_white">#66FFFFFF</color>
     <color name="transparent_blue">#661994D7</color>
+    <color name="transparent_finder_blue">#BF253B56</color>
     <color name="orange">#FF4605</color>
     <color name="active_blue">#23affc</color>
     <color name="secondary_button_default">#e1eaf4</color>
     <color name="secondary_button_pressed">#c6dbf1</color>
     <color name="secondary_button_disabled">#edf2f8</color>
+    <color name="link">#60acdf</color>
+    <color name="park_hours_filter_border">#c6d0da</color>
+
+    <color name="icon_default_color">#2494d1</color>
+    <color name="dark_blue_icon_tapped">#253b56</color>
+    <color name="border_default">#8cc9eb</color>
+    <color name="dashboard_text_disblaed">#301994d7</color>
+    <color name="border_default_disabled">#308cc9eb</color>
+    <color name="tutorial_green_button">#2DCC70</color>
+
+    <color name="text_dark_blue">#253b56</color>
+    <color name="text_light_gray">#a1afc0</color>
+    <color name="text_gray">#8294aa</color>
+    <color name="text_white">@color/white</color>
+    <color name="text_orange">@color/orange</color>
+    <color name="text_blue">@color/blue</color>
+
+    <!--
+    Drawble color aliases for selector resources
+    http://stackoverflow.com/questions/3592780/selector-on-background-color-of-textview
+    -->
+    <drawable name="transparent_white">@color/transparent_white</drawable>
+    <drawable name="button_light_blue">@color/button_light_blue</drawable>
+    <drawable name="white">@color/white</drawable>
+    <drawable name="blue">@color/blue</drawable>
+    <drawable name="hr_gray">@color/hr_gray</drawable>
+    <drawable name="active_blue">@color/active_blue</drawable>
+    <drawable name="secondary_button_default">@color/secondary_button_default</drawable>
+    <drawable name="secondary_button_pressed">@color/secondary_button_pressed</drawable>
+    <drawable name="secondary_button_disabled">@color/secondary_button_disabled</drawable>
+
+    <!-- Error Banner -->
+    <color name="banner_orange">#ff4606</color>
+    <color name="banner_dark_blue">#FF243A55</color>
 </resources>
