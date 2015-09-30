@@ -290,8 +290,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public void deleteScript(Script script) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_SCRIPT, PATIENT_ID + " = ?",
+
+        db.delete(TABLE_SCRIPT, SCRIPT_ID + " = ?",
                 new String[]{String.valueOf(script.getId())});
+    }
+
+    public void deleteSlide(Slide slide, long scriptId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_SLIDE, SLIDE_ID + " = ? AND " + SLIDE_COLUMN_KEY_SCRIPT + " = ?",
+                new String[]{String.valueOf(slide.getId()), String.valueOf(scriptId)});
     }
 
     public void deleteDataBase() {

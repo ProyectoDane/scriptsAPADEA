@@ -12,7 +12,10 @@
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
         android:elevation="@dimen/margin_medium"
+        android:orientation="vertical"
         >
+
+        <include layout="@layout/slide_card_image_layout" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
