@@ -20,16 +20,36 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/img_card"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
                 android:layout_above="@+id/txt_slide_legend"
-                android:src="@drawable/cepillo"/>
+                android:src="@drawable/teayudo_iconovacio"/>
+
+            <TextView
+                style="@style/Text.Body.Medium"
+                android:id="@+id/ly_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slide_vacio_one"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="270dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/ly_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slide_vacio_two"
+                android:layout_below="@+id/ly_one"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/txt_slide_legend"

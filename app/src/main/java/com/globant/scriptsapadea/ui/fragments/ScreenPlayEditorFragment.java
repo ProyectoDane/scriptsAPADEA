@@ -115,7 +115,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
         List<Script> scriptList = patientManager.getSelectedPactient().getScriptList();
         if (!scriptList.isEmpty() && scriptList.size() == 1) {
-            Slide newSlide = new Slide(0, R.drawable.teayudo_usuario, "Slide Vacio", Slide.ONLY_IMAGE);
+            Slide newSlide = new Slide(0, R.drawable.teayudo_iconovacio, "", Slide.ONLY_IMAGE);
             scriptList.get(0).getSlides().add(newSlide);
             mDBHelper.createPatient(patientManager.getSelectedPactient());
             patientManager.setSelectedScript(scriptList.get(0));
