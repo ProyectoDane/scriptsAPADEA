@@ -1,5 +1,7 @@
 package com.globant.scriptsapadea.models;
 
+import com.globant.scriptsapadea.R;
+
 import java.io.Serializable;
 
 /**
@@ -57,5 +59,9 @@ public class Slide implements Serializable {
 
     public int getResImage() {
         return resImage;
+    }
+
+    public static Slide createEmpty() {
+        return new Slide(0, R.drawable.teayudo_usuario, "Slide Vacio", ONLY_IMAGE);
     }
 }

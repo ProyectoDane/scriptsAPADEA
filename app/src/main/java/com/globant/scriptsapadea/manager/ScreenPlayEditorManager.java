@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,8 +18,14 @@ public class ScreenPlayEditorManager {
     private RecyclerView.Adapter adapter;
     private Context mContext;
 
-    public ScreenPlayEditorManager(Context context){
+    private PatientManager patientManager;
+    private SQLiteHelper mDBHelper;
+
+    public ScreenPlayEditorManager(Context context, PatientManager patientManager, SQLiteHelper mDBHelper) {
         this.mContext = context;
+		// TODO This is not correct. Find another way
+        this.patientManager = patientManager;
+        this.mDBHelper = mDBHelper;
         this.slides = new LinkedList<>();
     }
 
@@ -62,8 +69,8 @@ public class ScreenPlayEditorManager {
         return new Slide(id, urlImage, description, type);
     }
 
-    public void saveScript(){
-        //TODO: Add implementation to save script into database
+    public void saveSlide(Slide slide) {
+        mDBHelper.createSlide(slide, patientManager.getSelectedScript().getId());
     }
 
     public void setSlides(List<Slide> slides) {

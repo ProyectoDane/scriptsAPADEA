@@ -140,7 +140,7 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         this.onSlideSelectorItemClickListener = onSlideSelectorItemClickListener;
     }
 
-    public interface OnSlideSelectorItemClickListener{
+    public interface OnSlideSelectorItemClickListener {
         void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position);
     }
 }

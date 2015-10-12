@@ -14,14 +14,20 @@ import android.widget.ImageView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
+import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
+import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by leonel.mendez on 6/23/2015.
@@ -31,6 +37,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
+
+    private static final String SCRIPT = "script";
+
+    @Inject
+    private PatientManager patientManager;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
@@ -43,10 +57,18 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         return screenPlayEditorFragment;
     }
 
+    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+        args.putSerializable(SCRIPT, script);
+        screenPlayEditorFragment.setArguments(args);
+        screenPlayEditorFragment.setArguments(args);
+        return screenPlayEditorFragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity());
+        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper);
     }
 
     @Override
@@ -59,12 +81,21 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         slidePicture = (ImageView) view.findViewById(R.id.screenplay_slide_image);
-        final EditText slideDesc = (EditText) view.findViewById(R.id.editor_slide_text);
+        final EditText slideDescription = (EditText) view.findViewById(R.id.editor_slide_text);
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
         slidesListView.setHasFixedSize(true);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
+        ImageView imgAddImage = (ImageView) view.findViewById(R.id.slide_only_image);
+        imgAddImage.setImageResource(R.drawable.agregar_foto);
+        imgAddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSlideInAdapter(slideDescription, true);
+                slidePicture.setImageResource(android.R.color.transparent);
+            }
+        });
 
         view.findViewById(R.id.editor_gallery).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,12 +110,21 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                 PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
             }
         });
-        screenPlayEditorManager.addSlide(new Slide(0, R.drawable.agregar_foto, null, Slide.ONLY_IMAGE));
+
+        // TODO si viene de haber seleccionado la edición
+
+        List<Script> scriptList = patientManager.getSelectedPactient().getScriptList();
+        if (!scriptList.isEmpty() && scriptList.size() == 1) {
+            Slide newSlide = new Slide(0, R.drawable.teayudo_usuario, "Slide Vacio", Slide.ONLY_IMAGE);
+            scriptList.get(0).getSlides().add(newSlide);
+            mDBHelper.createPatient(patientManager.getSelectedPactient());
+            patientManager.setSelectedScript(scriptList.get(0));
+        }
+
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
-                addSlideInAdapter(position, slideDesc);
-                setSlideContentToEditor(position, slideDesc, slidePicture);
+                // TODO empty ?
             }
         });
     }
@@ -116,21 +156,31 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         }
     }
 
-    private void addSlideInAdapter(int position, EditText slideDesc) {
-        if (position == INITIAL_POSITION) {
-            if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.IMAGE_TEXT);
-                screenPlayEditorManager.addSlide(slide);
+    private void addSlideInAdapter(EditText slideDescription, boolean save) {
+        boolean slideAdded = false;
+        Slide slide = null;
 
-            } else if (!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_IMAGE);
-                screenPlayEditorManager.addSlide(slide);
+        if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.IMAGE_TEXT);
+            screenPlayEditorManager.addSlide(slide);
 
-            } else if (!TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_TEXT);
-                screenPlayEditorManager.addSlide(slide);
-            } else {
-            }
+            slideAdded = true;
+        } else if (!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDescription.getText().toString())) {
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_IMAGE);
+            screenPlayEditorManager.addSlide(slide);
+
+            slideAdded = true;
+        } else if (!TextUtils.isEmpty(slideDescription.getText().toString())) {
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_TEXT);
+            screenPlayEditorManager.addSlide(slide);
+
+            slideAdded = true;
+        } else {
+            slideAdded = false;
+        }
+
+        if (save && slideAdded && slide != null) {
+            screenPlayEditorManager.saveSlide(slide);
         }
     }
 

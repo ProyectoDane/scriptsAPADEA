@@ -91,8 +91,6 @@ public class ChoosePatientPictureFragment extends BaseFragment {
 
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
-                //imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
-
                 patientManager.setSelectedPactient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
                         PictureUtils.getImagePath(getActivity(), data.getData())));
 
