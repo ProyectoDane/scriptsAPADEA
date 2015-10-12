@@ -61,4 +61,6 @@
     <string name="popupmenu_copy">COPIAR</string>
     <string name="hint_leyend">TEXTO</string>
 
+    <string name="slide_vacio_one">EL GUIÓN ESTA VACÍO</string>
+    <string name="slide_vacio_two">Continúa editando el guión para agregarle contenido</string>
 </resources>
