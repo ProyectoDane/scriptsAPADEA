@@ -71,4 +71,8 @@ public class Script implements Serializable {
 
         return listScript;
     }
+
+    public static Script createEmpty() {
+        return new Script(0, "Script Vacio", null);
+    }
 }

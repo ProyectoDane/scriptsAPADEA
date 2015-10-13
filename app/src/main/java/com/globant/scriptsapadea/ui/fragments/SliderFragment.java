@@ -43,8 +43,13 @@ public class SliderFragment extends BaseFragment {
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
         if (slide.isResourceImage()) {
-            Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
-                    .into(imgCard);
+            if (slide.getResImage() == R.drawable.teayudo_iconovacio) {
+                view.findViewById(R.id.ly_one).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ly_two).setVisibility(View.VISIBLE);
+            } else {
+                Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
+                        .into(imgCard);
+            }
         } else {
             Picasso.with(getActivity()).load(new File(slide.getUrlImage())).error(R.drawable.teayudo_usuario)
                     .into(imgCard);
