@@ -87,7 +87,7 @@ public class SliderFragment extends BaseFragment {
         return view;
     }
 
-    public static Object newInstance(Slide slide) {
+    public static SliderFragment newInstance(Slide slide) {
         SliderFragment fragment = new SliderFragment();
 
         Bundle bundle = new Bundle();

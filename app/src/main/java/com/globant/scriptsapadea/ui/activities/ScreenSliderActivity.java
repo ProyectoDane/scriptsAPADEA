@@ -158,8 +158,14 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     private List<Fragment> getFragments() {
         ArrayList fragments = new ArrayList<>();
 
-        for (Slide slide : script.getSlides()) {
-            fragments.add(SliderFragment.newInstance(slide));
+        List<Slide> slides = script.getSlides();
+        if (slides.size() > 1) {
+            for (Slide slide : slides) {
+                fragments.add(SliderFragment.newInstance(slide));
+            }
+        } else {
+            SliderFragment fragment = SliderFragment.newInstance((new Slide(0, R.drawable.teayudo_iconovacio, "", Slide.ONLY_IMAGE)));
+            fragments.add(fragment);
         }
 
         return fragments;
