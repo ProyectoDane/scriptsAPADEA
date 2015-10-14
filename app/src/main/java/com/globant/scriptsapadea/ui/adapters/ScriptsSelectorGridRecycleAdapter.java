@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.ui.activities.ScriptSelectorActivity;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.views.SSPopupMenuWindow;
 import com.squareup.picasso.Picasso;
@@ -24,17 +24,18 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Created by nicolas.quartieri.
+ * Adapter in charge of manage the screen responsable of display all script related to the selected patient.
+ *
+ * @author nicolas.quartieri.
  */
-public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder> {
+public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder> implements
+                                                            SSPopupMenuWindow.SSPopupMenuWindowListener {
 
     private final Context context;
-    private final ScreenScriptsSelectorFragment.ScreenScriptSelectorListener mListener;
-
+    private final ScreenScriptsSelectorFragment.ScreenScriptSelectorListener mScriptSelectorListener;
     private static List<Script> scriptList;
 
     private boolean showLoadingView;
-
     private int lastPosition = -1;
 
     private static final int ANIMATED_ITEMS_COUNT = 2;
@@ -46,7 +47,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     public ScriptsSelectorGridRecycleAdapter(List<Script> scriptList, Context context) {
         this.scriptList = scriptList;
         this.context = context;
-        this.mListener = (ScreenScriptsSelectorFragment.ScreenScriptSelectorListener) context;
+        this.mScriptSelectorListener = (ScreenScriptsSelectorFragment.ScreenScriptSelectorListener) context;
     }
 
     @Override
@@ -68,6 +69,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
         }
 
         contactViewHolder.vNameAvatar.setText(script.getName());
+        contactViewHolder.setScript(script);
     }
 
     private void runAnimation(View viewToAnimate, int position) {
@@ -114,6 +116,9 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private SSPopupMenuWindow popupWindow;
+        private Script script;
+
         private ImageView vImageAvatar;
         protected TextView vNameAvatar;
         protected CardView vCardView;
@@ -130,7 +135,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
             vNameAvatar.setOnClickListener(this);
             vImageAvatar.setOnClickListener(this);
 
-            final PopupWindow popupWindow = SSPopupMenuWindow.createPopupWindow(context, false, null);
+            popupWindow = SSPopupMenuWindow.createPopupWindow(context, false, ScriptsSelectorGridRecycleAdapter.this);
             vEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,7 +147,29 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
         @Override
         public void onClick(View view) {
-            mListener.onNavigateToScriptSlider(scriptList.get(getPosition()));
+            mScriptSelectorListener.onNavigateToScriptSlider(this.script);
         }
+
+        public void setScript(Script script) {
+            this.script = script;
+            popupWindow.setScript(script);
+        }
+    }
+
+    @Override
+    public void deleteScript(Script script) {
+        scriptList.remove(script);
+        ((ScriptSelectorActivity)context).deleteDBScript(script);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void editScript(Script script) {
+        // TODO
+    }
+
+    @Override
+    public void copyScript(Script script) {
+        // TODO
     }
 }

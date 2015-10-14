@@ -74,7 +74,7 @@ public class ShowPatientPictureFragment extends BaseFragment {
     private void showImage(Bundle imageBundle, ImageView imageContainer) {
         boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
 
-        Patient patient = patientManager.getSelectedPactient();
+        Patient patient = patientManager.getSelectedPatient();
 
         if (pictureFromCamera) {
             // TODO

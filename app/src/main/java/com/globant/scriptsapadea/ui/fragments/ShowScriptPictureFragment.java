@@ -74,7 +74,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
     private void showImage(Bundle imageBundle, ImageView imageContainer) {
         boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
 
-        Patient patient = patientManager.getSelectedPactient();
+        Patient patient = patientManager.getSelectedPatient();
         Script script = patient.getScriptList().get(0);
 
         if (pictureFromCamera) {

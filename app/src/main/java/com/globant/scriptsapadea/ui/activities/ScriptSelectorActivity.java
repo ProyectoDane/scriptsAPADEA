@@ -9,14 +9,25 @@ import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
+
+import javax.inject.Inject;
 
 import roboguice.inject.ContentView;
 
+/**
+ * Activity build to contain the script grid selection screen.
+ *
+ * @author nicolas.quartieri
+ */
 @ContentView(R.layout.activity_screen)
 public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener {
 
     private static final String PATIENT = "patient";
+
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     public static Intent createIntent(Context context, Patient patient) {
         Intent intent = new Intent(context, ScriptSelectorActivity.class);
@@ -48,6 +59,18 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     @Override
     public void onNavigateToScriptSlider(Script script) {
         navigator.to(ScreenSliderActivity.createIntent(this, script)).withAnimations(new SlidingLeftAnimation()).navigate();
+    }
+
+    public void deleteDBScript(Script script) {
+        mDBHelper.deleteScript(script);
+    }
+
+    public void editDBScript(Script script) {
+        // TODO
+    }
+
+    public void copyDBScript(Script script) {
+        // TODO
     }
 
     @Override

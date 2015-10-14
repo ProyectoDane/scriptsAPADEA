@@ -12,19 +12,19 @@ public class PatientManager {
 
     private final Context context;
 
-    private Patient selectedPactient;
+    private Patient selectedPatient;
     private Script selectedScript;
 
     public PatientManager(Context context) {
         this.context = context;
     }
 
-    public Patient getSelectedPactient() {
-        return selectedPactient;
+    public Patient getSelectedPatient() {
+        return selectedPatient;
     }
 
-    public void setSelectedPactient(Patient selectedPactient) {
-        this.selectedPactient = selectedPactient;
+    public void setSelectedPatient(Patient selectedPatient) {
+        this.selectedPatient = selectedPatient;
     }
 
     public Script getSelectedScript() {

@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Slide;
 import com.software.shell.fab.ActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+
+import javax.inject.Inject;
 
 /**
  * Created by nicolas.quartieri
@@ -24,6 +27,9 @@ public class SliderFragment extends BaseFragment {
     private static final String EXTRA_MESSAGE = "message";
 
     private SliderCallback listener;
+
+    @Inject
+    private PatientManager patientManager;
 
     private Slide slide;
 

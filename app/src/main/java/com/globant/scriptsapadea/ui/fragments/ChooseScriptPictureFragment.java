@@ -101,7 +101,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
                 list.add(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
                         PictureUtils.getImagePath(getActivity(), data.getData())));
 
-                patientManager.getSelectedPactient().setScriptList(list);
+                patientManager.getSelectedPatient().setScriptList(list);
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
