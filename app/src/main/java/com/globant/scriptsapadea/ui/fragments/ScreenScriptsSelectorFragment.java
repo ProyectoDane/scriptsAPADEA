@@ -105,5 +105,6 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
 
     public interface ScreenScriptSelectorListener {
         void onNavigateToScriptSlider(Script script);
+        void onNavigateToSlideEditor(ShowScriptPictureFragment fragment);
     }
 }

@@ -11,6 +11,7 @@ import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
+import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
 
 import javax.inject.Inject;
 
@@ -59,6 +60,11 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     @Override
     public void onNavigateToScriptSlider(Script script) {
         navigator.to(ScreenSliderActivity.createIntent(this, script)).withAnimations(new SlidingLeftAnimation()).navigate();
+    }
+
+    @Override
+    public void onNavigateToSlideEditor(ShowScriptPictureFragment fragment) {
+        navigator.to(fragment).navigate();
     }
 
     public void deleteDBScript(Script script) {

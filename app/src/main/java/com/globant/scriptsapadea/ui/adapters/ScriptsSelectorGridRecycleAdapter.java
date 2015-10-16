@@ -2,6 +2,7 @@ package com.globant.scriptsapadea.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -17,6 +18,7 @@ import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.activities.ScriptSelectorActivity;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
+import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
 import com.globant.scriptsapadea.ui.views.SSPopupMenuWindow;
 import com.squareup.picasso.Picasso;
 
@@ -165,7 +167,8 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     @Override
     public void editScript(Script script) {
-        // TODO
+        Bundle imageArguments = new Bundle();
+        mScriptSelectorListener.onNavigateToSlideEditor(ShowScriptPictureFragment.newInstance(imageArguments));
     }
 
     @Override

@@ -66,6 +66,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="@string/editor_pick_photo"
+                    android:text="@string/editor_erase_photo"
+                    android:drawableTop="@drawable/erase_foto"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/margin_medium"
+                    android:id="@+id/erase_gallery"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_gray"
+                    android:layout_marginLeft="@dimen/margin_xxlarge"
+                    android:layout_marginRight="@dimen/margin_xxlarge"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/editor_pick_photo"
                     android:text="@string/editor_pick_photo"
                     android:drawableTop="@drawable/elegir_foto"
                     android:gravity="center"

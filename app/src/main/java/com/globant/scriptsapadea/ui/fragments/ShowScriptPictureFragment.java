@@ -20,7 +20,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
- * Created by nicolas.quartieri on 6/11/2015.
+ * @author nicolas.quartieri
  */
 public class ShowScriptPictureFragment extends BaseFragment {
 
@@ -62,7 +62,6 @@ public class ShowScriptPictureFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle args = new Bundle();
-
                     listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args));
                 }
             });

@@ -92,7 +92,6 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle imageArguments = new Bundle();
-
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
                 imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));

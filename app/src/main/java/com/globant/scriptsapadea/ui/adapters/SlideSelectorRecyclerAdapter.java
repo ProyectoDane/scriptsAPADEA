@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 /**
- * Created by leonel.mendez on 6/26/2015.
+ * @author leonel.mendez
  */
 public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSelectorRecyclerAdapter.CommonViewHolder>{
 
@@ -32,17 +32,16 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     @Override
     public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        switch (viewType){
+        switch (viewType) {
             case Slide.ONLY_TEXT:
-                return new TextViewHolder(layoutInflater.inflate(R.layout.slide_card_text_layout,parent,false));
+                return new TextViewHolder(layoutInflater.inflate(R.layout.slide_card_text_layout, parent, false));
             case Slide.ONLY_IMAGE:
-                return new ImageViewHolder(layoutInflater.inflate(R.layout.slide_card_image_layout,parent,false));
+                return new ImageViewHolder(layoutInflater.inflate(R.layout.slide_card_image_layout, parent, false));
             case Slide.IMAGE_TEXT:
-                return new ImageAndTextViewHolder(layoutInflater.inflate(R.layout.slide_card_image_text_layout,parent,false));
+                return new ImageAndTextViewHolder(layoutInflater.inflate(R.layout.slide_card_image_text_layout, parent, false));
             default:
-                return new CommonViewHolder(layoutInflater.inflate(R.layout.slide_add_layout,parent,false));
+                return new CommonViewHolder(layoutInflater.inflate(R.layout.slide_add_layout, parent, false));
         }
-
     }
 
     @Override
@@ -53,7 +52,8 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     @Override
     public void onBindViewHolder(CommonViewHolder holder, int position) {
             Slide slide = screenPlayEditorManager.getSlide(position);
-            switch (slide.getType()){
+            holder.slideType = slide.getType();
+            switch (slide.getType()) {
                 case Slide.ONLY_TEXT:
                     TextViewHolder textViewHolder = (TextViewHolder)holder;
                     textViewHolder.text.setText(slide.getText());
@@ -80,15 +80,17 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         return screenPlayEditorManager.getItemCount();
     }
 
-    public class CommonViewHolder extends RecyclerView.ViewHolder{
+    public class CommonViewHolder extends RecyclerView.ViewHolder {
+        public int slideType;
+
         public CommonViewHolder(final View itemView) {
             super(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                if(onSlideSelectorItemClickListener != null){
-                    onSlideSelectorItemClickListener.onSlideSelectorItemClick(SlideSelectorRecyclerAdapter.this,itemView,getPosition());
-                }
+                    if (onSlideSelectorItemClickListener != null) {
+                        onSlideSelectorItemClickListener.onSlideSelectorItemClick(SlideSelectorRecyclerAdapter.this, itemView, getPosition());
+                    }
                 }
             });
         }
@@ -114,7 +116,7 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         }
     }
 
-    public class ImageViewHolder extends CommonViewHolder{
+    public class ImageViewHolder extends CommonViewHolder {
         public ImageView imageView;
 
         public ImageViewHolder(View itemView) {

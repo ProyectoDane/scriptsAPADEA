@@ -30,14 +30,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by leonel.mendez on 6/23/2015.
+ * @author leonel.mendez
  */
 public class ScreenPlayEditorFragment extends BaseFragment {
 
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
-
     private static final String SCRIPT = "script";
 
     @Inject
@@ -97,6 +96,24 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             }
         });
 
+        view.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
+            /**
+             * Remove the selected slide previously setup in the main slide imageView.
+             *
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                Slide slide = patientManager.getSelectedSlide();
+                screenPlayEditorManager.deleteSlide(slide);
+                int value = screenPlayEditorManager.removeSlide(slide);
+
+                // TODO remove image and text from main selection frame
+                slidePicture.setImageResource(android.R.color.transparent);
+                slideDescription.setText("");
+            }
+        });
+
         view.findViewById(R.id.editor_gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,9 +137,29 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         }
 
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
+            /**
+             * Set the selected slide to the main slide imageView & text.
+             *
+             * @param adapter
+             * @param view
+             * @param position
+             */
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
-                // TODO empty ?
+                Slide slide = screenPlayEditorManager.getSlide(position);
+                patientManager.setSelectedSlide(slide);
+
+                if (slide.isResourceImage()) {
+                    Picasso.with(getActivity())
+                            .load(slide.getResImage())
+                            .into(slidePicture);
+                } else {
+                    Picasso.with(getActivity())
+                            .load(new File(slide.getUrlImage()))
+                            .into(slidePicture);
+                }
+
+                slideDescription.setText(slide.getText());
             }
         });
     }
@@ -155,7 +192,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     }
 
     private void addSlideInAdapter(EditText slideDescription, boolean save) {
-        boolean slideAdded = false;
+        boolean slideAdded;
         Slide slide = null;
 
         if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {

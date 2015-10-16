@@ -10,20 +10,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by leonel.mendez on 6/26/2015.
+ * With this screen we can add/edit/erase slides into the selected script.
+ *
+ * @author leonel.mendez
  */
 public class ScreenPlayEditorManager {
 
     private List<Slide> slides;
     private RecyclerView.Adapter adapter;
     private Context mContext;
-
     private PatientManager patientManager;
     private SQLiteHelper mDBHelper;
 
     public ScreenPlayEditorManager(Context context, PatientManager patientManager, SQLiteHelper mDBHelper) {
         this.mContext = context;
-		// TODO This is not correct. Find another way
+        // TODO This is not correct. Find another way
         this.patientManager = patientManager;
         this.mDBHelper = mDBHelper;
         this.slides = new LinkedList<>();
@@ -49,14 +50,21 @@ public class ScreenPlayEditorManager {
     public void addSlide(Slide slide, int position) {
         if (adapter != null) {
             slides.add(position, slide);
-
             adapter.notifyDataSetChanged();
         }
     }
 
-    public void deleteSlide(int position) {
+    /**
+     * Delete the selected slide from the slide list setup in memory.
+     *
+     * @param slide
+     */
+    public void deleteSlide(Slide slide) {
         if (adapter != null) {
-            slides.remove(position);
+            int position = slides.indexOf(slide);
+            slides.remove(slide);
+            adapter.notifyItemRemoved(position);
+            adapter.notifyItemRangeChanged(position, slides.size());
             adapter.notifyDataSetChanged();
         }
     }
@@ -69,8 +77,24 @@ public class ScreenPlayEditorManager {
         return new Slide(id, urlImage, description, type);
     }
 
-    public void saveSlide(Slide slide) {
-        mDBHelper.createSlide(slide, patientManager.getSelectedScript().getId());
+    /**
+     * Save the selected slide from the slide list setup into de Data Base.
+     *
+     * @param slide
+     * @return
+     */
+    public long saveSlide(Slide slide) {
+        return mDBHelper.createSlide(slide, patientManager.getSelectedScript().getId());
+    }
+
+    /**
+     * Delete the selected slide from the slide list setup in the Data Base.
+     *
+     * @param slide
+     * @return
+     */
+    public int removeSlide(Slide slide) {
+        return mDBHelper.deleteSlide(slide, patientManager.getSelectedScript().getId());
     }
 
     public void setSlides(List<Slide> slides) {

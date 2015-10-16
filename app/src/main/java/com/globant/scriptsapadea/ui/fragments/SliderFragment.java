@@ -48,15 +48,25 @@ public class SliderFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.slider_layout, container, false);
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
+        final ImageView imgCardBackground = (ImageView) view.findViewById(R.id.img_card_background);
         if (slide.isResourceImage()) {
+            imgCard.setVisibility(View.GONE);
             if (slide.getResImage() == R.drawable.teayudo_iconovacio) {
-                view.findViewById(R.id.ly_one).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.ly_two).setVisibility(View.VISIBLE);
+                imgCard.setVisibility(View.GONE);
             } else {
+                imgCard.setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ly_one).setVisibility(View.GONE);
+                view.findViewById(R.id.ly_two).setVisibility(View.GONE);
+
                 Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
                         .into(imgCard);
             }
         } else {
+            imgCard.setVisibility(View.VISIBLE);
+            imgCardBackground.setVisibility(View.GONE);
+            view.findViewById(R.id.ly_one).setVisibility(View.GONE);
+            view.findViewById(R.id.ly_two).setVisibility(View.GONE);
+
             Picasso.with(getActivity()).load(new File(slide.getUrlImage())).error(R.drawable.teayudo_usuario)
                     .into(imgCard);
         }
