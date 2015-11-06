@@ -48,6 +48,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
     private String imageGalleryUrl;
+    private List<Slide> listSlides;
 
 
     public static ScreenPlayEditorFragment newInstance(Bundle args) {
@@ -60,14 +61,17 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
         args.putSerializable(SCRIPT, script);
         screenPlayEditorFragment.setArguments(args);
-        screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper);
+        Script script = (Script) getArguments().getSerializable(SCRIPT);
+        patientManager.setSelectedScript(script);
+        listSlides = script.getSlides();
+
+        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper, listSlides);
     }
 
     @Override
@@ -84,7 +88,12 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
         slidesListView.setHasFixedSize(true);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
+        if (listSlides != null && !listSlides.isEmpty()) {
+            slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
+        } else {
+            slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+        }
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
         ImageView imgAddImage = (ImageView) view.findViewById(R.id.slide_only_image);
         imgAddImage.setImageResource(R.drawable.agregar_foto);

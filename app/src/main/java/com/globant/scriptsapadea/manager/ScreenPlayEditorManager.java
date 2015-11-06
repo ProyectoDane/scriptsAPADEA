@@ -22,17 +22,17 @@ public class ScreenPlayEditorManager {
     private PatientManager patientManager;
     private SQLiteHelper mDBHelper;
 
-    public ScreenPlayEditorManager(Context context, PatientManager patientManager, SQLiteHelper mDBHelper) {
+    public ScreenPlayEditorManager(Context context, PatientManager patientManager, SQLiteHelper mDBHelper, List<Slide> slides) {
         this.mContext = context;
         // TODO This is not correct. Find another way
         this.patientManager = patientManager;
         this.mDBHelper = mDBHelper;
-        this.slides = new LinkedList<>();
-    }
+        if (slides != null && !slides.isEmpty()) {
+            this.slides = slides;
+        } else {
+            this.slides = new LinkedList<>();
+        }
 
-    public ScreenPlayEditorManager(Context context,List<Slide> slides) {
-        this.mContext = context;
-        this.slides = slides;
     }
 
     public void addSlide(Slide slide) {

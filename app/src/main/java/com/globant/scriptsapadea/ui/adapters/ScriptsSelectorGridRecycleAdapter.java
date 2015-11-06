@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.activities.ScriptSelectorActivity;
+import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
-import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
 import com.globant.scriptsapadea.ui.views.SSPopupMenuWindow;
 import com.squareup.picasso.Picasso;
 
@@ -168,7 +168,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     @Override
     public void editScript(Script script) {
         Bundle imageArguments = new Bundle();
-        mScriptSelectorListener.onNavigateToSlideEditor(ShowScriptPictureFragment.newInstance(imageArguments));
+        mScriptSelectorListener.onNavigateToSlideEditor(ScreenPlayEditorFragment.newInstance(imageArguments, script));
     }
 
     @Override

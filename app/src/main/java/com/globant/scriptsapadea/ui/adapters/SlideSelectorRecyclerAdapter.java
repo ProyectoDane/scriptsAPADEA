@@ -15,18 +15,26 @@ import com.globant.scriptsapadea.models.Slide;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * @author leonel.mendez
  */
 public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSelectorRecyclerAdapter.CommonViewHolder>{
 
+    private List<Slide> listSlides;
     private ScreenPlayEditorManager screenPlayEditorManager;
     private OnSlideSelectorItemClickListener onSlideSelectorItemClickListener;
 
     public SlideSelectorRecyclerAdapter(ScreenPlayEditorManager screenPlayEditorManager) {
         this.screenPlayEditorManager = screenPlayEditorManager;
         this.screenPlayEditorManager.setAdapter(SlideSelectorRecyclerAdapter.this);
+    }
+
+    public SlideSelectorRecyclerAdapter(ScreenPlayEditorManager screenPlayEditorManager, List<Slide> listSlides) {
+        this.screenPlayEditorManager = screenPlayEditorManager;
+        this.screenPlayEditorManager.setAdapter(SlideSelectorRecyclerAdapter.this);
+        this.listSlides = listSlides;
     }
 
     @Override

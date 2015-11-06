@@ -3,13 +3,16 @@ package com.globant.scriptsapadea.ui.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
 
@@ -23,7 +26,11 @@ import roboguice.inject.ContentView;
  * @author nicolas.quartieri
  */
 @ContentView(R.layout.activity_screen)
-public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener {
+public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener,
+        ShowScriptPictureFragment.OnEditFragmentListener {
+
+    @Inject
+    private PatientManager patientManager;
 
     private static final String PATIENT = "patient";
 
@@ -51,7 +58,10 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
         if (savedInstanceState == null) {
             ScreenScriptsSelectorFragment fragment;
             if (getIntent().hasExtra(PATIENT)) {
-                fragment = ScreenScriptsSelectorFragment.newInstance((Patient)getIntent().getExtras().getSerializable(PATIENT));
+                Patient patient = (Patient) getIntent().getExtras().getSerializable(PATIENT);
+                // TODO move this in other place.
+                patientManager.setSelectedPatient(patient);
+                fragment = ScreenScriptsSelectorFragment.newInstance(patient);
                 navigator.to(fragment).noPush().navigate();
             }
         }
@@ -63,7 +73,7 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     }
 
     @Override
-    public void onNavigateToSlideEditor(ShowScriptPictureFragment fragment) {
+    public void onNavigateToSlideEditor(ScreenPlayEditorFragment fragment) {
         navigator.to(fragment).navigate();
     }
 
@@ -83,5 +93,10 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.do_nothing, R.anim.pull_down_to_bottom);
+    }
+
+    @Override
+    public void onEditFragment(Fragment fragment) {
+        // Do nothing.
     }
 }
