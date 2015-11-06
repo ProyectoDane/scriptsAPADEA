@@ -38,6 +38,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
     private static final String SCRIPT = "script";
+    private final boolean isEditMode;
 
     @Inject
     private PatientManager patientManager;
@@ -50,15 +51,19 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private String imageGalleryUrl;
     private List<Slide> listSlides;
 
+    public ScreenPlayEditorFragment(boolean isEditMode) {
+        this.isEditMode = isEditMode;
+    }
 
-    public static ScreenPlayEditorFragment newInstance(Bundle args) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+
+    public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
 
-    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script, boolean isEditMode) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
         args.putSerializable(SCRIPT, script);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
@@ -139,10 +144,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             }
         });
 
-        // TODO si viene de haber seleccionado la edición
-
         List<Script> scriptList = patientManager.getSelectedPatient().getScriptList();
-        if (!scriptList.isEmpty() && scriptList.size() == 1) {
+        if (!scriptList.isEmpty() && scriptList.size() == 1 && !isEditMode) {
             mDBHelper.createPatient(patientManager.getSelectedPatient());
             patientManager.setSelectedScript(scriptList.get(0));
         }

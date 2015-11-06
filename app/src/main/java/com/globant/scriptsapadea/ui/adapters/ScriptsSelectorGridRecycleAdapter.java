@@ -168,7 +168,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     @Override
     public void editScript(Script script) {
         Bundle imageArguments = new Bundle();
-        mScriptSelectorListener.onNavigateToSlideEditor(ScreenPlayEditorFragment.newInstance(imageArguments, script));
+        mScriptSelectorListener.onNavigateToSlideEditor(ScreenPlayEditorFragment.newInstance(imageArguments, script, true));
     }
 
     @Override

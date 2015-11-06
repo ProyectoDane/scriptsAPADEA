@@ -62,7 +62,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle args = new Bundle();
-                    listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args));
+                    listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args, false));
                 }
             });
         }
