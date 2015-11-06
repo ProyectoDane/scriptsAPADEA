@@ -93,6 +93,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             public void onClick(View v) {
                 addSlideInAdapter(slideDescription, true);
                 slidePicture.setImageResource(android.R.color.transparent);
+                slideDescription.setText("");
+
             }
         });
 
