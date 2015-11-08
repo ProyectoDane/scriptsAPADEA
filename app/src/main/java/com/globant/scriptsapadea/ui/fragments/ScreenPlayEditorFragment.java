@@ -51,10 +51,13 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private String imageGalleryUrl;
     private List<Slide> listSlides;
 
+    public ScreenPlayEditorFragment() {
+        isEditMode = false;
+    }
+
     public ScreenPlayEditorFragment(boolean isEditMode) {
         this.isEditMode = isEditMode;
     }
-
 
     public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
@@ -73,8 +76,10 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Script script = (Script) getArguments().getSerializable(SCRIPT);
-        patientManager.setSelectedScript(script);
-        listSlides = script.getSlides();
+        if (script != null) {
+            patientManager.setSelectedScript(script);
+            listSlides = script.getSlides();
+        }
 
         screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper, listSlides);
     }

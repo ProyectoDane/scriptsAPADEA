@@ -37,12 +37,7 @@ public class ScreenPlayEditorManager {
 
     public void addSlide(Slide slide) {
         if (adapter != null) {
-            if (slides.size() >= 2) {
-                slides.add(1, slide);
-            } else {
-                slides.add(slide);
-            }
-
+            slides.add(0, slide);
             adapter.notifyDataSetChanged();
         }
     }
