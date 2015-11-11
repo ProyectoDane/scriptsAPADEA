@@ -10,11 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Slide;
 import com.software.shell.fab.ActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+
+import javax.inject.Inject;
 
 /**
  * Created by nicolas.quartieri
@@ -24,6 +27,9 @@ public class SliderFragment extends BaseFragment {
     private static final String EXTRA_MESSAGE = "message";
 
     private SliderCallback listener;
+
+    @Inject
+    private PatientManager patientManager;
 
     private Slide slide;
 
@@ -42,15 +48,25 @@ public class SliderFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.slider_layout, container, false);
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
+        final ImageView imgCardBackground = (ImageView) view.findViewById(R.id.img_card_background);
         if (slide.isResourceImage()) {
+            imgCard.setVisibility(View.GONE);
             if (slide.getResImage() == R.drawable.teayudo_iconovacio) {
-                view.findViewById(R.id.ly_one).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.ly_two).setVisibility(View.VISIBLE);
+                imgCard.setVisibility(View.GONE);
             } else {
+                imgCard.setVisibility(View.VISIBLE);
+                view.findViewById(R.id.ly_one).setVisibility(View.GONE);
+                view.findViewById(R.id.ly_two).setVisibility(View.GONE);
+
                 Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
                         .into(imgCard);
             }
         } else {
+            imgCard.setVisibility(View.VISIBLE);
+            imgCardBackground.setVisibility(View.GONE);
+            view.findViewById(R.id.ly_one).setVisibility(View.GONE);
+            view.findViewById(R.id.ly_two).setVisibility(View.GONE);
+
             Picasso.with(getActivity()).load(new File(slide.getUrlImage())).error(R.drawable.teayudo_usuario)
                     .into(imgCard);
         }
@@ -81,7 +97,7 @@ public class SliderFragment extends BaseFragment {
         return view;
     }
 
-    public static Object newInstance(Slide slide) {
+    public static SliderFragment newInstance(Slide slide) {
         SliderFragment fragment = new SliderFragment();
 
         Bundle bundle = new Bundle();

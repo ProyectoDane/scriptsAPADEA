@@ -23,13 +23,23 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/img_card"
+                android:id="@+id/img_card_background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
                 android:layout_above="@+id/txt_slide_legend"
                 android:src="@drawable/teayudo_iconovacio"/>
+
+            <ImageView
+                android:id="@+id/img_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:visibility="gone"
+                android:layout_above="@+id/txt_slide_legend"
+                android:src="@drawable/cepillo"/>
 
             <TextView
                 style="@style/Text.Body.Medium"
@@ -39,8 +49,7 @@
                 android:text="@string/slide_vacio_one"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="270dp"
-                android:visibility="gone" />
+                android:layout_marginTop="360dp" />
 
             <TextView
                 android:id="@+id/ly_two"
@@ -48,8 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/slide_vacio_two"
                 android:layout_below="@+id/ly_one"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone" />
+                android:layout_centerHorizontal="true" />
 
             <TextView
                 android:id="@+id/txt_slide_legend"

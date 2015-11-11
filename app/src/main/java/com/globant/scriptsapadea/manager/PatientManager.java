@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.models.Slide;
 
 /**
  * Created by nicolas.quartieri.
@@ -11,20 +12,20 @@ import com.globant.scriptsapadea.models.Script;
 public class PatientManager {
 
     private final Context context;
-
-    private Patient selectedPactient;
+    private Patient selectedPatient;
     private Script selectedScript;
+    private Slide selectedSlide;
 
     public PatientManager(Context context) {
         this.context = context;
     }
 
-    public Patient getSelectedPactient() {
-        return selectedPactient;
+    public Patient getSelectedPatient() {
+        return selectedPatient;
     }
 
-    public void setSelectedPactient(Patient selectedPactient) {
-        this.selectedPactient = selectedPactient;
+    public void setSelectedPatient(Patient selectedPatient) {
+        this.selectedPatient = selectedPatient;
     }
 
     public Script getSelectedScript() {
@@ -33,5 +34,13 @@ public class PatientManager {
 
     public void setSelectedScript(Script selectedScript) {
         this.selectedScript = selectedScript;
+    }
+
+    public Slide getSelectedSlide() {
+        return selectedSlide;
+    }
+
+    public void setSelectedSlide(Slide selectedSlide) {
+        this.selectedSlide = selectedSlide;
     }
 }

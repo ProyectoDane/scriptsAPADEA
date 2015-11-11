@@ -30,15 +30,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by leonel.mendez on 6/23/2015.
+ * @author leonel.mendez
  */
 public class ScreenPlayEditorFragment extends BaseFragment {
 
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
-
     private static final String SCRIPT = "script";
+    private final boolean isEditMode;
 
     @Inject
     private PatientManager patientManager;
@@ -49,18 +49,26 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
     private String imageGalleryUrl;
+    private List<Slide> listSlides;
+    private File photoFile;
 
+    public ScreenPlayEditorFragment() {
+        isEditMode = false;
+    }
 
-    public static ScreenPlayEditorFragment newInstance(Bundle args) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+    public ScreenPlayEditorFragment(boolean isEditMode) {
+        this.isEditMode = isEditMode;
+    }
+
+    public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
 
-    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script, boolean isEditMode) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
         args.putSerializable(SCRIPT, script);
-        screenPlayEditorFragment.setArguments(args);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
@@ -68,7 +76,13 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper);
+        Script script = (Script) getArguments().getSerializable(SCRIPT);
+        if (script != null) {
+            patientManager.setSelectedScript(script);
+            listSlides = script.getSlides();
+        }
+
+        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper, listSlides);
     }
 
     @Override
@@ -85,7 +99,12 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
         slidesListView.setHasFixedSize(true);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
+        if (listSlides != null && !listSlides.isEmpty()) {
+            slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
+        } else {
+            slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+        }
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
         ImageView imgAddImage = (ImageView) view.findViewById(R.id.slide_only_image);
         imgAddImage.setImageResource(R.drawable.agregar_foto);
@@ -94,6 +113,26 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             public void onClick(View v) {
                 addSlideInAdapter(slideDescription, true);
                 slidePicture.setImageResource(android.R.color.transparent);
+                slideDescription.setText("");
+
+            }
+        });
+
+        view.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
+            /**
+             * Remove the selected slide previously setup in the main slide imageView.
+             *
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                Slide slide = patientManager.getSelectedSlide();
+                screenPlayEditorManager.deleteSlide(slide);
+                int value = screenPlayEditorManager.removeSlide(slide);
+
+                // TODO remove image and text from main selection frame
+                slidePicture.setImageResource(android.R.color.transparent);
+                slideDescription.setText("");
             }
         });
 
@@ -107,24 +146,41 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         view.findViewById(R.id.editor_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
+                photoFile = PictureUtils.createFilePhotoForCamera();
+                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA, photoFile);
             }
         });
 
-        // TODO si viene de haber seleccionado la edición
-
-        List<Script> scriptList = patientManager.getSelectedPactient().getScriptList();
-        if (!scriptList.isEmpty() && scriptList.size() == 1) {
-            Slide newSlide = new Slide(0, R.drawable.teayudo_iconovacio, "", Slide.ONLY_IMAGE);
-            scriptList.get(0).getSlides().add(newSlide);
-            mDBHelper.createPatient(patientManager.getSelectedPactient());
+        List<Script> scriptList = patientManager.getSelectedPatient().getScriptList();
+        if (!scriptList.isEmpty() && scriptList.size() == 1 && !isEditMode) {
+            mDBHelper.createPatient(patientManager.getSelectedPatient());
             patientManager.setSelectedScript(scriptList.get(0));
         }
 
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
+            /**
+             * Set the selected slide to the main slide imageView & text.
+             *
+             * @param adapter
+             * @param view
+             * @param position
+             */
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
-                // TODO empty ?
+                Slide slide = screenPlayEditorManager.getSlide(position);
+                patientManager.setSelectedSlide(slide);
+
+                if (slide.isResourceImage()) {
+                    Picasso.with(getActivity())
+                            .load(slide.getResImage())
+                            .into(slidePicture);
+                } else {
+                    Picasso.with(getActivity())
+                            .load(new File(slide.getUrlImage()))
+                            .into(slidePicture);
+                }
+
+                slideDescription.setText(slide.getText());
             }
         });
     }
@@ -157,7 +213,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     }
 
     private void addSlideInAdapter(EditText slideDescription, boolean save) {
-        boolean slideAdded = false;
+        boolean slideAdded;
         Slide slide = null;
 
         if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
