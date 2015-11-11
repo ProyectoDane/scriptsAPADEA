@@ -50,6 +50,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private ImageView slidePicture;
     private String imageGalleryUrl;
     private List<Slide> listSlides;
+    private File photoFile;
 
     public ScreenPlayEditorFragment() {
         isEditMode = false;
@@ -145,7 +146,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         view.findViewById(R.id.editor_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
+                photoFile = PictureUtils.createFilePhotoForCamera();
+                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA, photoFile);
             }
         });
 

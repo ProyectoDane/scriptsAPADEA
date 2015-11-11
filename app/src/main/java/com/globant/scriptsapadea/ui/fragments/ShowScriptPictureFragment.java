@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +12,6 @@ import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
-import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +26,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
 
     public static final String SCREENPLAY_IMAGE = "picture_image";
     public static final String PICTURE_FROM_CAMERA = "picture_from_camera";
+    public static final String SCRIPT_IMAGE = "script_image";
 
     private OnEditFragmentListener listener;
 
@@ -73,12 +74,15 @@ public class ShowScriptPictureFragment extends BaseFragment {
     private void showImage(Bundle imageBundle, ImageView imageContainer) {
         boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
 
-        Patient patient = patientManager.getSelectedPatient();
-        Script script = patient.getScriptList().get(0);
+        Script script = patientManager.getSelectedScript();
+        patientManager.getSelectedPatient().getScriptList().add(script);
 
         if (pictureFromCamera) {
-            // TODO
-            //imageContainer.setImageBitmap((Bitmap) imageBundle.getParcelable(SCREENPLAY_IMAGE));
+            File photoFile = (File) imageBundle.getSerializable(SCRIPT_IMAGE);
+            if (photoFile.exists()) {
+                Uri uri = Uri.fromFile(photoFile);
+                imageContainer.setImageURI(uri);
+            }
         } else {
             if (script.isResourceImage()) {
                 Picasso.with(getActivity())

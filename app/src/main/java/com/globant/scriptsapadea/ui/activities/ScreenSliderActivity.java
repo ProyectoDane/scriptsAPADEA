@@ -159,7 +159,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         ArrayList fragments = new ArrayList<>();
 
         List<Slide> slides = script.getSlides();
-        if (slides.size() > 1) {
+        if (slides.size() > 0) {
             for (Slide slide : slides) {
                 fragments.add(SliderFragment.newInstance(slide));
             }
