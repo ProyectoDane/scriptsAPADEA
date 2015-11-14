@@ -284,12 +284,21 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         db.delete(TABLE_PATIENT, PATIENT_ID + " = ?",
                 new String[]{String.valueOf(patient.getId())});
+
+        Log.d("DEBUG", "Delete patient with ID: " + patient.getId());
     }
 
-    public void deleteScript(Script script) {
+    public int deleteScript(Script script) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_SCRIPT, PATIENT_ID + " = ?",
+
+        return db.delete(TABLE_SCRIPT, SCRIPT_ID + " = ?",
                 new String[]{String.valueOf(script.getId())});
+    }
+
+    public int deleteSlide(Slide slide, long scriptId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_SLIDE, SLIDE_ID + " = ? AND " + SLIDE_COLUMN_KEY_SCRIPT + " = ?",
+                new String[]{String.valueOf(slide.getId()), String.valueOf(scriptId)});
     }
 
     public void deleteDataBase() {
@@ -298,6 +307,19 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         Log.e("INFO", "DB deleted.");
     }
 
+    // TODO
+    public int updateSlide(Slide slide) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SLIDE_COLUMN_NAME, slide.getText());
+        values.put(SLIDE_COLUMN_IMAGE, slide.getUrlImage());
+
+        return db.update(TABLE_SLIDE, values, SLIDE_ID + " = ?",
+                new String[] { String.valueOf(slide.getId()) });
+    }
+
+    // TODO
     public int updateScript(Script script) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -309,6 +331,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(script.getId()) });
     }
 
+    // TODO
     public int updatePatient(Patient patient) {
         SQLiteDatabase db = this.getWritableDatabase();
 

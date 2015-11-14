@@ -4,37 +4,40 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by leonel.mendez on 6/26/2015.
+ * With this screen we can add/edit/erase slides into the selected script.
+ *
+ * @author leonel.mendez
  */
 public class ScreenPlayEditorManager {
 
     private List<Slide> slides;
     private RecyclerView.Adapter adapter;
     private Context mContext;
+    private PatientManager patientManager;
+    private SQLiteHelper mDBHelper;
 
-    public ScreenPlayEditorManager(Context context){
+    public ScreenPlayEditorManager(Context context, PatientManager patientManager, SQLiteHelper mDBHelper, List<Slide> slides) {
         this.mContext = context;
-        this.slides = new LinkedList<>();
-    }
+        // TODO This is not correct. Find another way
+        this.patientManager = patientManager;
+        this.mDBHelper = mDBHelper;
+        if (slides != null && !slides.isEmpty()) {
+            this.slides = slides;
+        } else {
+            this.slides = new LinkedList<>();
+        }
 
-    public ScreenPlayEditorManager(Context context,List<Slide> slides) {
-        this.mContext = context;
-        this.slides = slides;
     }
 
     public void addSlide(Slide slide) {
         if (adapter != null) {
-            if (slides.size() >= 2) {
-                slides.add(1, slide);
-            } else {
-                slides.add(slide);
-            }
-
+            slides.add(0, slide);
             adapter.notifyDataSetChanged();
         }
     }
@@ -42,14 +45,21 @@ public class ScreenPlayEditorManager {
     public void addSlide(Slide slide, int position) {
         if (adapter != null) {
             slides.add(position, slide);
-
             adapter.notifyDataSetChanged();
         }
     }
 
-    public void deleteSlide(int position) {
+    /**
+     * Delete the selected slide from the slide list setup in memory.
+     *
+     * @param slide
+     */
+    public void deleteSlide(Slide slide) {
         if (adapter != null) {
-            slides.remove(position);
+            int position = slides.indexOf(slide);
+            slides.remove(slide);
+            adapter.notifyItemRemoved(position);
+            adapter.notifyItemRangeChanged(position, slides.size());
             adapter.notifyDataSetChanged();
         }
     }
@@ -62,8 +72,24 @@ public class ScreenPlayEditorManager {
         return new Slide(id, urlImage, description, type);
     }
 
-    public void saveScript(){
-        //TODO: Add implementation to save script into database
+    /**
+     * Save the selected slide from the slide list setup into de Data Base.
+     *
+     * @param slide
+     * @return
+     */
+    public long saveSlide(Slide slide) {
+        return mDBHelper.createSlide(slide, patientManager.getSelectedScript().getId());
+    }
+
+    /**
+     * Delete the selected slide from the slide list setup in the Data Base.
+     *
+     * @param slide
+     * @return
+     */
+    public int removeSlide(Slide slide) {
+        return mDBHelper.deleteSlide(slide, patientManager.getSelectedScript().getId());
     }
 
     public void setSlides(List<Slide> slides) {

@@ -14,31 +14,61 @@ import android.widget.ImageView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
+import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.manager.ScreenPlayEditorManager;
+import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.List;
+
+import javax.inject.Inject;
 
 /**
- * Created by leonel.mendez on 6/23/2015.
+ * @author leonel.mendez
  */
 public class ScreenPlayEditorFragment extends BaseFragment {
 
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
+    private static final String SCRIPT = "script";
+    private final boolean isEditMode;
+
+    @Inject
+    private PatientManager patientManager;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     private ScreenPlayEditorManager screenPlayEditorManager;
     private ImageView slidePicture;
     private String imageGalleryUrl;
+    private List<Slide> listSlides;
+    private File photoFile;
 
+    public ScreenPlayEditorFragment() {
+        isEditMode = false;
+    }
 
-    public static ScreenPlayEditorFragment newInstance(Bundle args) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+    public ScreenPlayEditorFragment(boolean isEditMode) {
+        this.isEditMode = isEditMode;
+    }
+
+    public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
+        screenPlayEditorFragment.setArguments(args);
+        return screenPlayEditorFragment;
+    }
+
+    public static ScreenPlayEditorFragment newInstance(Bundle args, Script script, boolean isEditMode) {
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
+        args.putSerializable(SCRIPT, script);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
@@ -46,7 +76,13 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity());
+        Script script = (Script) getArguments().getSerializable(SCRIPT);
+        if (script != null) {
+            patientManager.setSelectedScript(script);
+            listSlides = script.getSlides();
+        }
+
+        screenPlayEditorManager = new ScreenPlayEditorManager(getActivity(), patientManager, mDBHelper, listSlides);
     }
 
     @Override
@@ -59,12 +95,46 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         slidePicture = (ImageView) view.findViewById(R.id.screenplay_slide_image);
-        final EditText slideDesc = (EditText) view.findViewById(R.id.editor_slide_text);
+        final EditText slideDescription = (EditText) view.findViewById(R.id.editor_slide_text);
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
         slidesListView.setHasFixedSize(true);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
+        if (listSlides != null && !listSlides.isEmpty()) {
+            slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
+        } else {
+            slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+        }
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
+        ImageView imgAddImage = (ImageView) view.findViewById(R.id.slide_only_image);
+        imgAddImage.setImageResource(R.drawable.agregar_foto);
+        imgAddImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSlideInAdapter(slideDescription, true);
+                slidePicture.setImageResource(android.R.color.transparent);
+                slideDescription.setText("");
+
+            }
+        });
+
+        view.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
+            /**
+             * Remove the selected slide previously setup in the main slide imageView.
+             *
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                Slide slide = patientManager.getSelectedSlide();
+                screenPlayEditorManager.deleteSlide(slide);
+                int value = screenPlayEditorManager.removeSlide(slide);
+
+                // TODO remove image and text from main selection frame
+                slidePicture.setImageResource(android.R.color.transparent);
+                slideDescription.setText("");
+            }
+        });
 
         view.findViewById(R.id.editor_gallery).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,15 +146,41 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         view.findViewById(R.id.editor_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA);
+                photoFile = PictureUtils.createFilePhotoForCamera();
+                PictureUtils.takePhotoFromCamera(ScreenPlayEditorFragment.this, REQUEST_CODE_CAMERA, photoFile);
             }
         });
-        screenPlayEditorManager.addSlide(new Slide(0, R.drawable.agregar_foto, null, Slide.ONLY_IMAGE));
+
+        List<Script> scriptList = patientManager.getSelectedPatient().getScriptList();
+        if (!scriptList.isEmpty() && scriptList.size() == 1 && !isEditMode) {
+            mDBHelper.createPatient(patientManager.getSelectedPatient());
+            patientManager.setSelectedScript(scriptList.get(0));
+        }
+
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
+            /**
+             * Set the selected slide to the main slide imageView & text.
+             *
+             * @param adapter
+             * @param view
+             * @param position
+             */
             @Override
             public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
-                addSlideInAdapter(position, slideDesc);
-                setSlideContentToEditor(position, slideDesc, slidePicture);
+                Slide slide = screenPlayEditorManager.getSlide(position);
+                patientManager.setSelectedSlide(slide);
+
+                if (slide.isResourceImage()) {
+                    Picasso.with(getActivity())
+                            .load(slide.getResImage())
+                            .into(slidePicture);
+                } else {
+                    Picasso.with(getActivity())
+                            .load(new File(slide.getUrlImage()))
+                            .into(slidePicture);
+                }
+
+                slideDescription.setText(slide.getText());
             }
         });
     }
@@ -116,21 +212,31 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         }
     }
 
-    private void addSlideInAdapter(int position, EditText slideDesc) {
-        if (position == INITIAL_POSITION) {
-            if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.IMAGE_TEXT);
-                screenPlayEditorManager.addSlide(slide);
+    private void addSlideInAdapter(EditText slideDescription, boolean save) {
+        boolean slideAdded;
+        Slide slide = null;
 
-            } else if (!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_IMAGE);
-                screenPlayEditorManager.addSlide(slide);
+        if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.IMAGE_TEXT);
+            screenPlayEditorManager.addSlide(slide);
 
-            } else if (!TextUtils.isEmpty(slideDesc.getText().toString())) {
-                Slide slide = screenPlayEditorManager.createSlide(position + 1, imageGalleryUrl, slideDesc.getText().toString(), Slide.ONLY_TEXT);
-                screenPlayEditorManager.addSlide(slide);
-            } else {
-            }
+            slideAdded = true;
+        } else if (!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDescription.getText().toString())) {
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_IMAGE);
+            screenPlayEditorManager.addSlide(slide);
+
+            slideAdded = true;
+        } else if (!TextUtils.isEmpty(slideDescription.getText().toString())) {
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_TEXT);
+            screenPlayEditorManager.addSlide(slide);
+
+            slideAdded = true;
+        } else {
+            slideAdded = false;
+        }
+
+        if (save && slideAdded && slide != null) {
+            screenPlayEditorManager.saveSlide(slide);
         }
     }
 

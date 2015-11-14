@@ -17,6 +17,7 @@ import com.globant.scriptsapadea.manager.PageResult;
 import com.globant.scriptsapadea.manager.ResponseEvent;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
 import com.globant.scriptsapadea.ui.views.MyProgressBar;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
@@ -25,6 +26,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -45,6 +48,9 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     private int currentSlide;
     private boolean avoid = false;
 
+    @Inject
+    private SQLiteHelper mDBHelper;
+
     @InjectView(R.id.progress_bar)
     private MyProgressBar progressBar;
 
@@ -62,6 +68,12 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(SCRIPT)) {
                 script = (Script)getIntent().getExtras().getSerializable(SCRIPT);
+
+                List<Slide> slideList = script.getSlides();
+                if (slideList.size() > 1 && slideList.get(0).getResImage() == R.drawable.teayudo_usuario) {
+                    mDBHelper.deleteSlide(slideList.get(0), script.getId());
+                    slideList.remove(0);
+                }
 
                 progressBar.setSize(script.getSlides().size());
                 progressBar.build();
@@ -102,7 +114,6 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
             @Override
             public void onPageSelected(int position) {
-
                 if (!avoid) {
                     if (currentSlide - position > 0) { // Right direction
                         progressBar.prev();
@@ -120,7 +131,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                // Do noting.
             }
         });
 
@@ -147,8 +158,14 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     private List<Fragment> getFragments() {
         ArrayList fragments = new ArrayList<>();
 
-        for (Slide slide : script.getSlides()) {
-            fragments.add(SliderFragment.newInstance(slide));
+        List<Slide> slides = script.getSlides();
+        if (slides.size() > 0) {
+            for (Slide slide : slides) {
+                fragments.add(SliderFragment.newInstance(slide));
+            }
+        } else {
+            SliderFragment fragment = SliderFragment.newInstance((new Slide(0, R.drawable.teayudo_iconovacio, "", Slide.ONLY_IMAGE)));
+            fragments.add(fragment);
         }
 
         return fragments;

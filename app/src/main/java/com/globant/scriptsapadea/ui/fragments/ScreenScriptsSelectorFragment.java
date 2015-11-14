@@ -19,16 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by nicolas.quartieri.
+ * Fragment created to hold script image (an context-menu) inside the script grid.
+ *
+ * @author nicolas.quartieri.
  */
 public class ScreenScriptsSelectorFragment extends BaseFragment {
 
-    private List<Script> scriptList = new ArrayList<Script>();
-
+    private List<Script> scriptList = new ArrayList<>();
     private RecyclerView mGridView;
     private ScriptsSelectorGridRecycleAdapter adapter;
     private Patient patient;
-
     private ScreenScriptSelectorListener mListener;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
@@ -104,6 +104,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     }
 
     public interface ScreenScriptSelectorListener {
-        public void onNavigateToScriptSlider(Script script);
+        void onNavigateToScriptSlider(Script script);
+        void onNavigateToSlideEditor(ScreenPlayEditorFragment fragment);
     }
 }

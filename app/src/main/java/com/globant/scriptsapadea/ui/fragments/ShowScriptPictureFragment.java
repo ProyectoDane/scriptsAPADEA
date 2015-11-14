@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,9 +12,7 @@ import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
-import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
-import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -21,20 +20,18 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
- * Created by nicolas.quartieri on 6/11/2015.
+ * @author nicolas.quartieri
  */
 public class ShowScriptPictureFragment extends BaseFragment {
 
     public static final String SCREENPLAY_IMAGE = "picture_image";
     public static final String PICTURE_FROM_CAMERA = "picture_from_camera";
+    public static final String SCRIPT_IMAGE = "script_image";
 
     private OnEditFragmentListener listener;
 
     @Inject
     private PatientManager patientManager;
-
-    @Inject
-    private SQLiteHelper mDBHelper;
 
     public static ShowScriptPictureFragment newInstance(Bundle imageBundle) {
         ShowScriptPictureFragment showPictureFragment = new ShowScriptPictureFragment();
@@ -48,7 +45,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
         try {
            listener = (OnEditFragmentListener) activity;
         }catch (ClassCastException e){
-            throw new ClassCastException(activity.getLocalClassName() + "must implement OnEditFragmentListener");
+           throw new ClassCastException(activity.getLocalClassName() + "must implement OnEditFragmentListener");
         }
     }
 
@@ -66,10 +63,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle args = new Bundle();
-
-                    mDBHelper.createPatient(patientManager.getSelectedPactient());
-
-                    listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args));
+                    listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args, false));
                 }
             });
         }
@@ -80,12 +74,15 @@ public class ShowScriptPictureFragment extends BaseFragment {
     private void showImage(Bundle imageBundle, ImageView imageContainer) {
         boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
 
-        Patient patient = patientManager.getSelectedPactient();
-        Script script = patient.getScriptList().get(0);
+        Script script = patientManager.getSelectedScript();
+        patientManager.getSelectedPatient().getScriptList().add(script);
 
         if (pictureFromCamera) {
-            // TODO
-            //imageContainer.setImageBitmap((Bitmap) imageBundle.getParcelable(SCREENPLAY_IMAGE));
+            File photoFile = (File) imageBundle.getSerializable(SCRIPT_IMAGE);
+            if (photoFile.exists()) {
+                Uri uri = Uri.fromFile(photoFile);
+                imageContainer.setImageURI(uri);
+            }
         } else {
             if (script.isResourceImage()) {
                 Picasso.with(getActivity())
