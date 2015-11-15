@@ -2,6 +2,7 @@ package com.globant.scriptsapadea.ui.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -112,6 +113,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 addSlideInAdapter(slideDescription, true);
+
                 slidePicture.setImageResource(android.R.color.transparent);
                 slideDescription.setText("");
 
@@ -197,17 +199,19 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     }
 
     private void showImage(Intent data, int requestCode) {
-        if (data != null) {
-            Bundle extras = data.getExtras();
-            if (requestCode == REQUEST_CODE_GALLERY) {
+        if (requestCode == REQUEST_CODE_GALLERY) {
+            if (data != null && data.getData() != null) {
                 imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData());
                 Picasso.with(getActivity())
                         .load(new File(imageGalleryUrl))
                         .into(slidePicture);
-            } else {
-                if (extras != null) {
-                    slidePicture.setImageBitmap((Bitmap) extras.get("data"));
-                }
+            }
+        } else {
+            if (photoFile != null && photoFile.exists()) {
+                Uri uri = Uri.fromFile(photoFile);
+                slidePicture.setImageURI(uri);
+
+                imageGalleryUrl = photoFile.getAbsolutePath();
             }
         }
     }
