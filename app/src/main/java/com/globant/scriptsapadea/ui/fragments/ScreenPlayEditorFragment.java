@@ -182,7 +182,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                             .into(slidePicture);
                 }
 
-                slideDescription.setText(slide.getText());
+                slideDescription.setText(slide.getText().toUpperCase());
             }
         });
     }
@@ -221,7 +221,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         Slide slide = null;
 
         if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
-            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.IMAGE_TEXT);
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString().toUpperCase(), Slide.IMAGE_TEXT);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;
@@ -231,7 +231,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
             slideAdded = true;
         } else if (!TextUtils.isEmpty(slideDescription.getText().toString())) {
-            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_TEXT);
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString().toUpperCase(), Slide.ONLY_TEXT);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;
