@@ -29,6 +29,8 @@ import java.util.List;
  */
 public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<PatientSelectorGridRecycleAdapter.PatientViewHolder> {
 
+    private static final int TOP_POSITION = 300;
+
     private final PatientListFragment context;
     private PatientListFragment.PatientListFragmentListener mListener;
 
@@ -91,7 +93,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
             int yPosition = 0;
             if (patientList.size() == 1) {
-                yPosition = 400;
+                yPosition = TOP_POSITION;
             }
             viewToAnimate.setTranslationY(getScreenHeight(context.getActivity()));
             viewToAnimate.animate()

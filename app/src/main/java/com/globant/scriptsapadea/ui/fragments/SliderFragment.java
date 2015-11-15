@@ -58,8 +58,13 @@ public class SliderFragment extends BaseFragment {
                 view.findViewById(R.id.ly_one).setVisibility(View.GONE);
                 view.findViewById(R.id.ly_two).setVisibility(View.GONE);
 
-                Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
-                        .into(imgCard);
+                if (slide.getResImage() != 0) {
+                    Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
+                            .into(imgCard);
+                } else {
+                    Picasso.with(getActivity()).load(android.R.color.transparent)
+                            .into(imgCard);
+                }
             }
         } else {
             imgCard.setVisibility(View.VISIBLE);
