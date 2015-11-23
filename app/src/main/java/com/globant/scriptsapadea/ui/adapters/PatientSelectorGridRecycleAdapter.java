@@ -195,10 +195,15 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         }
 
         public void removeAt(int position) {
-            mListener.deletePatient(patientList.get(position));
-            patientList.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(getPosition(), patientList.size());
+            Patient selectedPatient = patientList.get(position);
+            if (!selectedPatient.getName().equalsIgnoreCase("APADEA")) {
+                mListener.deletePatient(patientList.get(position));
+                patientList.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(getPosition(), patientList.size());
+            } else {
+                // TODO notification "This profile can not be erase"
+            }
         }
 
         @Override
