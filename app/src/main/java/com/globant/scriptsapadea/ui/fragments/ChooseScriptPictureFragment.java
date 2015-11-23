@@ -18,8 +18,6 @@ import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -98,11 +96,8 @@ public class ChooseScriptPictureFragment extends BaseFragment {
             if (data != null && data.getData() != null) {
                 imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
 
-                List<Script> list = new ArrayList<>();
-                list.add(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
                         PictureUtils.getImagePath(getActivity(), data.getData())));
-
-                patientManager.getSelectedPatient().setScriptList(list);
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
