@@ -12,6 +12,8 @@ import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.ChooseScriptPictureFragment;
+import com.globant.scriptsapadea.ui.fragments.CreateScriptFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenScriptsSelectorFragment;
 import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
@@ -27,7 +29,7 @@ import roboguice.inject.ContentView;
  */
 @ContentView(R.layout.activity_screen)
 public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener,
-        ShowScriptPictureFragment.OnEditFragmentListener {
+        ShowScriptPictureFragment.OnEditFragmentListener, CreateScriptFragment.OnTakeScriptPictureFragmentListener, ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener {
 
     @Inject
     private PatientManager patientManager;
@@ -97,6 +99,16 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
 
     @Override
     public void onEditFragment(Fragment fragment) {
-        // Do nothing.
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
+    public void onTakeScriptPictureFragment(Fragment fragment) {
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
+    public void onShowScriptPictureFragment(Fragment fragment) {
+        navigator.to(fragment).navigate();
     }
 }

@@ -47,7 +47,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         try {
             listener = (OnShowScriptPictureFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnShowScriptPictureFragmentListener");
+            throw new ClassCastException(getActivity().getLocalClassName() + " must be implements OnShowScriptPictureFragmentListener");
         }
     }
 

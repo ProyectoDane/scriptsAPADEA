@@ -24,9 +24,8 @@ public class CreateScriptFragment extends BaseFragment {
     private EditText screenplayName;
 
     public static final String SCRIPT_NAME = "scriptname";
-    public static final String IS_CREATING_SCREENPLAY = "is_creating_guion";
 
-    public static CreateScriptFragment newInstance(Bundle args){
+    public static CreateScriptFragment newInstance(Bundle args) {
         CreateScriptFragment screenPlayFragment = new CreateScriptFragment();
         screenPlayFragment.setArguments(args);
         return screenPlayFragment;

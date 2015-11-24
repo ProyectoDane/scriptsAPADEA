@@ -30,6 +30,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private ScriptsSelectorGridRecycleAdapter adapter;
     private Patient patient;
     private ScreenScriptSelectorListener mListener;
+    private CreateScriptFragment.OnTakeScriptPictureFragmentListener listener;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
         ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
@@ -50,6 +51,13 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement ScreenScriptSelectorListener");
         }
+
+        try {
+            listener = (CreateScriptFragment.OnTakeScriptPictureFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement ScreenScriptSelectorListener");
+        }
     }
 
     @Override
@@ -63,6 +71,14 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scripts_selector, container, false);
+
+        view.findViewById(R.id.btn_new_script).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle args = new Bundle();
+                listener.onTakeScriptPictureFragment(CreateScriptFragment.newInstance(args));
+            }
+        });
 
         mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);
         mGridView.setHasFixedSize(true);
