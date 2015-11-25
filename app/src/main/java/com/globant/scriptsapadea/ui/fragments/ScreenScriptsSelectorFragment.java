@@ -72,13 +72,18 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scripts_selector, container, false);
 
-        view.findViewById(R.id.btn_new_script).setOnClickListener(new View.OnClickListener() {
+        View btnNewScript = view.findViewById(R.id.btn_new_script);
+        btnNewScript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 listener.onTakeScriptPictureFragment(CreateScriptFragment.newInstance(args));
             }
         });
+
+        if (patient.getName().equalsIgnoreCase("APADEA")) {
+            btnNewScript.setEnabled(false);
+        }
 
         mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);
         mGridView.setHasFixedSize(true);
