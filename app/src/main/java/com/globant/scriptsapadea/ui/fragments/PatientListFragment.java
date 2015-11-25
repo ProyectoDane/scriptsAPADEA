@@ -125,6 +125,8 @@ public class PatientListFragment extends BaseFragment {
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(1000)
                     .start();
+        } else {
+            welcomePanel.setVisibility(View.GONE);
         }
 
         if (patientList != null && !patientList.isEmpty()) {

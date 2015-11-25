@@ -1,7 +1,7 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +38,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
     private static final String SCRIPT = "script";
-    private final boolean isEditMode;
+    private static final String EDIT_MODE = "editmode";
+    private boolean isEditMode = false;
 
     @Inject
     private PatientManager patientManager;
@@ -52,22 +53,16 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private List<Slide> listSlides;
     private File photoFile;
 
-    public ScreenPlayEditorFragment() {
-        isEditMode = false;
-    }
-
-    public ScreenPlayEditorFragment(boolean isEditMode) {
-        this.isEditMode = isEditMode;
-    }
-
     public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+        args.putSerializable(EDIT_MODE, isEditMode);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
 
     public static ScreenPlayEditorFragment newInstance(Bundle args, Script script, boolean isEditMode) {
-        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment(isEditMode);
+        ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
+        args.putBoolean(EDIT_MODE, isEditMode);
         args.putSerializable(SCRIPT, script);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
@@ -76,6 +71,9 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isEditMode = getArguments().getBoolean(EDIT_MODE);
+
         Script script = (Script) getArguments().getSerializable(SCRIPT);
         if (script != null) {
             patientManager.setSelectedScript(script);
@@ -112,6 +110,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 addSlideInAdapter(slideDescription, true);
+
                 slidePicture.setImageResource(android.R.color.transparent);
                 slideDescription.setText("");
 
@@ -152,9 +151,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         });
 
         List<Script> scriptList = patientManager.getSelectedPatient().getScriptList();
-        if (!scriptList.isEmpty() && scriptList.size() == 1 && !isEditMode) {
-            mDBHelper.createPatient(patientManager.getSelectedPatient());
-            patientManager.setSelectedScript(scriptList.get(0));
+        if (!scriptList.isEmpty()) {
+            if (scriptList.size() == 1 && !isEditMode) {
+                mDBHelper.createPatient(patientManager.getSelectedPatient());
+                patientManager.setSelectedScript(scriptList.get(0));
+            } else if (scriptList.size() > 1 && !isEditMode) { // TODO Refactor this!
+                mDBHelper.createScript(patientManager.getSelectedScript(),
+                        patientManager.getSelectedPatient().getId());
+            }
         }
 
         slideSelectorRecyclerAdapter.setOnSlideSelectorItemClickListener(new SlideSelectorRecyclerAdapter.OnSlideSelectorItemClickListener() {
@@ -180,7 +184,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                             .into(slidePicture);
                 }
 
-                slideDescription.setText(slide.getText());
+                slideDescription.setText(slide.getText().toUpperCase());
             }
         });
     }
@@ -197,17 +201,19 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     }
 
     private void showImage(Intent data, int requestCode) {
-        if (data != null) {
-            Bundle extras = data.getExtras();
-            if (requestCode == REQUEST_CODE_GALLERY) {
+        if (requestCode == REQUEST_CODE_GALLERY) {
+            if (data != null && data.getData() != null) {
                 imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData());
                 Picasso.with(getActivity())
                         .load(new File(imageGalleryUrl))
                         .into(slidePicture);
-            } else {
-                if (extras != null) {
-                    slidePicture.setImageBitmap((Bitmap) extras.get("data"));
-                }
+            }
+        } else {
+            if (photoFile != null && photoFile.exists()) {
+                Uri uri = Uri.fromFile(photoFile);
+                slidePicture.setImageURI(uri);
+
+                imageGalleryUrl = photoFile.getAbsolutePath();
             }
         }
     }
@@ -217,7 +223,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         Slide slide = null;
 
         if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
-            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.IMAGE_TEXT);
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString().toUpperCase(), Slide.IMAGE_TEXT);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;
@@ -227,7 +233,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
             slideAdded = true;
         } else if (!TextUtils.isEmpty(slideDescription.getText().toString())) {
-            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_TEXT);
+            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString().toUpperCase(), Slide.ONLY_TEXT);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;

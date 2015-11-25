@@ -75,7 +75,7 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
                 case Slide.IMAGE_TEXT:
                     ImageAndTextViewHolder imageAndTextViewHolder = (ImageAndTextViewHolder)holder;
                     showSlideImage(imageAndTextViewHolder.slideImage.getContext(), slide, imageAndTextViewHolder.slideImage);
-                    imageAndTextViewHolder.slideDesc.setText(slide.getText());
+                    imageAndTextViewHolder.slideDesc.setText(slide.getText().toUpperCase());
                     break;
 
                 default:
