@@ -173,6 +173,9 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     @Override
     public void copyScript(Script script) {
-        // TODO
+        long scriptId = ((ScriptSelectorActivity) context).copyDBScript(script);
+        script.setId(scriptId);
+        scriptList.add(script);
+        notifyDataSetChanged();
     }
 }
