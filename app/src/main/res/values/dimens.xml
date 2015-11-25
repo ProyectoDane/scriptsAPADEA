@@ -39,4 +39,6 @@
     <dimen name="screenplay_editor_card_width">270dp</dimen>
     <dimen name="slide_only_text_size">25sp</dimen>
 
+    <dimen name="script_grid_size_card_height">200dp</dimen>
+    <dimen name="script_grid_size_card_weight">200dp</dimen>
 </resources>

@@ -87,8 +87,8 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
         // TODO
     }
 
-    public void copyDBScript(Script script) {
-        // TODO
+    public long copyDBScript(Script script) {
+        return mDBHelper.createScript(script, patientManager.getSelectedPatient().getId());
     }
 
     @Override

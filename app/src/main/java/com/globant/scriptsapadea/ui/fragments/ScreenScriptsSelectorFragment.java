@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Fragment created to hold script image (an context-menu) inside the script grid.
+ * Fragment created to hold script image gallery (an context-menu) inside the script grid.
  *
  * @author nicolas.quartieri.
  */
