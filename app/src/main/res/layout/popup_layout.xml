@@ -20,14 +20,12 @@
             android:id="@+id/txt_edit_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_medium"
             android:text="@string/popupmenu_edit"/>
 
         <TextView
             android:id="@+id/txt_remove_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_medium"
             android:layout_marginTop="@dimen/margin_small"
             android:text="@string/popupmenu_remove"/>
 
@@ -35,7 +33,6 @@
             android:id="@+id/txt_copy_option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_medium"
             android:layout_marginTop="@dimen/margin_small"
             android:text="@string/popupmenu_copy"/>
     </LinearLayout>

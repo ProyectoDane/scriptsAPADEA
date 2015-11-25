@@ -9,7 +9,7 @@ import android.widget.PopupMenu;
 import com.globant.scriptsapadea.R;
 
 /**
- * @author nicolas.quartieri
+ * Created by nicolas.quartieri.
  */
 public class SSPopupMenu extends PopupMenu implements PopupMenu.OnMenuItemClickListener {
 

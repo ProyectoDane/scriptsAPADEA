@@ -119,12 +119,7 @@
 
     <style name="Button.Custom">
         <item name="android:textColor">@color/gray_dark</item>
-        <item name="android:textSize">@dimen/font_size_caption</item>
-    </style>
-
-    <style name="Button.Custom.Heading">
-        <item name="android:textColor">@color/gray_dark</item>
-        <item name="android:textSize">@dimen/font_size_heading</item>
+        <item name="android:textSize">@dimen/margin_medium</item>
     </style>
 
     <style name="Button.Title">
