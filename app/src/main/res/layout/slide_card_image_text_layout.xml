@@ -39,6 +39,7 @@
                 tools:text="Description"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:textAllCaps="true"
                 android:padding="@dimen/margin_small"
                 />
         </RelativeLayout>

@@ -9,17 +9,23 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
 
 /**
- * Created by nicolas.quartieri.
+ * PopupMenu created to display the 3 options action on Script
+ *
+ * @author nicolas.quartieri.
  */
 public class SSPopupMenuWindow extends PopupWindow {
 
-    static public PopupWindow createPopupWindow(Context context, boolean focusable, String scriptId) {
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_layout, null);
+    private Script script;
 
-        final PopupWindow popupWindow = new SSPopupMenuWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
+    static public SSPopupMenuWindow createPopupWindow(final Context context, boolean focusable, final ScriptsSelectorGridRecycleAdapter adapter) {
+        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.popup_layout, null);
+
+        final SSPopupMenuWindow popupWindow = new SSPopupMenuWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOutsideTouchable(true);
 
@@ -29,21 +35,21 @@ public class SSPopupMenuWindow extends PopupWindow {
         txtEditOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                adapter.editScript(popupWindow.getScript());
                 popupWindow.dismiss();
             }
         });
         txtRemoveOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                adapter.deleteScript(popupWindow.getScript());
                 popupWindow.dismiss();
             }
         });
         txtCopyOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                adapter.copyScript(popupWindow.getScript());
                 popupWindow.dismiss();
             }
         });
@@ -53,5 +59,19 @@ public class SSPopupMenuWindow extends PopupWindow {
 
     public SSPopupMenuWindow(View contentView, int width, int height, boolean focusable) {
         super(contentView, width, height, focusable);
+    }
+
+    public void setScript(Script script) {
+        this.script = script;
+    }
+
+    public Script getScript() {
+        return script;
+    }
+
+    public interface SSPopupMenuWindowListener {
+        void deleteScript(Script script);
+        void editScript(Script script);
+        void copyScript(Script script);
     }
 }
