@@ -17,8 +17,6 @@ import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
 
-import java.io.File;
-
 import javax.inject.Inject;
 
 /**
@@ -33,7 +31,6 @@ public class ChoosePatientPictureFragment extends BaseFragment {
     private PatientManager patientManager;
 
     private OnShowPatientPictureFragmentListener showPictureFragmentListener;
-    private File photoFile;
 
     public static ChoosePatientPictureFragment newInstance(Bundle args) {
         ChoosePatientPictureFragment fragment = new ChoosePatientPictureFragment();
@@ -74,8 +71,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         takePhotoCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                photoFile = PictureUtils.createFilePhotoForCamera();
-                PictureUtils.takePhotoFromCamera(ChoosePatientPictureFragment.this, CAMERA, photoFile);
+                PictureUtils.takePhotoFromCamera(ChoosePatientPictureFragment.this, CAMERA);
             }
         });
 
@@ -92,27 +88,30 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle imageArguments = new Bundle();
+
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
-                patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+                //imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
+
+                patientManager.setSelectedPactient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
                         PictureUtils.getImagePath(getActivity(), data.getData())));
 
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             }
         } else {
-            if (photoFile != null && photoFile.exists()) {
-                imageArguments.putSerializable(ShowPatientPictureFragment.PATIENT_IMAGE, photoFile);
-                imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
+            if (data != null && data.getExtras() != null) {
+                // TODO: Create folder to save images from camera
+                //imageArguments.putParcelable(ShowPatientPictureFragment.PATIENT_IMAGE, ((Bitmap) data.getExtras().get("data")));
 
-                patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        photoFile.getAbsolutePath()));
+                //patientManager.setSelectedPactient(new Patient(null, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+                //        PictureUtils.getImagePath(getActivity(), data.getData())));
 
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             }
         }
     }
 
-    public interface OnShowPatientPictureFragmentListener {
+    public interface OnShowPatientPictureFragmentListener{
         void onShowPictureFragment(Fragment fragment);
     }
 }

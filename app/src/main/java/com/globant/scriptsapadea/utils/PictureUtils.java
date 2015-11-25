@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -17,9 +16,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by leonel.mendez on 6/11/2015.
@@ -110,23 +106,8 @@ public class PictureUtils {
         }
     }
 
-    public static File createFilePhotoForCamera() {
-        File photoFile = null;
-        try {
-            photoFile = PictureUtils.createImageFile();
-
-            return photoFile;
-        } catch (IOException e1) {
-            Log.e("ERROR", "Error saving the Camera Picture");
-        }
-
-        return photoFile;
-    }
-
-    public static void takePhotoFromCamera(Fragment fragment, int requestCode, File photoFile) {
+    public static void takePhotoFromCamera(Fragment fragment,int requestCode) {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photoFile));
         fragment.startActivityForResult(cameraIntent, requestCode);
     }
 
@@ -159,7 +140,7 @@ public class PictureUtils {
     }
 
     public static String getRealPathFromResId(Context context, int resId) {
-        return getImagePath(context, resIdToUri(context, resId));
+        return getImagePath(context,resIdToUri(context, resId));
         //return getRealPathFromURI(context, resIdToUri(context, resId));
     }
 
@@ -176,21 +157,5 @@ public class PictureUtils {
                 cursor.close();
             }
         }
-    }
-
-    public static File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "PNG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".png",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        return image;
     }
 }

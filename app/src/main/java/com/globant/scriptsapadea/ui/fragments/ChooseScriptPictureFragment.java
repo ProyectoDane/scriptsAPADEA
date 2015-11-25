@@ -2,6 +2,7 @@ package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,7 +18,8 @@ import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.squareup.otto.Subscribe;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,7 +35,6 @@ public class ChooseScriptPictureFragment extends BaseFragment {
 
     @Inject
     private PatientManager patientManager;
-    private File photoFile;
 
     public static ChooseScriptPictureFragment newInstance(Bundle args) {
         ChooseScriptPictureFragment fragment = new ChooseScriptPictureFragment();
@@ -47,7 +48,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         try {
             listener = (OnShowScriptPictureFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(getActivity().getLocalClassName() + " must be implements OnShowScriptPictureFragmentListener");
+            throw new ClassCastException(getActivity().getLocalClassName() + "must be implements OnShowScriptPictureFragmentListener");
         }
     }
 
@@ -74,8 +75,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         takePhotoCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                photoFile = PictureUtils.createFilePhotoForCamera();
-                PictureUtils.takePhotoFromCamera(ChooseScriptPictureFragment.this,CAMERA, photoFile);
+                PictureUtils.takePhotoFromCamera(ChooseScriptPictureFragment.this,CAMERA);
             }
         });
 
@@ -92,22 +92,23 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle imageArguments = new Bundle();
+
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
                 imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
 
-                patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                List<Script> list = new ArrayList<>();
+                list.add(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
                         PictureUtils.getImagePath(getActivity(), data.getData())));
+
+                patientManager.getSelectedPactient().setScriptList(list);
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
         } else {
-            if (photoFile != null && photoFile.exists()) {
-                imageArguments.putSerializable(ShowScriptPictureFragment.SCRIPT_IMAGE, photoFile);
-                imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
-
-                patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
-                        photoFile.getAbsolutePath()));
+            if (data != null && data.getExtras() != null) {
+                // TODO: Create folder to save images from camera
+                imageArguments.putParcelable(ShowPatientPictureFragment.PATIENT_IMAGE, ((Bitmap) data.getExtras().get("data")));
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }

@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/txt_editar"
-            style="@style/Button.Custom.Heading"
+            style="@style/Button.Custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/script_select_edit"

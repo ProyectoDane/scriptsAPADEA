@@ -1,7 +1,6 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,6 +49,7 @@ public class ShowPatientPictureFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View mainView = inflater.inflate(R.layout.fragment_picture, container, false);
         TextView screenplayName = (TextView) mainView.findViewById(R.id.txt_patient_name);
 
@@ -72,16 +72,13 @@ public class ShowPatientPictureFragment extends BaseFragment {
     }
 
     private void showImage(Bundle imageBundle, ImageView imageContainer) {
-        boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA, false);
+        boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
 
-        Patient patient = patientManager.getSelectedPatient();
+        Patient patient = patientManager.getSelectedPactient();
 
         if (pictureFromCamera) {
-            File photoFile = (File) imageBundle.getSerializable(PATIENT_IMAGE);
-            if (photoFile.exists()) {
-                Uri uri = Uri.fromFile(photoFile);
-                imageContainer.setImageURI(uri);
-            }
+            // TODO
+            //imageContainer.setImageBitmap((Bitmap) imageBundle.getParcelable(PATIENT_IMAGE));
         } else {
             if (patient.isResourceAvatar()) {
                 Picasso.with(getActivity())

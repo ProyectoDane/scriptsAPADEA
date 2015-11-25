@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TEAyudo</string>
+    <string name="app_name">scriptsAPADEA</string>
 
     <string name="fantasy_name">GUIONES SOCIALES</string>
     <string name="action_settings">Settings</string>
@@ -50,7 +50,6 @@
 
     <string name="script_select_edit">EDITAR</string>
 
-    <string name="editor_erase_photo">QUITAR FOTO</string>
     <string name="editor_take_photo">TOMAR FOTO</string>
     <string name="editor_pick_photo">ELEGIR FOTO</string>
     <string name="editor_add_button">add_button</string>
@@ -62,6 +61,4 @@
     <string name="popupmenu_copy">COPIAR</string>
     <string name="hint_leyend">TEXTO</string>
 
-    <string name="slide_vacio_one">EL GUIÓN ESTA VACÍO</string>
-    <string name="slide_vacio_two">Continúa editando el guión para agregarle contenido</string>
 </resources>
