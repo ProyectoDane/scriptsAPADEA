@@ -92,6 +92,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //view.findViewById(R.id.img_pulldown_button).setVisibility(View.GONE);
+
         slidePicture = (ImageView) view.findViewById(R.id.screenplay_slide_image);
         final EditText slideDescription = (EditText) view.findViewById(R.id.editor_slide_text);
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
