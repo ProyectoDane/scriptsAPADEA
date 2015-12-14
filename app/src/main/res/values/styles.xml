@@ -117,6 +117,10 @@
         <item name="android:textSize">@dimen/font_size_body</item>
     </style>
 
+    <style name="Button.Secondary.Small">
+        <item name="android:textSize">@dimen/font_size_small</item>
+    </style>
+
     <style name="Button.Custom">
         <item name="android:textColor">@color/gray_dark</item>
         <item name="android:textSize">@dimen/font_size_caption</item>

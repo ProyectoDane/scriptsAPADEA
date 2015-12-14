@@ -13,7 +13,7 @@
 
         <TextView
             android:id="@+id/btn_new_script"
-            style="@style/Button.Secondary"
+            style="@style/Button.Secondary.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/scriptlist_new_script"

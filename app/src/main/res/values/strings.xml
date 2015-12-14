@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_owner_name">APADEA</string>
     <string name="app_name">TEAyudo</string>
 
     <string name="fantasy_name">GUIONES SOCIALES</string>
@@ -18,10 +19,10 @@
 
     <string name="default_script_name">Nuevo Script</string>
     <string name="edit_text_name_hint">Nombre</string>
-    <string name="next_action_text">Siguiente</string>
-    <string name="what_is_guion_name_text">¿Cuál es el nombre del guión?</string>
-    <string name="what_is_person_name">¿Cómo se llama la persona</string>
-    <string name="whose_is_guion_text">¿Este guíon es para?</string>
+    <string name="next_action_text">SIGUIENTE</string>
+    <string name="what_is_guion_name_text">¿CUÁL ES EL NOMBRE DEL GUIÓN?</string>
+    <string name="what_is_person_name">¿CÓMO SE LLAMA LA PERSONA?</string>
+    <string name="whose_is_guion_text">¿ESTE GUIÓN ES PARA?</string>
     <string name="default_script_example">Guiones sociales de ejemplo</string>
 
     <string name="list_patient_create">CREAR UNA NUEVA PERSONA</string>

@@ -81,8 +81,9 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
             }
         });
 
-        if (patient.getName().equalsIgnoreCase("APADEA")) {
-            btnNewScript.setEnabled(false);
+        // TODO Remove hardcoded
+        if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
+            btnNewScript.setVisibility(View.INVISIBLE);
         }
 
         mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);

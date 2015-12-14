@@ -160,7 +160,7 @@ public class PatientListFragment extends BaseFragment {
         scriptJuan.getSlides().add(new Slide(1, "Segundo....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
         scriptJuan.getSlides().add(new Slide(2, "Tercero....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
 */
-        Patient patientApadea = new Patient(0, "APADEA", R.drawable.teayudo_usuario);
+        Patient patientApadea = new Patient(0, getString(R.string.app_owner_name), R.drawable.teayudo_usuario);
 
         Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes);
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));

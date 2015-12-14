@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.google.common.collect.Lists;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ScreenPlayEditorManager {
         this.patientManager = patientManager;
         this.mDBHelper = mDBHelper;
         if (slides != null && !slides.isEmpty()) {
-            this.slides = slides;
+            this.slides = Lists.reverse(slides);
         } else {
             this.slides = new LinkedList<>();
         }
