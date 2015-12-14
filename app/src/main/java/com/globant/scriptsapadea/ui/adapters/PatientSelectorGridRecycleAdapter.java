@@ -3,6 +3,7 @@ package com.globant.scriptsapadea.ui.adapters;
 import android.content.Context;
 import android.graphics.Point;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -154,13 +155,47 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
                 @Override
                 public void onClick(View view) {
                     if (!editButtonStateOpen) {
-                        ViewCompat.animate(vCardView)
-                                .translationX(-vCardView.getWidth() * 0.37f)
+
+                        //Animation animation1 = AnimationUtils.loadAnimation(context, R.anim.clockwise);
+                        //vCardView.startAnimation(animation1);
+
+                        ViewCompat.animate(vCardView).setListener(new ViewPropertyAnimatorListener() {
+                            @Override
+                            public void onAnimationStart(View view) {
+                                //Animation fadeOutAnimation = AnimationUtils.loadAnimation(context.getActivity(), android.R.anim.fade_out);
+                                //vEditCardButton.startAnimation(fadeOutAnimation);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(View view) {
+                                // Do nothing.
+                            }
+
+                            @Override
+                            public void onAnimationCancel(View view) {
+                                // Do nothing.
+                            }
+                        }).translationX(-vCardView.getWidth() * 0.37f)
                                 .setDuration(500)
                                 .start();
                     } else {
-                        ViewCompat.animate(vCardView)
-                                .translationX(0)
+                        ViewCompat.animate(vCardView).setListener(new ViewPropertyAnimatorListener() {
+                            @Override
+                            public void onAnimationStart(View view) {
+                                // Do nothing.
+                            }
+
+                            @Override
+                            public void onAnimationEnd(View view) {
+                                //Animation fadeInAnimation = AnimationUtils.loadAnimation(context.getActivity(), android.R.anim.fade_in);
+                                //vEditCardButton.startAnimation(fadeInAnimation);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(View view) {
+                                // Do nothing.
+                            }
+                        }).translationX(0)
                                 .setDuration(500)
                                 .start();
                     }
@@ -196,7 +231,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
         public void removeAt(int position) {
             Patient selectedPatient = patientList.get(position);
-            if (!selectedPatient.getName().equalsIgnoreCase("APADEA")) {
+            if (!selectedPatient.getName().equalsIgnoreCase(context.getString(R.string.app_owner_name))) {
                 mListener.deletePatient(patientList.get(position));
                 patientList.remove(position);
                 notifyItemRemoved(position);

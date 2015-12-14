@@ -82,7 +82,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         });
 
         // TODO Remove hardcoded
-        if (patient.getName().equalsIgnoreCase("APADEA")) {
+        if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
             btnNewScript.setVisibility(View.INVISIBLE);
         }
 
