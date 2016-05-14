@@ -119,6 +119,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             }
         });
 
+        view.findViewById(R.id.btn_save_script);
+
         view.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
             /**
              * Remove the selected slide previously setup in the main slide imageView.
