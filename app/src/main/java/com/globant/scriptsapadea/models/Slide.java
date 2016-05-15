@@ -5,7 +5,7 @@ import com.globant.scriptsapadea.R;
 import java.io.Serializable;
 
 /**
- * Created by nicolas.quartieri
+ * @author nicolas.quartieri
  */
 public class Slide implements Serializable {
 

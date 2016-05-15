@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicolas.quartieri
+ * @author nicolas.quartieri
  */
 public class Patient implements Serializable {
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.globant.scriptsapadea.R;
 
 /**
- * Created by nicolas.quartieri
+ * @author nicolas.quartieri
  */
 public class AboutFragment extends BaseFragment {
 

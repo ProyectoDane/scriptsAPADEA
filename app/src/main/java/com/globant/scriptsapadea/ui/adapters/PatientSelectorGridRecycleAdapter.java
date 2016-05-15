@@ -26,7 +26,9 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Created by nicolas.quartieri.
+ * Adapter in charge of manage the screen of all available patient's
+ *
+ * @author nicolas.quartieri.
  */
 public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<PatientSelectorGridRecycleAdapter.PatientViewHolder> {
 
@@ -76,7 +78,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
         patientViewHolder.vNamePatient.setText(patientList.get(position).getName());
         // TODO only en el primer element
-        patientViewHolder.vTextLeyend.setText(R.string.default_script_example);
+        patientViewHolder.vTextLegend.setText(R.string.default_script_example);
     }
 
     @Override
@@ -84,6 +86,12 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         return patientList.size();
     }
 
+    /**
+     * Run the animation over the selected view.
+     *
+     * @param viewToAnimate - the view to animate.
+     * @param position      - the actual position.
+     */
     private void runAnimation(View viewToAnimate, int position) {
         if (!animateItems || position >= ANIMATED_ITEMS_COUNT - 1) {
             return;
@@ -105,6 +113,12 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         }
     }
 
+    /**
+     * Get the height of the screen of the device.
+     *
+     * @param context
+     * @return
+     */
     private float getScreenHeight(Context context) {
         if (screenHeight == 0) {
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -131,7 +145,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
     public class PatientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView vTextLeyend;
+        protected TextView vTextLegend;
         protected ImageView vImageAvatar;
         protected TextView vNamePatient;
         protected TextView vEditCardButton;
@@ -146,7 +160,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vNamePatient =  (TextView) v.findViewById(R.id.txt_patient_name_item);
             vImageAvatar =  (ImageView) v.findViewById(R.id.img_avatar_item);
-            vTextLeyend =  (TextView) v.findViewById(R.id.txt_patient_leyend_item);
+            vTextLegend =  (TextView) v.findViewById(R.id.txt_patient_leyend_item);
             vEditCardButton = (TextView) v.findViewById(R.id.btn_editar);
             vEditButtonAction = (TextView) v.findViewById(R.id.btn_edit_action);
             vRemoveButtonAction = (TextView) v.findViewById(R.id.btn_remove_action);

@@ -12,7 +12,7 @@ import com.globant.scriptsapadea.ui.activities.BaseActivity;
 import java.io.Serializable;
 
 /**
- * Created by nicolas.quartieri.
+ * @author nicolas.quartieri
  */
 public class Navigator {
 

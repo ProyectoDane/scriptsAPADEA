@@ -74,6 +74,12 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
         contactViewHolder.setScript(script);
     }
 
+    /**
+     * Run the animation over the selected view.
+     *
+     * @param viewToAnimate - the view to animate.
+     * @param position      - the actual position.
+     */
     private void runAnimation(View viewToAnimate, int position) {
         if (position > lastPosition) {
             lastPosition = position;
@@ -86,6 +92,12 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
         }
     }
 
+    /**
+     * Get the height of the screen of the device.
+     *
+     * @param context
+     * @return
+     */
     private float getScreenHeight(Context context) {
         if (screenHeight == 0) {
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);

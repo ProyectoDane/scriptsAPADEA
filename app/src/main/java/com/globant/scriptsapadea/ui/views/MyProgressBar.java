@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import com.globant.scriptsapadea.R;
 
 /**
- * Created by nicolas.quartieri
+ * This class provides a custom progress bar with point's and rounded extremes.
+ *
+ * @author nicolas.quartieri
  */
 public class MyProgressBar extends LinearLayout {
 
@@ -65,6 +67,9 @@ public class MyProgressBar extends LinearLayout {
         }
     }
 
+    /**
+     * Add a next element to the bar if there is any.
+     */
     public void next() {
         int count = parent.getChildCount();
         if (current + 1 < count) {
@@ -80,6 +85,9 @@ public class MyProgressBar extends LinearLayout {
         }
     }
 
+    /**
+     * Removes an element to the bar if there is any.
+     */
     public void prev() {
         if (current - 1 >= 0) {
 
@@ -95,6 +103,11 @@ public class MyProgressBar extends LinearLayout {
         }
     }
 
+    /**
+     * Sets the total size of the bar.
+     *
+     * @param size
+     */
     public void setSize(int size) {
         this.size = size;
     }

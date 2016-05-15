@@ -10,6 +10,11 @@ import android.net.Uri;
 
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 
+/**
+ * This class provides the respective ContentProvider for this app.
+ *
+ * @author nicolas.quartieri
+ */
 public class SSContentProvider extends ContentProvider {
 
 	private SQLiteHelper mDBHelper;

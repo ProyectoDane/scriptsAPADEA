@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by nicolas.quartieri.
+ * @author nicolas.quartieri
  */
 public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "scriptapadea.db";

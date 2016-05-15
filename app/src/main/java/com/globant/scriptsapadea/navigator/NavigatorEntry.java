@@ -1,7 +1,7 @@
 package com.globant.scriptsapadea.navigator;
 
 /**
- * Created by nicolas.quartieri.
+ * @author nicolas.quartieri
  */
 public abstract class NavigatorEntry<T> {
 

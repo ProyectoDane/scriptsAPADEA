@@ -15,6 +15,8 @@ import javax.inject.Inject;
 import roboguice.fragment.provided.RoboPreferenceFragment;
 
 /**
+ * This class provides a setting screen to be populated with we required to be set.
+ *
  * @author nicolas.quartieri
  */
 public class SettingsFragment extends RoboPreferenceFragment {

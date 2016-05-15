@@ -3,7 +3,7 @@ package com.globant.scriptsapadea.navigator;
 import android.content.Intent;
 
 /**
- * Created by nicolas.quartieri.
+ * @author nicolas.quartieri
  */
 public class IntentNavigator extends NavigatorEntry<Intent> {
 

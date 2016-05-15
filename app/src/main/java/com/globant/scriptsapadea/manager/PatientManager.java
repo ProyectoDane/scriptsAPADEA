@@ -7,7 +7,9 @@ import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
 
 /**
- * Created by nicolas.quartieri.
+ * This class provides the manager to be injected for the selected Patient, Script and Slide.
+ *
+ * @author nicolas.quartieri
  */
 public class PatientManager {
 

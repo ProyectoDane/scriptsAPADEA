@@ -33,7 +33,9 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 /**
- * Created by nicolas.quartieri
+ * This class provides the container activity for the script sliding screen.
+ *
+ * @author nicolas.quartieri
  */
 @ContentView(R.layout.screen_slider_layout)
 public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback {
@@ -109,7 +111,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                // Do nothing.
             }
 
             @Override

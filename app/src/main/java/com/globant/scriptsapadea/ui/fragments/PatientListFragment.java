@@ -27,7 +27,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by nicolas.quartieri
+ * This class provides the patient list to be shown.
+ *
+ * @author nicolas.quartieri
  */
 public class PatientListFragment extends BaseFragment {
 
