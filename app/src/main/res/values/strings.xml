@@ -41,6 +41,7 @@
 
     <string name="scriptlist_new_script">NUEVO GUIÓN</string>
     <string name="scriptlist_edit">Editar</string>
+    <string name="scriptlist_save">GUARDAR</string>
     <string name="cover_picture_title">ELEGÍ UNA FOTO DE PORTADA PARA:</string>
     <string name="you_can_change_title">(LA PODÉS CAMBIAR DESPUÉS)</string>
     <string name="back_title">ATRÁS</string>

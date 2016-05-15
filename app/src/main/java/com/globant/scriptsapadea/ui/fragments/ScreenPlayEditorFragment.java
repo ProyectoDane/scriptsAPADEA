@@ -111,11 +111,15 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         imgAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSlideInAdapter(slideDescription, true);
+                saveSlide(slideDescription);
+            }
+        });
 
-                slidePicture.setImageResource(android.R.color.transparent);
-                slideDescription.setText("");
-
+        View buttonSave = view.findViewById(R.id.btn_save_script);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveSlide(slideDescription);
             }
         });
 
@@ -191,6 +195,13 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         });
     }
 
+    private void saveSlide(EditText slideDescription) {
+        addSlideInAdapter(slideDescription, true);
+
+        slidePicture.setImageResource(android.R.color.transparent);
+        slideDescription.setText("");
+    }
+
     @Subscribe
     public void onActivityResultReceived(ActivityResultEvent event) {
         onActivityResult(event.getRequestCode(), event.getResultCode(), event.getData());
@@ -246,6 +257,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         if (save && slideAdded && slide != null) {
             screenPlayEditorManager.saveSlide(slide);
         }
+
+        imageGalleryUrl = new String();
     }
 
     private void setSlideContentToEditor(int position, EditText slideDesc, ImageView slideImage) {
