@@ -10,7 +10,7 @@
     <dimen name="screenplay_container">650dp</dimen>
     <dimen name="screenplay_list_width_size">300dp</dimen>
     <dimen name="screenplay_editor_width">730dp</dimen>
-    <dimen name="screenplay_editor_height">340dp</dimen>
+    <dimen name="screenplay_editor_height">360dp</dimen>
     <dimen name="screenplay_desc_editor_height">60dp</dimen>
     <dimen name="screenplay_editor_container">330dp</dimen>
 </resources>
