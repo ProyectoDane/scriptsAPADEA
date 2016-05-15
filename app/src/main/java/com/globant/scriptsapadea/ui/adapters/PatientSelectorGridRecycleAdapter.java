@@ -1,6 +1,8 @@
 package com.globant.scriptsapadea.ui.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Point;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListener;
@@ -211,15 +213,34 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
                 }
             });
 
+            // TODO Refactoring
             vRemoveButtonAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Patient selectedPatient = patientList.get(getPosition());
-                    if (selectedPatient != null) {
-                        removeAt(getPosition());
-                    } else {
-                        Log.e("ERROR", "Selected patient for delete was null.");
-                    }
+                    new AlertDialog.Builder(context.getActivity()).setMessage("Confirma eliminar esta persona ?").setTitle("Eliminar")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Patient selectedPatient = patientList.get(getPosition());
+                                    if (selectedPatient != null) {
+                                        removeAt(getPosition());
+                                    } else {
+                                        Log.e("ERROR", "Selected patient for delete was null.");
+                                    }
+                                }
+                            })
+                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                 }
             });
 
