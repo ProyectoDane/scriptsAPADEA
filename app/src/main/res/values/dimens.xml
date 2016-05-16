@@ -3,13 +3,21 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="margin_xsmall">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_xsmall">10dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
     <dimen name="margin_large">20dp</dimen>
     <dimen name="margin_xlarge">24dp</dimen>
     <dimen name="margin_xxlarge">32dp</dimen>
     <dimen name="margin_xxxlarge">40dp</dimen>
+
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_xsmall">10dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_large">20dp</dimen>
+    <dimen name="padding_xlarge">24dp</dimen>
+    <dimen name="padding_xxlarge">32dp</dimen>
+    <dimen name="padding_xxxlarge">40dp</dimen>
 
     <dimen name="panel_horizontal_padding">16dp</dimen>
     <dimen name="panel_vertical_padding">24dp</dimen>
