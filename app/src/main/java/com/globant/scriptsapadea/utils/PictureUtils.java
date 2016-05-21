@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * This class provides the function's for taking camera pictures.
+ *
  * Created by leonel.mendez on 6/11/2015.
  */
 public class PictureUtils {

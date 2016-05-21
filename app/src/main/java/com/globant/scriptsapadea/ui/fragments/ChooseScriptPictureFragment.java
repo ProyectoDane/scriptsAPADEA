@@ -114,7 +114,6 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         }
     }
 
-
     public interface OnShowScriptPictureFragmentListener{
         void onShowScriptPictureFragment(Fragment fragment);
     }

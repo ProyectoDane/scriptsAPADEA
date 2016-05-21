@@ -30,6 +30,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * This class provides the screen to edit every one of the Slide's contained in the Script.
+ *
  * @author leonel.mendez
  */
 public class ScreenPlayEditorFragment extends BaseFragment {

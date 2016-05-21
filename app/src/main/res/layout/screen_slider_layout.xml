@@ -11,8 +11,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-
         android:padding="4dp">
+
         <ImageView
             android:id="@+id/img_profile"
             android:layout_width="40dp"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_xsmall"
         app:dotsize="4"/>
 
     <android.support.v4.view.ViewPager

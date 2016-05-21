@@ -8,6 +8,8 @@ import android.os.Handler;
 import com.globant.scriptsapadea.R;
 
 /**
+ * This class provides the splash screen to be shown when the app is launch.
+ *
  * @author nicolas.quartieri
  */
 public class SplashActivity extends BaseActivity {

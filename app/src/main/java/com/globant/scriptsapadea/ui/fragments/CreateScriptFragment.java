@@ -15,7 +15,9 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 
 /**
- * Created by leonel.mendez on 5/8/2015.
+ * This class provides the setup step for a new Script.
+ *
+ * @author leonel.mendez on 5/8/2015.
  */
 public class CreateScriptFragment extends BaseFragment {
 

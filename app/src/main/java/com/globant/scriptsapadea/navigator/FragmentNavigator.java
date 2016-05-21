@@ -4,7 +4,8 @@ package com.globant.scriptsapadea.navigator;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by nicolas.quartieri.
+ *
+ * @author nicolas.quartieri
  */
 public class FragmentNavigator extends NavigatorEntry<Fragment> {
 

@@ -20,7 +20,9 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
- * Created by nicolas.quartieri
+ * This class provides the screen Slide representation of an already save Slide contained in a Script.
+ *
+ * @author nicolas.quartieri
  */
 public class SliderFragment extends BaseFragment {
 
@@ -32,6 +34,17 @@ public class SliderFragment extends BaseFragment {
     private PatientManager patientManager;
 
     private Slide slide;
+
+    public static SliderFragment newInstance(Slide slide) {
+        SliderFragment fragment = new SliderFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(EXTRA_MESSAGE, slide);
+
+        fragment.setArguments(bundle);
+
+        return fragment;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -100,17 +113,6 @@ public class SliderFragment extends BaseFragment {
         });
 
         return view;
-    }
-
-    public static SliderFragment newInstance(Slide slide) {
-        SliderFragment fragment = new SliderFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(EXTRA_MESSAGE, slide);
-
-        fragment.setArguments(bundle);
-
-        return fragment;
     }
 
     public interface SliderCallback {
