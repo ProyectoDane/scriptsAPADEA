@@ -66,4 +66,6 @@
 
     <string name="slide_vacio_one">EL GUIÓN ESTA VACÍO</string>
     <string name="slide_vacio_two">Continúa editando el guión para agregarle contenido</string>
+
+    <string name="default_text">text_to_display</string>
 </resources>
