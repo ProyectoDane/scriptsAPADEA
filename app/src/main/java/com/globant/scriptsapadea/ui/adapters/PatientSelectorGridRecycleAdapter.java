@@ -79,8 +79,10 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         }
 
         patientViewHolder.vNamePatient.setText(patientList.get(position).getName());
-        // TODO only en el primer element
-        patientViewHolder.vTextLegend.setText(R.string.default_script_example);
+
+        if (patient.getName().equalsIgnoreCase(context.getString(R.string.app_owner_name))) {
+            patientViewHolder.vTextLegend.setText(R.string.default_script_example);
+        }
     }
 
     @Override
