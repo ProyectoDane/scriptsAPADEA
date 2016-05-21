@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -54,6 +56,10 @@ public class CreateScriptFragment extends BaseFragment {
             public void onClick(View v) {
                 Bundle takePictureArgs = new Bundle();
                 takePictureArgs.putString(SCRIPT_NAME, screenplayName.getText().toString());
+
+                // Hide Keyboard
+                InputMethodManager imm = (InputMethodManager)CreateScriptFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 listener.onTakeScriptPictureFragment(ChooseScriptPictureFragment.newInstance(takePictureArgs));
             }
