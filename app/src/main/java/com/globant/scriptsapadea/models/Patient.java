@@ -58,7 +58,7 @@ public class Patient implements Serializable {
     }
 
     public boolean isResourceAvatar() {
-        return avatar == null;
+        return resAvatar != 0;
     }
 
     public int getResAvatar() {
