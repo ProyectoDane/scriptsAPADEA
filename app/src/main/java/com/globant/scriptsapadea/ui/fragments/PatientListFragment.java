@@ -162,15 +162,15 @@ public class PatientListFragment extends BaseFragment {
         scriptJuan.getSlides().add(new Slide(1, "Segundo....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
         scriptJuan.getSlides().add(new Slide(2, "Tercero....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
 */
-        Patient patientApadea = new Patient(0, getString(R.string.app_owner_name), R.drawable.teayudo_usuario);
+        Patient patientApadea = new Patient(0, getString(R.string.app_owner_name), R.drawable.teayudo_usuario, false);
 
-        Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes);
+        Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes, false);
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Segundo....", Slide.IMAGE_TEXT));
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Tercero....", Slide.IMAGE_TEXT));
         patientApadea.getScriptList().add(script);
 
-        Script scriptPepe = new Script(0, "Lavar los dientes", R.drawable.apadea_dientes);
+        Script scriptPepe = new Script(0, "Lavar los dientes", R.drawable.apadea_dientes, false);
         scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));
         scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Segundo....", Slide.IMAGE_TEXT));
         scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Tercero....", Slide.IMAGE_TEXT));

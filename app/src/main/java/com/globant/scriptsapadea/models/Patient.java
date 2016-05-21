@@ -15,19 +15,22 @@ public class Patient implements Serializable {
     private String name;
     private String avatar;
     private int resAvatar;
+    private boolean editable;
 
     private List<Script> scriptList = new LinkedList<Script>();
 
-    public Patient(long id, String name, String avatar) {
+    public Patient(long id, String name, String avatar, boolean editable) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.editable = editable;
     }
 
-    public Patient(long id, String name, int avatar) {
+    public Patient(long id, String name, int avatar, boolean editable) {
         this.id = id;
         this.name = name;
         this.resAvatar = avatar;
+        this.editable = editable;
     }
 
     public void setId(long id) {
@@ -60,6 +63,10 @@ public class Patient implements Serializable {
 
     public int getResAvatar() {
         return resAvatar;
+    }
+
+    public boolean isEditable() {
+        return editable;
     }
 
     // TODO Mocked services
