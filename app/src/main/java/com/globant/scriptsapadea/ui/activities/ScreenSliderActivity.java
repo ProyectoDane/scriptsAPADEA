@@ -24,6 +24,7 @@ import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,13 +87,12 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         txtScriptName.setText(script.getName());
 
         ImageView imgProfile = (ImageView) findViewById(R.id.img_profile);
-
         if (script.isResourceImage()) {
             Picasso.with(getApplication()).load(script.getResImage()).error(R.drawable.avatar_placeholder)
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         } else {
-            Picasso.with(getApplication()).load(script.getImageScripts()).error(R.drawable.avatar_placeholder)
+            Picasso.with(getApplication()).load(new File(script.getImageScripts())).error(R.drawable.avatar_placeholder)
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         }

@@ -87,7 +87,8 @@
                     style="@style/Text.Body.Big.Bold"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/img_avatar_item"
-                    android:layout_toEndOf="@+id/img_avatar_item" />
+                    android:layout_toEndOf="@+id/img_avatar_item"
+                    android:layout_alignParentBottom="false" />
 
                 <TextView
                     android:id="@+id/txt_patient_leyend_item"

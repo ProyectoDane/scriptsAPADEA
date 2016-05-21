@@ -9,12 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
+import com.globant.scriptsapadea.widget.CropCircleTransformation;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +86,20 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
             }
         });
 
-        // TODO Remove hardcoded
+        TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
+        txtPatientName.setText(patient.getName());
+
+        ImageView imageProfile = (ImageView) view.findViewById(R.id.img_profile);
+        if (patient.isResourceAvatar()) {
+            Picasso.with(getActivity()).load(patient.getResAvatar()).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imageProfile);
+        } else {
+            Picasso.with(getActivity()).load(new File(patient.getAvatar())).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imageProfile);
+        }
+
         if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
             btnNewScript.setVisibility(View.INVISIBLE);
         }

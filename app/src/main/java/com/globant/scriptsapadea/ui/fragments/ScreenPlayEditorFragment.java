@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.ActivityResultEvent;
@@ -21,6 +22,7 @@ import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
+import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -124,6 +126,21 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                 saveSlide(slideDescription);
             }
         });
+
+        Script selectedScript = patientManager.getSelectedScript();
+        TextView txtScriptName = (TextView) view.findViewById(R.id.txt_script_name);
+        txtScriptName.setText(selectedScript.getName());
+
+        ImageView imgScript = (ImageView) view.findViewById(R.id.img_script);
+        if (selectedScript.isResourceImage()) {
+            Picasso.with(getActivity()).load(selectedScript.getResImage()).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imgScript);
+        } else {
+            Picasso.with(getActivity()).load(new File(selectedScript.getImageScripts())).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imgScript);
+        }
 
         view.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
             /**

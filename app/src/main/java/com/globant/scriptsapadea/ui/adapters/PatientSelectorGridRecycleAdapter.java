@@ -82,6 +82,8 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
         if (patient.getName().equalsIgnoreCase(context.getString(R.string.app_owner_name))) {
             patientViewHolder.vTextLegend.setText(R.string.default_script_example);
+        } else {
+            patientViewHolder.vTextLegend.setVisibility(View.GONE);
         }
     }
 
