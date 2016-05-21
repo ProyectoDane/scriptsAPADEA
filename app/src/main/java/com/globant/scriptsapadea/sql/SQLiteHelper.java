@@ -10,6 +10,7 @@ import android.util.Log;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
+import com.globant.scriptsapadea.utils.StringIntUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -259,10 +260,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {
             do {
-                Patient patient = new Patient(c.getLong((c.getColumnIndex(PATIENT_ID))),
-                                            c.getString(c.getColumnIndex(PATIENT_COLUMN_NAME)),
-                                            c.getString(c.getColumnIndex(PATIENT_COLUMN_AVATAR)),
-                                            c.getInt(c.getColumnIndex(PATIENT_COLUMN_IS_EDITABLE)) == 1);
+                String avatar = c.getString(c.getColumnIndex(PATIENT_COLUMN_AVATAR));
+                Patient patient;
+                if (StringIntUtil.isInt(avatar)) {
+                    patient = new Patient(c.getLong((c.getColumnIndex(PATIENT_ID))),
+                            c.getString(c.getColumnIndex(PATIENT_COLUMN_NAME)),
+                            c.getInt(c.getColumnIndex(PATIENT_COLUMN_AVATAR)),
+                            c.getInt(c.getColumnIndex(PATIENT_COLUMN_IS_EDITABLE)) == 1);
+                } else {
+                    patient = new Patient(c.getLong((c.getColumnIndex(PATIENT_ID))),
+                            c.getString(c.getColumnIndex(PATIENT_COLUMN_NAME)),
+                            avatar,
+                            c.getInt(c.getColumnIndex(PATIENT_COLUMN_IS_EDITABLE)) == 1);
+
+                }
 
                 List<Script> scriptList = getAllScriptsFromPatient(patient.getId());
                 if (!scriptList.isEmpty()) {
