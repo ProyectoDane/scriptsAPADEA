@@ -32,24 +32,34 @@ public class SSPopupMenuWindow extends PopupWindow {
         final TextView txtEditOption = (TextView) popupView.findViewById(R.id.txt_edit_option);
         final TextView txtRemoveOption = (TextView) popupView.findViewById(R.id.txt_remove_option);
         final TextView txtCopyOption = (TextView) popupView.findViewById(R.id.txt_copy_option);
+
         txtEditOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.editScript(popupWindow.getScript());
+                Script selectedScript = popupWindow.getScript();
+                if (selectedScript.isEditable()) {
+                    adapter.editScript(selectedScript);
+                }
                 popupWindow.dismiss();
             }
         });
         txtRemoveOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.deleteScript(popupWindow.getScript());
+                Script selectedScript = popupWindow.getScript();
+                if (selectedScript.isEditable()) {
+                    adapter.deleteScript(selectedScript);
+                }
                 popupWindow.dismiss();
             }
         });
         txtCopyOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.copyScript(popupWindow.getScript());
+                Script selectedScript = popupWindow.getScript();
+                if (selectedScript.isEditable()) {
+                    adapter.copyScript(popupWindow.getScript());
+                }
                 popupWindow.dismiss();
             }
         });

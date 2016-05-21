@@ -167,56 +167,61 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vEditButtonAction = (TextView) v.findViewById(R.id.btn_edit_action);
             vRemoveButtonAction = (TextView) v.findViewById(R.id.btn_remove_action);
 
+            //final Patient selectedPatient = patientList.get(getPosition());
+
             vEditCardButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!editButtonStateOpen) {
+                    Patient selectedPatient = patientList.get(getPosition());
+                    if (selectedPatient.isEditable()) {
+                        if (!editButtonStateOpen) {
 
-                        //Animation animation1 = AnimationUtils.loadAnimation(context, R.anim.clockwise);
-                        //vCardView.startAnimation(animation1);
+                            //Animation animation1 = AnimationUtils.loadAnimation(context, R.anim.clockwise);
+                            //vCardView.startAnimation(animation1);
 
-                        ViewCompat.animate(vCardView).setListener(new ViewPropertyAnimatorListener() {
-                            @Override
-                            public void onAnimationStart(View view) {
-                                //Animation fadeOutAnimation = AnimationUtils.loadAnimation(context.getActivity(), android.R.anim.fade_out);
-                                //vEditCardButton.startAnimation(fadeOutAnimation);
-                            }
+                            ViewCompat.animate(vCardView).setListener(new ViewPropertyAnimatorListener() {
+                                @Override
+                                public void onAnimationStart(View view) {
+                                    //Animation fadeOutAnimation = AnimationUtils.loadAnimation(context.getActivity(), android.R.anim.fade_out);
+                                    //vEditCardButton.startAnimation(fadeOutAnimation);
+                                }
 
-                            @Override
-                            public void onAnimationEnd(View view) {
-                                // Do nothing.
-                            }
+                                @Override
+                                public void onAnimationEnd(View view) {
+                                    // Do nothing.
+                                }
 
-                            @Override
-                            public void onAnimationCancel(View view) {
-                                // Do nothing.
-                            }
-                        }).translationX(-vCardView.getWidth() * 0.37f)
-                                .setDuration(500)
-                                .start();
-                    } else {
-                        ViewCompat.animate(vCardView).setListener(new ViewPropertyAnimatorListener() {
-                            @Override
-                            public void onAnimationStart(View view) {
-                                // Do nothing.
-                            }
+                                @Override
+                                public void onAnimationCancel(View view) {
+                                    // Do nothing.
+                                }
+                            }).translationX(-vCardView.getWidth() * 0.37f)
+                                    .setDuration(500)
+                                    .start();
+                        } else {
+                            ViewCompat.animate(vCardView).setListener(new ViewPropertyAnimatorListener() {
+                                @Override
+                                public void onAnimationStart(View view) {
+                                    // Do nothing.
+                                }
 
-                            @Override
-                            public void onAnimationEnd(View view) {
-                                //Animation fadeInAnimation = AnimationUtils.loadAnimation(context.getActivity(), android.R.anim.fade_in);
-                                //vEditCardButton.startAnimation(fadeInAnimation);
-                            }
+                                @Override
+                                public void onAnimationEnd(View view) {
+                                    //Animation fadeInAnimation = AnimationUtils.loadAnimation(context.getActivity(), android.R.anim.fade_in);
+                                    //vEditCardButton.startAnimation(fadeInAnimation);
+                                }
 
-                            @Override
-                            public void onAnimationCancel(View view) {
-                                // Do nothing.
-                            }
-                        }).translationX(0)
-                                .setDuration(500)
-                                .start();
+                                @Override
+                                public void onAnimationCancel(View view) {
+                                    // Do nothing.
+                                }
+                            }).translationX(0)
+                                    .setDuration(500)
+                                    .start();
+                        }
+
+                        editButtonStateOpen = !editButtonStateOpen;
                     }
-
-                    editButtonStateOpen = !editButtonStateOpen;
                 }
             });
 

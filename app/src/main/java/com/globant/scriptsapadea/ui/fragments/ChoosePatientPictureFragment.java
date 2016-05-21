@@ -95,7 +95,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         if (requestCode == GALLERY) {
             if (data != null && data.getData() != null) {
                 patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        PictureUtils.getImagePath(getActivity(), data.getData())));
+                        PictureUtils.getImagePath(getActivity(), data.getData()), true));
 
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             }
@@ -105,7 +105,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
                 imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
                 patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        photoFile.getAbsolutePath()));
+                        photoFile.getAbsolutePath(), true));
 
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             }

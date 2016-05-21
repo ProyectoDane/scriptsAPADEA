@@ -25,23 +25,25 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_SCRIPT = "script";
     public static final String TABLE_SLIDE = "slide";
 
-    // Common column names
+    //Common column names
     public static final String PATIENT_ID = "_id";
     public static final String SCRIPT_ID = "_id";
     public static final String SLIDE_ID = "_id";
 
-    //Patient colum names
+    //Patient column names
     public static final String PATIENT_COLUMN_NAME = "name_patient";
     public static final String PATIENT_COLUMN_AVATAR = "avatar";
     public static final String PATIENT_COLUMN_IS_RES_AVATAR = "is_res_avatar";
+    public static final String PATIENT_COLUMN_IS_EDITABLE = "is_editable";
 
-    //Script colum names
+    //Script column names
     public static final String SCRIPT_COLUMN_NAME = "name_script";
     public static final String SCRIPT_COLUMN_IMAGE = "image";
     public static final String SCRIPT_COLUMN_KEY_PATIENT = "patient_id";
     public static final String SCRIPT_COLUMN_IS_RES_IMAGE = "is_res_image";
+    public static final String SCRIPT_COLUMN_IS_EDITABLE = "is_editable";
 
-    //Slide colum names
+    //Slide column names
     public static final String SLIDE_COLUMN_NAME = "name_slide";
     public static final String SLIDE_COLUMN_IMAGE = "image";
     public static final String SLIDE_COLUMN_TYPE = "type";
@@ -62,11 +64,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_PATIENT + "(" + PATIENT_ID + " integer primary key autoincrement, " +
                 PATIENT_COLUMN_NAME + " text not null, " +
                 PATIENT_COLUMN_IS_RES_AVATAR + " integer not null, " +
+                PATIENT_COLUMN_IS_EDITABLE + " integer not null, " +
                 PATIENT_COLUMN_AVATAR + " text null ); ");
         db.execSQL("create table " + TABLE_SCRIPT + "(" + SCRIPT_ID + " integer primary key autoincrement, " +
                 SCRIPT_COLUMN_NAME + " text not null, " +
                 SCRIPT_COLUMN_IS_RES_IMAGE + " integer not null, " +
                 SCRIPT_COLUMN_IMAGE + " text null, " +
+                SCRIPT_COLUMN_IS_EDITABLE + " integer not null, " +
                 SCRIPT_COLUMN_KEY_PATIENT + " integer null );");
         db.execSQL("create table " + TABLE_SLIDE + "(" + SLIDE_ID + " integer primary key autoincrement, " +
                 SLIDE_COLUMN_NAME + " text not null, " +
@@ -100,6 +104,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             values.put(PATIENT_COLUMN_AVATAR, patient.getAvatar());
             values.put(PATIENT_COLUMN_IS_RES_AVATAR, 0);
         }
+
+        values.put(PATIENT_COLUMN_IS_EDITABLE, patient.isEditable() ? 1 : 0);
 
         long patientId = db.insert(TABLE_PATIENT, null, values);
 
@@ -152,6 +158,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             values.put(SCRIPT_COLUMN_IS_RES_IMAGE, 0);
         }
         values.put(SCRIPT_COLUMN_KEY_PATIENT, patientId);
+        values.put(SCRIPT_COLUMN_IS_EDITABLE, script.isEditable() ? 1 : 0);
 
         long scriptId = db.insert(TABLE_SCRIPT, null, values);
 
@@ -187,12 +194,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 Script script;
                 if (c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IS_RES_IMAGE)) == 1) {
                     script = new Script(c.getLong(c.getColumnIndex(SCRIPT_ID)),
-                                (c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME))),
-                                (c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IMAGE))));
+                                c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME)),
+                                c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IMAGE)),
+                                c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IS_EDITABLE)) == 1);
                 } else {
                     script = new Script(c.getLong(c.getColumnIndex(SCRIPT_ID)),
-                                (c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME))),
-                                (c.getString(c.getColumnIndex(SCRIPT_COLUMN_IMAGE))));
+                                c.getString(c.getColumnIndex(SCRIPT_COLUMN_NAME)),
+                                c.getString(c.getColumnIndex(SCRIPT_COLUMN_IMAGE)),
+                                c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IS_EDITABLE)) == 1);
                 }
 
                 scripts.add(script);
@@ -251,8 +260,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 Patient patient = new Patient(c.getLong((c.getColumnIndex(PATIENT_ID))),
-                                            (c.getString(c.getColumnIndex(PATIENT_COLUMN_NAME))),
-                                            (c.getString(c.getColumnIndex(PATIENT_COLUMN_AVATAR))));
+                                            c.getString(c.getColumnIndex(PATIENT_COLUMN_NAME)),
+                                            c.getString(c.getColumnIndex(PATIENT_COLUMN_AVATAR)),
+                                            c.getInt(c.getColumnIndex(PATIENT_COLUMN_IS_EDITABLE)) == 1);
 
                 List<Script> scriptList = getAllScriptsFromPatient(patient.getId());
                 if (!scriptList.isEmpty()) {

@@ -97,7 +97,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
                 imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, PictureUtils.getImagePath(getActivity(), data.getData()));
 
                 patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
-                        PictureUtils.getImagePath(getActivity(), data.getData())));
+                        PictureUtils.getImagePath(getActivity(), data.getData()), true));
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
@@ -107,7 +107,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
                 imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
                 patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
-                        photoFile.getAbsolutePath()));
+                        photoFile.getAbsolutePath(), true));
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
             }
