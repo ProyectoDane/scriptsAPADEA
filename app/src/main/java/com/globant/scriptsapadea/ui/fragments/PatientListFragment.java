@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -135,14 +134,6 @@ public class PatientListFragment extends BaseFragment {
             adapter = new PatientSelectorGridRecycleAdapter(patientList, this);
             mPatientView.setAdapter(adapter);
         }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPatientView.smoothScrollToPosition(0);
-                adapter.showLoadingView();
-            }
-        }, 500);
 
         hideProgress();
     }

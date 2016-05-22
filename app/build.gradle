@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion '22.0.1'
 
     lintOptions {
@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.globant.scriptsapadea"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -35,12 +35,12 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.android.support:support-v13:21.0.3'
-    compile 'com.android.support:support-v4:21.0.3'
-    compile 'com.android.support:palette-v7:21.0.3'
-    compile 'com.android.support:recyclerview-v7:21.0.3'
-    compile 'com.android.support:cardview-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:support-v13:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:palette-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.github.shell-software:fab:1.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.guava:guava:17.0'
