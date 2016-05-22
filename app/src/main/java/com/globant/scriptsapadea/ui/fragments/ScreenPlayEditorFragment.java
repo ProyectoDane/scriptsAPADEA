@@ -101,8 +101,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         slidePicture = (ImageView) view.findViewById(R.id.screenplay_slide_image);
         final EditText slideDescription = (EditText) view.findViewById(R.id.editor_slide_text);
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
-        slidesListView.setHasFixedSize(true);
-        slidesListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        slidesListView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
         if (listSlides != null && !listSlides.isEmpty()) {
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
