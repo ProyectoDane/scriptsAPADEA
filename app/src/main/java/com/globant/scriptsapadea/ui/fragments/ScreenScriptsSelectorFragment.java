@@ -1,13 +1,11 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,7 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.ui.activities.AboutActivity;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.picasso.Picasso;
@@ -38,6 +37,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private Patient patient;
     private ScreenScriptSelectorListener mListener;
     private CreateScriptFragment.OnTakeScriptPictureFragmentListener listener;
+    private AboutActivity.AboutListener listenerAboutScreen;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
         ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
@@ -104,6 +104,15 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
 
         if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
             btnNewScript.setVisibility(View.INVISIBLE);
+
+            View btnAbout = view.findViewById(R.id.btn_about);
+            btnAbout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listenerAboutScreen.onTakeToAboutScreen();
+                }
+            });
+            btnAbout.setVisibility(View.VISIBLE);
         }
 
         mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);

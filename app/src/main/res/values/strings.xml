@@ -45,7 +45,17 @@
     <string name="cover_picture_title">ELEGÍ UNA FOTO DE PORTADA PARA:</string>
     <string name="you_can_change_title">(LA PODÉS CAMBIAR DESPUÉS)</string>
     <string name="back_title">ATRÁS</string>
+    <string name="about_btn">ACERCA DE</string>
+    <string name="about_version">Versión </string>
 
+    <string name="about_leyend_ln_1">ESTA APLICACIÓN FUE REALIZADA EN EL MARCO DEL PROYECTO DANE</string>
+    <string name="about_leyend_ln_2">CON LA PARTICIPACION DE VOLUNTARIOS DE </string>
+    <string name="about_leyend_ln_3">ORIGINALMENTE DESARROLADA POR GLOBANT LABS:</string>
+    <string name="about_leyend_ln_4">ABIGAIL SCHEREIDER - CINTIA LENKOVICH  FEDERICO ROMANO</string>
+    <string name="about_leyend_ln_5">FRANCISCO MARQUEZ - LEONEL MENDEZ - MARÍA PARIGI</string>
+    <string name="about_leyend_ln_6">MARIA EUGENIA SOUZA - MARIA SARROUF - NICOLÁS QUARTIERI</string>
+    <string name="about_leyend_ln_7">STELLA ROMERO - VIRGINIA GONZALEZ</string>
+    
     <string name="gallery_title">Selecciona una fotografía</string>
     <string name="title_activity_screenplay">ScreenplayActivity</string>
     <string name="start_screenplay_edit">Comenzar a editar</string>

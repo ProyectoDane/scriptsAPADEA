@@ -29,7 +29,8 @@ import roboguice.inject.ContentView;
  */
 @ContentView(R.layout.activity_screen)
 public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener,
-        ShowScriptPictureFragment.OnEditFragmentListener, CreateScriptFragment.OnTakeScriptPictureFragmentListener, ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener {
+        ShowScriptPictureFragment.OnEditFragmentListener, CreateScriptFragment.OnTakeScriptPictureFragmentListener,
+        ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener, AboutActivity.AboutListener {
 
     @Inject
     private PatientManager patientManager;
@@ -110,5 +111,10 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     @Override
     public void onShowScriptPictureFragment(Fragment fragment) {
         navigator.to(fragment).navigate();
+    }
+
+    @Override
+    public void onTakeToAboutScreen() {
+        navigator.to(AboutActivity.createIntent(this));
     }
 }
