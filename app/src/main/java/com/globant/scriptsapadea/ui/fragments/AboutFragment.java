@@ -17,7 +17,7 @@ public class AboutFragment extends BaseFragment {
         fragment.setArguments(args);
         return fragment;
     }
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.about_screen, container, false);
