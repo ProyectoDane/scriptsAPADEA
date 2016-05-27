@@ -1,10 +1,12 @@
 package com.globant.scriptsapadea.ui.activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.Window;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
@@ -12,6 +14,7 @@ import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.navigator.anim.SlidingLeftAnimation;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.AboutFragment;
 import com.globant.scriptsapadea.ui.fragments.ChooseScriptPictureFragment;
 import com.globant.scriptsapadea.ui.fragments.CreateScriptFragment;
 import com.globant.scriptsapadea.ui.fragments.ScreenPlayEditorFragment;
@@ -30,7 +33,7 @@ import roboguice.inject.ContentView;
 @ContentView(R.layout.activity_screen)
 public class ScriptSelectorActivity extends BaseActivity implements ScreenScriptsSelectorFragment.ScreenScriptSelectorListener,
         ShowScriptPictureFragment.OnEditFragmentListener, CreateScriptFragment.OnTakeScriptPictureFragmentListener,
-        ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener, AboutActivity.AboutListener {
+        ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener, AboutFragment.AboutListener {
 
     @Inject
     private PatientManager patientManager;
@@ -115,6 +118,11 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
 
     @Override
     public void onTakeToAboutScreen() {
-        navigator.to(AboutActivity.createIntent(this));
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.about_screen);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 }

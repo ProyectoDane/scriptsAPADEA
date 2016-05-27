@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
-import com.globant.scriptsapadea.ui.activities.AboutActivity;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.picasso.Picasso;
@@ -37,7 +36,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private Patient patient;
     private ScreenScriptSelectorListener mListener;
     private CreateScriptFragment.OnTakeScriptPictureFragmentListener listener;
-    private AboutActivity.AboutListener listenerAboutScreen;
+    private AboutFragment.AboutListener listenerAboutScreen;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
         ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
@@ -64,6 +63,13 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement ScreenScriptSelectorListener");
+        }
+
+        try {
+            listenerAboutScreen = (AboutFragment.AboutListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement AboutListener");
         }
     }
 
