@@ -56,10 +56,7 @@ public class SSPopupMenuWindow extends PopupWindow {
         txtCopyOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Script selectedScript = popupWindow.getScript();
-                if (selectedScript.isEditable()) {
-                    adapter.copyScript(popupWindow.getScript());
-                }
+                adapter.copyScript(popupWindow.getScript());
                 popupWindow.dismiss();
             }
         });
