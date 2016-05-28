@@ -61,7 +61,12 @@ public class Slide implements Serializable {
         return resImage;
     }
 
+
     public static Slide createEmpty() {
         return new Slide(0, R.drawable.teayudo_usuario, "Slide Vacio", ONLY_IMAGE);
+    }
+
+    public void updateImage(String imageGalleryUrl) {
+        this.urlImage = imageGalleryUrl;
     }
 }

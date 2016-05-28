@@ -1,8 +1,11 @@
 package com.globant.scriptsapadea.ui.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -56,6 +59,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private String imageGalleryUrl;
     private List<Slide> listSlides;
     private File photoFile;
+    private SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
 
     public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
@@ -102,7 +106,6 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         final EditText slideDescription = (EditText) view.findViewById(R.id.editor_slide_text);
         RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
-        SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
         if (listSlides != null && !listSlides.isEmpty()) {
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
         } else {
@@ -122,7 +125,30 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveSlide(slideDescription);
+                // Placebo - Save is done in every action taken.
+                // TODO Refactoring (use Timer and TimeTask)
+                final Handler handler  = new Handler();
+                final AlertDialog alert = new AlertDialog.Builder(getActivity()).setTitle("GUARDADO!")
+                        .setIcon(R.drawable.teayudo_usuario)
+                        .show();
+                final Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (alert.isShowing()) {
+                            alert.dismiss();
+                        }
+                    }
+                };
+                alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        handler.removeCallbacks(runnable);
+                    }
+                });
+
+                handler.postDelayed(runnable, 2000);
+
+                //saveSlide(slideDescription);
             }
         });
 
@@ -229,8 +255,22 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         showImage(data, requestCode);
+
+        // Update the image for the selected slide.
+        Slide selectedSlide = patientManager.getSelectedSlide();
+        if (selectedSlide != null) {
+            selectedSlide.updateImage(imageGalleryUrl);
+            screenPlayEditorManager.updateSlide(selectedSlide);
+            slideSelectorRecyclerAdapter.notifyDataSetChanged();
+        }
     }
 
+    /**
+     * Take the selected image an display in the selected slide.
+     *
+     * @param data
+     * @param requestCode
+     */
     private void showImage(Intent data, int requestCode) {
         if (requestCode == REQUEST_CODE_GALLERY) {
             if (data != null && data.getData() != null) {
@@ -297,5 +337,12 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                 }
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Change the image & text from every slide requires clean up.
+        patientManager.setSelectedSlide(null);
     }
 }

@@ -65,6 +65,17 @@ public class ScreenPlayEditorManager {
         }
     }
 
+    /**
+     * Update the selected slide from the slide list setup in memory.
+     *
+     * @param slide
+     */
+    public void updateSlide(Slide slide) {
+        if (adapter != null) {
+            mDBHelper.updateSlide(slide);
+        }
+    }
+
     public Slide getSlide(int position) {
         return slides.get(position);
     }

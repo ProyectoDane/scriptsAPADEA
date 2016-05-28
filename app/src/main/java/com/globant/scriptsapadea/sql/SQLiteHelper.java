@@ -328,7 +328,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         Log.e("INFO", "DB deleted.");
     }
 
-    // TODO
     public int updateSlide(Slide slide) {
         SQLiteDatabase db = this.getWritableDatabase();
 
