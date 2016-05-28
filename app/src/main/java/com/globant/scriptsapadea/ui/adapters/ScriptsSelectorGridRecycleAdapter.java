@@ -153,8 +153,8 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
             vEditar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO fix values
-                    popupWindow.showAsDropDown(vEditar, -30, -40);
+                    popupWindow.showAsDropDown(vEditar, context.getResources().getInteger(R.integer.popup_xoff),
+                            context.getResources().getInteger(R.integer.popup_yoff));
                 }
             });
         }
