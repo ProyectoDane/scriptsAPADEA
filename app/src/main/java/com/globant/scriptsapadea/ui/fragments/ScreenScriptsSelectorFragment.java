@@ -1,13 +1,11 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +36,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private Patient patient;
     private ScreenScriptSelectorListener mListener;
     private CreateScriptFragment.OnTakeScriptPictureFragmentListener listener;
+    private AboutFragment.AboutListener listenerAboutScreen;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
         ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
@@ -64,6 +63,13 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement ScreenScriptSelectorListener");
+        }
+
+        try {
+            listenerAboutScreen = (AboutFragment.AboutListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement AboutListener");
         }
     }
 
@@ -104,6 +110,15 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
 
         if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
             btnNewScript.setVisibility(View.INVISIBLE);
+
+            View btnAbout = view.findViewById(R.id.btn_about);
+            btnAbout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listenerAboutScreen.onTakeToAboutScreen();
+                }
+            });
+            btnAbout.setVisibility(View.VISIBLE);
         }
 
         mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);

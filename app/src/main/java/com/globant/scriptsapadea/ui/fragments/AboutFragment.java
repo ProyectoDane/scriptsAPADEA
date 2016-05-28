@@ -12,10 +12,20 @@ import com.globant.scriptsapadea.R;
  */
 public class AboutFragment extends BaseFragment {
 
+    public static AboutFragment newInstance(Bundle args) {
+        AboutFragment fragment = new AboutFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.about_screen, container, false);
 
         return view;
+    }
+
+    public interface AboutListener {
+        void onTakeToAboutScreen();
     }
 }
