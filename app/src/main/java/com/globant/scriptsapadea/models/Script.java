@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class Script implements Serializable {
 
+    public static String SCRIPT = "script";
+
     public void setId(long id) {
         this.id = id;
     }

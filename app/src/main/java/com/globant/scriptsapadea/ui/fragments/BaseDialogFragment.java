@@ -1,8 +1,8 @@
 package com.globant.scriptsapadea.ui.fragments;
 
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
 import com.squareup.otto.Bus;
 
@@ -11,11 +11,11 @@ import javax.inject.Inject;
 import roboguice.RoboGuice;
 
 /**
- * Base Fragment for registers the fragment on the event bus.
+ * Base Dialog Fragment for registers the fragment on the event bus.
  *
  * @author nicolas.quartieri
  */
-public abstract class BaseFragment extends Fragment {
+public class BaseDialogFragment extends DialogFragment {
 
     @Inject
     private Bus bus;
