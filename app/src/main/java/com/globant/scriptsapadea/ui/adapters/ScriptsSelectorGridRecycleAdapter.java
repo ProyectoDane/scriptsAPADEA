@@ -173,7 +173,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     @Override
     public void deleteScript(Script script) {
         scriptList.remove(script);
-        ((ScriptSelectorActivity)context).deleteDBScript(script);
+        ((ScriptSelectorActivity) context).deleteDBScript(script);
         notifyDataSetChanged();
     }
 
@@ -185,9 +185,6 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     @Override
     public void copyScript(Script script) {
-        long scriptId = ((ScriptSelectorActivity) context).copyDBScript(script);
-        script.setId(scriptId);
-        scriptList.add(script);
-        notifyDataSetChanged();
+        mScriptSelectorListener.onNavigateToScriptCopyScreen(script);
     }
 }

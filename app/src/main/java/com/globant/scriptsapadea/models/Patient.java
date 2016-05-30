@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class Patient implements Serializable {
 
+    public static String PATIENT = "patient";
+
     private long id;
     private String name;
     private String avatar;
