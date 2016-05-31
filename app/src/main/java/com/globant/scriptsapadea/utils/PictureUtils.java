@@ -140,7 +140,7 @@ public class PictureUtils {
         // Create imageDir
         File myPath=new File(directory, "profile.jpg");
 
-        FileOutputStream fos = null;
+        FileOutputStream fos;
         try {
             fos = new FileOutputStream(myPath);
 

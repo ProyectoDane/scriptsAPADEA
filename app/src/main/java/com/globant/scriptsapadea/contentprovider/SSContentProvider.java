@@ -96,10 +96,8 @@ public class SSContentProvider extends ContentProvider {
 		}
 		
 		SQLiteDatabase db = mDBHelper.getReadableDatabase();
-		
-		Cursor c = queryBuilder.query(db, projection, selection, selectionArgs, null, null, null);
-		
-		return c;
+
+		return queryBuilder.query(db, projection, selection, selectionArgs, null, null, null);
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class Patient implements Serializable {
     private int resAvatar;
     private boolean editable;
 
-    private List<Script> scriptList = new LinkedList<Script>();
+    private List<Script> scriptList = new LinkedList<>();
 
     public Patient(long id, String name, String avatar, boolean editable) {
         this.id = id;
@@ -75,7 +75,7 @@ public class Patient implements Serializable {
     public static List<Patient> fetchAllPatients(Context context, String idPatient) {
 
 		// TODO Remove this
-        List<Patient> listScript = new LinkedList<Patient>();
+        List<Patient> listScript = new LinkedList<>();
 
         if (idPatient == null) {
             // TODO Retrieve ALL Patients from DB

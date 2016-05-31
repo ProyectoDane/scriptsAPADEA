@@ -1,17 +1,13 @@
 package globant.com.ar.scriptsapadea;
 
+import android.database.Cursor;
 import android.test.ProviderTestCase2;
 import android.test.mock.MockContentResolver;
 
-import android.database.Cursor;
-import android.content.ContentResolver;
-
 import com.globant.scriptsapadea.contentprovider.SSContentProvider;
 
-import junit.framework.Assert;
-
 /**
- * Created by nicolas.quartieri.
+ * @author nicolas.quartieri.
  */
 public class SSContentProviderTest extends ProviderTestCase2<SSContentProvider> {
 

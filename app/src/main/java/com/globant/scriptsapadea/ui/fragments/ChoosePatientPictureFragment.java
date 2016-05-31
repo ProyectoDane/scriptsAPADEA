@@ -22,7 +22,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
- * Created by leonel.mendez on 5/19/2015.
+ * @author leonel.mendez on 5/19/2015.
  */
 public class ChoosePatientPictureFragment extends BaseFragment {
 

@@ -180,7 +180,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      * getting all Scripts under single tag
      */
     public List<Script> getAllScriptsFromPatient(long patientId) {
-        List<Script> scripts = new ArrayList<Script>();
+        List<Script> scripts = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_SCRIPT + " s "
                 + " WHERE s." + SCRIPT_COLUMN_KEY_PATIENT + " = " + patientId;
@@ -209,6 +209,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
 
+        c.close();
+
         return scripts;
     }
 
@@ -216,7 +218,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
      * getting all Slide under single tag
      */
     public List<Slide> getAllSlidesFromScript(long scriptId) {
-        List<Slide> slides = new ArrayList<Slide>();
+        List<Slide> slides = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_SLIDE + " s "
                 + " WHERE s." + SLIDE_COLUMN_KEY_SCRIPT+ " = " + scriptId;
@@ -244,6 +246,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 slides.add(slide);
             } while (c.moveToNext());
         }
+
+        c.close();
 
         return slides;
     }
@@ -290,6 +294,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 patients.add(patient);
             } while (c.moveToNext());
         }
+
+        c.close();
 
         return patients;
     }
