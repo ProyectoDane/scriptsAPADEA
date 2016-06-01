@@ -37,7 +37,6 @@ public class PatientListFragment extends BaseFragment {
     private View welcomePanel;
     private RecyclerView mPatientView;
     private PatientSelectorGridRecycleAdapter adapter;
-    private LinearLayoutManager patientLayoutManager;
 
     private PatientListFragmentListener mListener;
 
@@ -74,7 +73,7 @@ public class PatientListFragment extends BaseFragment {
 
         mPatientView = (RecyclerView) view.findViewById(R.id.grid_patient);
         mPatientView.setHasFixedSize(true);
-        patientLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager patientLayoutManager = new LinearLayoutManager(getActivity());
         mPatientView.setLayoutManager(patientLayoutManager);
 
         adapter = new PatientSelectorGridRecycleAdapter(patientList, this);
@@ -145,7 +144,7 @@ public class PatientListFragment extends BaseFragment {
     }
 
     private void loadFirstExample() {
-        List<Patient> listScript = new LinkedList<Patient>();
+        List<Patient> listScript = new LinkedList<>();
 /*
         Patient patientJuan = new Patient(0, "Juan", getRealPathFromResId(getActivity(), R.drawable.avatar_placeholder));
         Script scriptJuan = new Script(0, "Lavar los platos", getRealPathFromResId(getActivity(), R.drawable.ic_launcher));

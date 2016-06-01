@@ -21,7 +21,7 @@ public class Script implements Serializable {
     private int resImage;
     private boolean editable;
 
-    private List<Slide> slides = new LinkedList<Slide>();
+    private List<Slide> slides = new LinkedList<>();
 
     public Script(long id, String name, String image, boolean editable) {
         this.id = id;
@@ -71,7 +71,7 @@ public class Script implements Serializable {
 
     public static List<Script> fetchAllScripts(String idPacient) {
         // TODO get all scripts from idPacient
-        LinkedList listScript = new LinkedList<Script>();
+        LinkedList listScript = new LinkedList<>();
         listScript.add(new Script(0, "Pepe", null, true));
         listScript.add(new Script(1, "Juan", null, true));
         listScript.add(new Script(2, "Marcelo", null, true));

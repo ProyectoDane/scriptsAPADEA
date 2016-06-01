@@ -29,8 +29,7 @@ public class CreatePatientActivity extends BaseActivity implements CreatePatient
         ShowScriptPictureFragment.OnEditFragmentListener {
 
     public static Intent createIntent(Context context) {
-        Intent intent = new Intent(context, CreatePatientActivity.class);
-        return intent;
+        return new Intent(context, CreatePatientActivity.class);
     }
 
     @Override
