@@ -26,6 +26,7 @@ import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
+import com.software.shell.fab.ActionButton;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -60,6 +61,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private List<Slide> listSlides;
     private File photoFile;
     private SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
+    private EditText slideDescription;
 
     public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
@@ -97,14 +99,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewCreated(View rootView, Bundle savedInstanceState) {
+        super.onViewCreated(rootView, savedInstanceState);
 
         //view.findViewById(R.id.img_pulldown_button).setVisibility(View.GONE);
 
-        slidePicture = (ImageView) view.findViewById(R.id.screenplay_slide_image);
-        final EditText slideDescription = (EditText) view.findViewById(R.id.editor_slide_text);
-        RecyclerView slidesListView = (RecyclerView) view.findViewById(R.id.screenplay_slide_list);
+        slidePicture = (ImageView) rootView.findViewById(R.id.screenplay_slide_image);
+        slideDescription = (EditText) rootView.findViewById(R.id.editor_slide_text);
+        RecyclerView slidesListView = (RecyclerView) rootView.findViewById(R.id.screenplay_slide_list);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         if (listSlides != null && !listSlides.isEmpty()) {
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
@@ -112,16 +114,18 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
         }
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
-        ImageView imgAddImage = (ImageView) view.findViewById(R.id.slide_only_image);
-        imgAddImage.setImageResource(R.drawable.agregar_foto);
-        imgAddImage.setOnClickListener(new View.OnClickListener() {
+
+        ActionButton fabNext = (ActionButton) rootView.findViewById(R.id.fab_add);
+        fabNext.setImageResource(R.drawable.crox_icon );
+        fabNext.setShadowResponsiveEffectEnabled(true);
+        fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveSlide(slideDescription);
             }
         });
 
-        View buttonSave = view.findViewById(R.id.btn_save_script);
+        View buttonSave = rootView.findViewById(R.id.btn_save_script);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,10 +157,10 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         });
 
         Script selectedScript = patientManager.getSelectedScript();
-        TextView txtScriptName = (TextView) view.findViewById(R.id.txt_script_name);
+        TextView txtScriptName = (TextView) rootView.findViewById(R.id.txt_script_name);
         txtScriptName.setText(selectedScript.getName());
 
-        ImageView imgScript = (ImageView) view.findViewById(R.id.img_script);
+        ImageView imgScript = (ImageView) rootView.findViewById(R.id.img_script);
         if (selectedScript.isResourceImage()) {
             Picasso.with(getActivity()).load(selectedScript.getResImage()).error(R.drawable.avatar_placeholder)
                     .transform(new CropCircleTransformation())
@@ -167,32 +171,26 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                     .into(imgScript);
         }
 
-        view.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.erase_gallery).setOnClickListener(new View.OnClickListener() {
             /**
              * Remove the selected slide previously setup in the main slide imageView.
              *
-             * @param v
+             * @param view
              */
             @Override
-            public void onClick(View v) {
-                Slide slide = patientManager.getSelectedSlide();
-                screenPlayEditorManager.deleteSlide(slide);
-                int value = screenPlayEditorManager.removeSlide(slide);
-
-                // TODO remove image and text from main selection frame
-                slidePicture.setImageResource(android.R.color.transparent);
-                slideDescription.setText("");
+            public void onClick(View view) {
+                cleanSlideSelector();
             }
         });
 
-        view.findViewById(R.id.editor_gallery).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.editor_gallery).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PictureUtils.pickPhotoFromGallery(ScreenPlayEditorFragment.this, REQUEST_CODE_GALLERY);
             }
         });
 
-        view.findViewById(R.id.editor_camera).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.editor_camera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 photoFile = PictureUtils.createFilePhotoForCamera();
@@ -236,7 +234,30 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
                 slideDescription.setText(slide.getText().toUpperCase());
             }
+
+            /**
+             * Erase the selected Slide with the Trash icon.
+             */
+            @Override
+            public void eraseSlideSelectorItemClick(int position) {
+                Slide slide = screenPlayEditorManager.getSlide(position);
+                ScreenPlayEditorFragment.this.eraseSlide(slide);
+            }
         });
+    }
+
+    /**
+     * Clean the Image Selector & the Text Description display below.
+     */
+    private void cleanSlideSelector() {
+        slidePicture.setImageResource(android.R.color.transparent);
+        slideDescription.setText("");
+    }
+
+    public void eraseSlide(Slide slide) {
+        screenPlayEditorManager.deleteSlide(slide);
+        // TODO check this value.
+        int value = screenPlayEditorManager.removeSlide(slide);
     }
 
     private void saveSlide(EditText slideDescription) {
