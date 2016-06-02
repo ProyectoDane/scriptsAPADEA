@@ -16,7 +16,7 @@
         android:id="@+id/txt_patient_name"
         style="@style/Text.Body.Small.Bold"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/margin_large"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Nombre"/>

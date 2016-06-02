@@ -47,7 +47,7 @@
     <string name="back_title">ATRÁS</string>
     <string name="about_btn">ACERCA DE</string>
     <string name="about_version">Versión </string>
-
+    <!-- About screen -->
     <string name="about_leyend_ln_1">ESTA APLICACIÓN FUE REALIZADA EN EL MARCO DEL PROYECTO DANE</string>
     <string name="about_leyend_ln_2">CON LA PARTICIPACION DE VOLUNTARIOS DE </string>
     <string name="about_leyend_ln_3">ORIGINALMENTE DESARROLADA POR GLOBANT LABS:</string>
@@ -61,14 +61,13 @@
     <string name="start_screenplay_edit">Comenzar a editar</string>
 
     <string name="script_select_edit">EDITAR</string>
-
+    <!-- Editor text screen -->
     <string name="editor_erase_photo">QUITAR FOTO</string>
     <string name="editor_take_photo">TOMAR FOTO</string>
     <string name="editor_pick_photo">ELEGIR FOTO</string>
     <string name="editor_add_button">add_button</string>
     <string name="script_select_add">GUARDAR</string>
     <string name="script_select_remove">BORRAR</string>
-
     <string name="popupmenu_edit">EDITAR</string>
     <string name="popupmenu_remove">ELIMINAR</string>
     <string name="popupmenu_copy">COPIAR</string>
@@ -78,7 +77,8 @@
     <string name="slide_vacio_two">Continúa editando el guión para agregarle contenido</string>
 
     <string name="default_text">text_to_display</string>
-
+    <!-- Stuff -->
     <string name="script_from">COPIAR</string>
     <string name="script_to">A QUIEN?</string>
+    <string name="name_script">Nombre del script</string>
 </resources>

@@ -86,7 +86,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
 
         if (pictureFromCamera) {
             File photoFile = (File) imageBundle.getSerializable(SCRIPT_IMAGE);
-            if (photoFile.exists()) {
+            if (photoFile != null && photoFile.exists()) {
                 Uri uri = Uri.fromFile(photoFile);
                 imageContainer.setImageURI(uri);
             }
