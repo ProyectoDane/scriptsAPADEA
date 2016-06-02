@@ -205,6 +205,9 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                                 c.getInt(c.getColumnIndex(SCRIPT_COLUMN_IS_EDITABLE)) == 1);
                 }
 
+                List<Slide> slides = getAllSlidesFromScript(script.getId());
+                script.setSlides(slides);
+
                 scripts.add(script);
             } while (c.moveToNext());
         }
