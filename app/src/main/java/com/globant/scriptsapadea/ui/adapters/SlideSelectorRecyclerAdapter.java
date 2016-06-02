@@ -106,7 +106,7 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
                 @Override
                 public void onClick(View v) {
                     if (onSlideSelectorItemClickListener != null) {
-                        onSlideSelectorItemClickListener.onSlideSelectorItemClick(SlideSelectorRecyclerAdapter.this, itemView, getPosition());
+                        onSlideSelectorItemClickListener.onSlideSelectorItemClick(itemView, getPosition());
                     }
                 }
             });
@@ -167,7 +167,7 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
     }
 
     public interface OnSlideSelectorItemClickListener {
-        void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position);
+        void onSlideSelectorItemClick(View view, int position);
         void eraseSlideSelectorItemClick(int position);
     }
 }

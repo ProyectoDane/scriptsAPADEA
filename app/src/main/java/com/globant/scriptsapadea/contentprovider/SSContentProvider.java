@@ -35,7 +35,7 @@ public class SSContentProvider extends ContentProvider {
 	@Override
 	public int delete(Uri uri, String where, String[] whereArgs) {
 		SQLiteDatabase db = mDBHelper.getWritableDatabase();
-		int count = 0;
+		int count;
 		
 		switch (uriMatcher.match(uri)) {
 		case ALL:

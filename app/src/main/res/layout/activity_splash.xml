@@ -41,8 +41,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tea_logo"
             android:layout_toEndOf="@+id/tea_logo"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginLeft="@dimen/margin_xsmall"
+            android:layout_marginTop="@dimen/margin_xsmall"/>
     </LinearLayout>
 
     <ImageView

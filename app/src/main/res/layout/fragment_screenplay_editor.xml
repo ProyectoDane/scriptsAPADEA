@@ -30,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/img_script"
             android:layout_toEndOf="@+id/img_script"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="@dimen/margin_xsmall" />
 
         <TextView
             android:id="@+id/btn_save_script"
@@ -38,9 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/scriptlist_save"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

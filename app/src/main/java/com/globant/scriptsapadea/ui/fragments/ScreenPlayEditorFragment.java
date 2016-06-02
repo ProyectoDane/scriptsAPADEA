@@ -218,7 +218,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
              * @param position
              */
             @Override
-            public void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position) {
+            public void onSlideSelectorItemClick(View view, int position) {
                 Slide slide = screenPlayEditorManager.getSlide(position);
                 patientManager.setSelectedSlide(slide);
 
