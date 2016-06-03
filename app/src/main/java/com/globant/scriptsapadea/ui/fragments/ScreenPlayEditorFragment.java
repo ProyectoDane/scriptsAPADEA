@@ -45,7 +45,6 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private static final int REQUEST_CODE_GALLERY = 0x100;
     private static final int REQUEST_CODE_CAMERA = 0x010;
     private static final int INITIAL_POSITION = 0;
-    private static final String SCRIPT = "script";
     private static final String EDIT_MODE = "editmode";
     private boolean isEditMode = false;
 
@@ -73,7 +72,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     public static ScreenPlayEditorFragment newInstance(Bundle args, Script script, boolean isEditMode) {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
         args.putBoolean(EDIT_MODE, isEditMode);
-        args.putSerializable(SCRIPT, script);
+        args.putSerializable(Script.SCRIPT, script);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
     }
@@ -84,7 +83,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
         isEditMode = getArguments().getBoolean(EDIT_MODE);
 
-        Script script = (Script) getArguments().getSerializable(SCRIPT);
+        Script script = (Script) getArguments().getSerializable(Script.SCRIPT);
         if (script != null) {
             patientManager.setSelectedScript(script);
             listSlides = script.getSlides();
@@ -213,7 +212,6 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             /**
              * Set the selected slide to the main slide imageView & text.
              *
-             * @param adapter
              * @param view
              * @param position
              */
@@ -254,12 +252,22 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         slideDescription.setText("");
     }
 
+    /**
+     * Remove the {@link Slide} from the {@link ScreenPlayEditorFragment}
+     *
+     * @param slide the {@link Slide} to be remove.
+     */
     public void eraseSlide(Slide slide) {
         screenPlayEditorManager.deleteSlide(slide);
         // TODO check this value.
         int value = screenPlayEditorManager.removeSlide(slide);
     }
 
+    /**
+     * Add the {@link Slide} into the {@link ScreenPlayEditorFragment}
+     *
+     * @param slideDescription the {@link EditText} to be reset.
+     */
     private void saveSlide(EditText slideDescription) {
         addSlideInAdapter(slideDescription, true);
 
@@ -295,7 +303,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private void showImage(Intent data, int requestCode) {
         if (requestCode == REQUEST_CODE_GALLERY) {
             if (data != null && data.getData() != null) {
-                imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData());
+                imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData(), true);
                 Picasso.with(getActivity())
                         .load(new File(imageGalleryUrl))
                         .into(slidePicture);
@@ -310,6 +318,12 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         }
     }
 
+    /**
+     * The new {@link Slide} to be added.
+     *
+     * @param slideDescription {@link EditText} the description user written.
+     * @param save             true if we must save the slide to the {@link ScreenPlayEditorManager}
+     */
     private void addSlideInAdapter(EditText slideDescription, boolean save) {
         boolean slideAdded;
         Slide slide = null;
@@ -340,6 +354,13 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         imageGalleryUrl = new String();
     }
 
+    /**
+     * In place the slide to the center ready to edit.
+     *
+     * @param position   Where is in place the slide.
+     * @param slideDesc  the {@link EditText} ready to set new text.
+     * @param slideImage the {@link ImageView} ready to load the image.
+     */
     private void setSlideContentToEditor(int position, EditText slideDesc, ImageView slideImage) {
         if (position != INITIAL_POSITION) {
             Slide slide = screenPlayEditorManager.getSlide(position);

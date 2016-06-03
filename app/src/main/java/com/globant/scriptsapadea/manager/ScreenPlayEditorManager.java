@@ -53,7 +53,7 @@ public class ScreenPlayEditorManager {
     /**
      * Delete the selected slide from the slide list setup in memory.
      *
-     * @param slide
+     * @param slide {@link Slide} to be removed.
      */
     public void deleteSlide(Slide slide) {
         if (adapter != null) {
@@ -68,7 +68,7 @@ public class ScreenPlayEditorManager {
     /**
      * Update the selected slide from the slide list setup in memory.
      *
-     * @param slide
+     * @param slide {@link Slide} to be update.
      */
     public void updateSlide(Slide slide) {
         if (adapter != null) {
@@ -87,8 +87,8 @@ public class ScreenPlayEditorManager {
     /**
      * Save the selected slide from the slide list setup into de Data Base.
      *
-     * @param slide
-     * @return
+     * @param slide the {@link Slide} to be save.
+     * @return      the ID of the saved {@link Slide}, -1 otherwise (Error).
      */
     public long saveSlide(Slide slide) {
         return mDBHelper.createSlide(slide, patientManager.getSelectedScript().getId());
@@ -97,8 +97,8 @@ public class ScreenPlayEditorManager {
     /**
      * Delete the selected slide from the slide list setup in the Data Base.
      *
-     * @param slide
-     * @return
+     * @param slide the {@link Slide} to be remove.
+     * @return      the ID of the remove {@link Slide}, -1 otherwise (Error).
      */
     public int removeSlide(Slide slide) {
         return mDBHelper.deleteSlide(slide, patientManager.getSelectedScript().getId());

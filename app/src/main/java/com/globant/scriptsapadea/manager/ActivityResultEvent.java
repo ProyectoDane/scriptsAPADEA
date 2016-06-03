@@ -9,7 +9,6 @@ import android.content.Intent;
  */
 public class ActivityResultEvent {
 
-
     private int requestCode;
     private int resultCode;
     private Intent data;

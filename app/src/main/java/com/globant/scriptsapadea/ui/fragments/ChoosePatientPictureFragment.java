@@ -15,6 +15,7 @@ import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.utils.PictureUtils;
+import com.globant.scriptsapadea.utils.TEAlertDialog;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -93,11 +94,15 @@ public class ChoosePatientPictureFragment extends BaseFragment {
 
         Bundle imageArguments = new Bundle();
         if (requestCode == GALLERY) {
-            if (data != null && data.getData() != null) {
+            String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
+            if (data.getData() != null && imagePath != null) {
                 patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        PictureUtils.getImagePath(getActivity(), data.getData()), true));
+                        imagePath, true));
 
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+            } else {
+                TEAlertDialog alert = new TEAlertDialog(getContext());
+                alert.setTitle(R.string.error_image).show();
             }
         } else {
             if (photoFile != null && photoFile.exists()) {

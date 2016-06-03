@@ -95,7 +95,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
     /**
      * Run the animation over the selected view.
      *
-     * @param viewToAnimate - the view to animate.
+     * @param viewToAnimate - the {@link View} to animate.
      * @param position      - the actual position.
      */
     private void runAnimation(View viewToAnimate, int position) {
@@ -123,7 +123,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
      * Get the height of the screen of the device.
      *
      * @param context
-     * @return
+     * @return          the size as float primitive.
      */
     private float getScreenHeight(Context context) {
         if (screenHeight == 0) {
@@ -148,9 +148,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
         notifyDataSetChanged();
     }
 
-
     public class PatientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView vTextLegend;
         protected ImageView vImageAvatar;
         protected TextView vNamePatient;
@@ -240,7 +238,9 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vRemoveButtonAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(context.getActivity()).setMessage("Confirma eliminar esta persona ?").setTitle("Eliminar")
+                    new AlertDialog.Builder(context.getActivity())
+                            .setMessage("Confirma eliminar esta persona ?")
+                            .setTitle("Eliminar")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

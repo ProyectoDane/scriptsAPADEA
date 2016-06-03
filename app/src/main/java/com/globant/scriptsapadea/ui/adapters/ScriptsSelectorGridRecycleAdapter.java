@@ -77,7 +77,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     /**
      * Run the animation over the selected view.
      *
-     * @param viewToAnimate - the view to animate.
+     * @param viewToAnimate - the {@link View} to animate.
      * @param position      - the actual position.
      */
     private void runAnimation(View viewToAnimate, int position) {
@@ -95,8 +95,8 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     /**
      * Get the height of the screen of the device.
      *
-     * @param context
-     * @return
+     * @param context   the {@link Context}
+     * @return          the size as float primitive.
      */
     private float getScreenHeight(Context context) {
         if (screenHeight == 0) {
