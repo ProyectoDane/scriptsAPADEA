@@ -78,7 +78,7 @@ public class ScriptCopyRecycleAdapter extends RecyclerView.Adapter<ScriptCopyRec
      * This patient is the one selected in the list.
      *
      * @param position - Adapter position
-     * @return
+     * @return           Get the ParentID as long primitive.
      */
     public long getParentId(int position) {
         return checkedList[position].getPatientId();

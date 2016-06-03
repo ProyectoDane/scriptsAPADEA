@@ -27,6 +27,9 @@
 
     <string name="list_patient_create">CREAR UNA NUEVA PERSONA</string>
 
+    <!-- Error stuff -->
+    <string name="error_image">La imagen es demasiado grande, intente con una de menor tamaño.</string>
+
     <string name="title_back">SALIR</string>
 
     <string name="use_guide_title">Bienvenido a TEAyudo!</string>

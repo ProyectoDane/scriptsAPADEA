@@ -1,7 +1,11 @@
 package com.globant.scriptsapadea;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 
 import com.squareup.picasso.Picasso;
@@ -13,10 +17,14 @@ import roboguice.RoboGuice;
  */
 public class scriptsAPADEAApplication extends Application  {
 
+    private static Context context;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d("DEBUG", "Initializing scriptsAPADEA.");
+
+        context = this;
 
         initPicasso();
         initRoboGuice();
@@ -34,6 +42,27 @@ public class scriptsAPADEAApplication extends Application  {
                 .listener(new Picasso.Listener() {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                        final Handler handler  = new Handler();
+                        final AlertDialog alert = new AlertDialog.Builder(getApplicationContext()).setTitle("Error al cargar la imagen!")
+                                .setIcon(R.drawable.teayudo_usuario)
+                                .show();
+                        final Runnable runnable = new Runnable() {
+                            @Override
+                            public void run() {
+                                if (alert.isShowing()) {
+                                    alert.dismiss();
+                                }
+                            }
+                        };
+                        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                handler.removeCallbacks(runnable);
+                            }
+                        });
+
+                        handler.postDelayed(runnable, 2000);
+
                         Log.d("DEBUG", "Error Loading an image: " + exception.getMessage());
                     }
                 }).build();
@@ -43,5 +72,9 @@ public class scriptsAPADEAApplication extends Application  {
         } catch (IllegalStateException ignored) {
             Log.d("DEBUG", ignored.getMessage());
         }
+    }
+
+    public static Context getContext(){
+        return context;
     }
 }

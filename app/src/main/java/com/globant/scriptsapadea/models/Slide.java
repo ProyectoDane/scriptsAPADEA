@@ -9,6 +9,8 @@ import java.io.Serializable;
  */
 public class Slide implements Serializable {
 
+    public static final String SLIDE = "slide";
+
     public static final int ONLY_TEXT = 0;
     public static final int ONLY_IMAGE = 1;
     public static final int IMAGE_TEXT = 2;

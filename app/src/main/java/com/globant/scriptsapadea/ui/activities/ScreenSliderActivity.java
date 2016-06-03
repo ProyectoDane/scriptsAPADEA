@@ -41,8 +41,6 @@ import roboguice.inject.InjectView;
 @ContentView(R.layout.screen_slider_layout)
 public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback {
 
-    private static final String SCRIPT = "script";
-
     private ScreenSliderPageAdapter pageAdapter;
     private ViewPager viewPager;
 
@@ -59,7 +57,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
     public static Intent createIntent(Context context, Script script) {
         Intent intent = new Intent(context, ScreenSliderActivity.class);
-        intent.putExtra(SCRIPT, script);
+        intent.putExtra(Script.SCRIPT, script);
         return intent;
     }
 
@@ -69,8 +67,8 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         setContentView(R.layout.screen_slider_layout);
 
         if (savedInstanceState == null) {
-            if (getIntent().hasExtra(SCRIPT)) {
-                script = (Script)getIntent().getExtras().getSerializable(SCRIPT);
+            if (getIntent().hasExtra(Script.SCRIPT)) {
+                script = (Script)getIntent().getExtras().getSerializable(Script.SCRIPT);
 
                 List<Slide> slideList = script.getSlides();
                 if (slideList.size() > 1 && slideList.get(0).getResImage() == R.drawable.teayudo_usuario) {
@@ -174,7 +172,6 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     }
 
     public class ScreenSliderPageAdapter extends FragmentStatePagerAdapter {
-
         private List<Fragment> fragmentList;
 
         public ScreenSliderPageAdapter(FragmentManager fm, List<Fragment> fragmentList) {

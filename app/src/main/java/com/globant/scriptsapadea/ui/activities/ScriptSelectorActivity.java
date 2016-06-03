@@ -38,18 +38,15 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
         ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener, AboutFragment.AboutListener, CommunicateListener {
 
     @Inject
-    private PatientManager patientManager;
-
-    private static final String PATIENT = "patient";
-
-    private ScreenScriptsSelectorFragment screenScriptsSelectorFragment;
+    private SQLiteHelper mDBHelper;
 
     @Inject
-    private SQLiteHelper mDBHelper;
+    private PatientManager patientManager;
+    private ScreenScriptsSelectorFragment screenScriptsSelectorFragment;
 
     public static Intent createIntent(Context context, Patient patient) {
         Intent intent = new Intent(context, ScriptSelectorActivity.class);
-        intent.putExtra(PATIENT, patient);
+        intent.putExtra(Patient.PATIENT, patient);
         return intent;
     }
 
@@ -66,8 +63,8 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
         });
 
         if (savedInstanceState == null) {
-            if (getIntent().hasExtra(PATIENT)) {
-                Patient patient = (Patient) getIntent().getExtras().getSerializable(PATIENT);
+            if (getIntent().hasExtra(Patient.PATIENT)) {
+                Patient patient = (Patient) getIntent().getExtras().getSerializable(Patient.PATIENT);
                 // TODO move this in other place.
                 patientManager.setSelectedPatient(patient);
                 screenScriptsSelectorFragment = ScreenScriptsSelectorFragment.newInstance(patient);

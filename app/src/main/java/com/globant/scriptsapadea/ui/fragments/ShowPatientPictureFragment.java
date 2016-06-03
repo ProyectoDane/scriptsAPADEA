@@ -61,8 +61,6 @@ public class ShowPatientPictureFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle args = new Bundle();
-                    // TODO
-
                     listener.onCreateScript(CreateScriptFragment.newInstance(args));
                 }
             });
