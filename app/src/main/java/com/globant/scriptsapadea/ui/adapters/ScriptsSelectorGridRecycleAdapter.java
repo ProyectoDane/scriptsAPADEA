@@ -30,8 +30,11 @@ import java.util.List;
  *
  * @author nicolas.quartieri.
  */
-public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder> implements
-                                                            SSPopupMenuWindow.SSPopupMenuWindowListener {
+public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<ScriptsSelectorGridRecycleAdapter.ContactViewHolder>
+        implements SSPopupMenuWindow.SSPopupMenuWindowListener {
+
+    private static final long ANIMATION_TIME = 700;
+    private static final int ANIMATED_ITEMS_COUNT = 2;
 
     private final Context context;
     private final ScreenScriptsSelectorFragment.ScreenScriptSelectorListener mScriptSelectorListener;
@@ -39,9 +42,6 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     private boolean showLoadingView;
     private int lastPosition = -1;
-
-    private static final int ANIMATED_ITEMS_COUNT = 2;
-
     private int itemsCount = 0;
     private boolean animateItems = true;
     private static int screenHeight = 0;
@@ -59,7 +59,8 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
     @Override
     public void onBindViewHolder(ContactViewHolder contactViewHolder, int position) {
-        runAnimation(contactViewHolder.itemView, position);
+        // FIXME: After 6 elements the animation goes over the older elements.
+        //runAnimation(contactViewHolder.itemView, position);
 
         Script script = scriptList.get(position);
         if (script.isResourceImage()) {
@@ -87,7 +88,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
             viewToAnimate.setTranslationY(getScreenHeight(context));
             viewToAnimate.animate().translationY(0)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(700)
+                    .setDuration(ANIMATION_TIME)
                     .start();
         }
     }
@@ -113,7 +114,6 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     @Override
     public ContactViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.script_card_layout, viewGroup, false);
-
         return new ContactViewHolder(itemView);
     }
 
@@ -129,7 +129,6 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         private SSPopupMenuWindow popupWindow;
         private Script script;
 
