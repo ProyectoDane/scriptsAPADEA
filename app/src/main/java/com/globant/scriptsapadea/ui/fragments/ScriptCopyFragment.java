@@ -67,6 +67,8 @@ public class ScriptCopyFragment extends BaseDialogFragment {
         }
 
         patientList = mDBHelper.getAllPatients();
+        if (patientList.size() > 0) // Remove APADEA not want to copy in here.
+            patientList.remove(0);
     }
 
     @Override
