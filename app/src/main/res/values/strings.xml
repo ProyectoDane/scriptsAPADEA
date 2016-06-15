@@ -19,6 +19,7 @@
     <string name="default_script_name">Nuevo Script</string>
     <string name="edit_text_name_hint">Nombre</string>
     <string name="next_action_text">Siguiente</string>
+    <string name="save_action_text">Guardar</string>
     <string name="what_is_guion_name_text">¿Cuál es el nombre del guión?</string>
     <string name="what_is_person_name">¿Cómo se llama la persona</string>
     <string name="whose_is_guion_text">¿Este guíon es para?</string>

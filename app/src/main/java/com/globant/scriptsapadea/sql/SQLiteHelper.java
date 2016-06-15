@@ -331,14 +331,18 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(script.getId()) });
     }
 
-    // TODO
     public int updatePatient(Patient patient) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(PATIENT_COLUMN_NAME, patient.getName());
-        values.put(PATIENT_COLUMN_AVATAR, patient.getAvatar());
-
+        if (patient.isResourceAvatar()) {
+            values.put(PATIENT_COLUMN_AVATAR, patient.getResAvatar());
+            values.put(PATIENT_COLUMN_IS_RES_AVATAR, 1);
+        } else {
+            values.put(PATIENT_COLUMN_AVATAR, patient.getAvatar());
+            values.put(PATIENT_COLUMN_IS_RES_AVATAR, 0);
+        }
         return db.update(TABLE_PATIENT, values, PATIENT_ID + " = ?",
                 new String[] { String.valueOf(patient.getId()) });
     }

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.ui.fragments.ChoosePatientPictureFragment;
 import com.globant.scriptsapadea.ui.fragments.ChooseScriptPictureFragment;
 import com.globant.scriptsapadea.ui.fragments.CreatePatientFragment;
@@ -24,7 +25,13 @@ public class CreatePatientActivity extends BaseActivity implements CreatePatient
         ShowScriptPictureFragment.OnEditFragmentListener {
 
     public static Intent createIntent(Context context) {
+        return new Intent(context, CreatePatientActivity.class);
+    }
+
+    public static Intent createIntent(Context context, Patient patient) {
         Intent intent = new Intent(context, CreatePatientActivity.class);
+        // TODO: This should be inside Patient.class
+        intent.putExtra("patient", patient);
         return intent;
     }
 
@@ -40,8 +47,12 @@ public class CreatePatientActivity extends BaseActivity implements CreatePatient
             }
         });
 
-        if (savedInstanceState == null)
-            navigator.to(new CreatePatientFragment()).noPush().navigate();
+
+
+        if (savedInstanceState == null) {
+            Bundle bundle = getIntent().getExtras();
+            navigator.to(CreatePatientFragment.newInstance(bundle)).noPush().navigate();
+        }
     }
 
     @Override
