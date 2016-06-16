@@ -64,7 +64,7 @@ public class ShowPatientPictureFragment extends BaseFragment {
         if (bundle != null) {
             if (bundle.containsKey("edit_mode") && bundle.getBoolean("edit_mode")) {
                 editButton.setText(R.string.save_action_text);
-                final Patient patient = (Patient) bundle.getSerializable("patient");
+                final Patient patient = (Patient) bundle.getSerializable(Patient.PATIENT);
 
                 screenplayName.setText(bundle.getString(CreatePatientFragment.PATIENT_NAME));
                 showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));

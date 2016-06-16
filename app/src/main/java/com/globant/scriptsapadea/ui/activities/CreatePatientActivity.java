@@ -35,8 +35,7 @@ public class CreatePatientActivity extends BaseActivity implements CreatePatient
 
     public static Intent createIntent(Context context, Patient patient) {
         Intent intent = new Intent(context, CreatePatientActivity.class);
-        // TODO: This should be inside Patient.class
-        intent.putExtra("patient", patient);
+        intent.putExtra(Patient.PATIENT, patient);
         return intent;
     }
 

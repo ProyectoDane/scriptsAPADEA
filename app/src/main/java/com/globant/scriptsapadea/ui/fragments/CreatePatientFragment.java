@@ -43,8 +43,8 @@ public class CreatePatientFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey("patient")) {
-            patient = (Patient) bundle.getSerializable("patient");
+        if (bundle != null && bundle.containsKey(Patient.PATIENT)) {
+            patient = (Patient) bundle.getSerializable(Patient.PATIENT);
         }
     }
 
@@ -68,7 +68,7 @@ public class CreatePatientFragment extends BaseFragment {
             screenplayName.setText(patient.getName());
             nextButton.setText(R.string.save_action_text);
             takePictureArgs.putSerializable("edit_mode", true);
-            takePictureArgs.putSerializable("patient", patient);
+            takePictureArgs.putSerializable(Patient.PATIENT, patient);
         } else {
             takePictureArgs.putSerializable("edit_mode", false);
         }

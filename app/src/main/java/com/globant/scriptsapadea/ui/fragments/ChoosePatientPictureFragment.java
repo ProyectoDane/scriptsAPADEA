@@ -97,7 +97,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         if (imageArguments == null) {
             imageArguments = new Bundle();
         } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
-            Patient patient = (Patient) imageArguments.get("patient");
+            Patient patient = (Patient) imageArguments.get(Patient.PATIENT);
             patientId = patient.getId();
         }
 
@@ -108,7 +108,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
                         imagePath, true));
 
                 // TODO Refactor
-                imageArguments.putSerializable("patient", patientManager.getSelectedPatient());
+                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             } else {
                 TEAlertDialog alert = new TEAlertDialog(getContext());
@@ -123,7 +123,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
                         photoFile.getAbsolutePath(), true));
 
                 // TODO Refactor
-                imageArguments.putSerializable("patient", patientManager.getSelectedPatient());
+                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             }
         }
