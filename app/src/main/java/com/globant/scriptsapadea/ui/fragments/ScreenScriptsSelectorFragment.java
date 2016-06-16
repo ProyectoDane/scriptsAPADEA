@@ -1,6 +1,6 @@
 package com.globant.scriptsapadea.ui.fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -9,17 +9,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
+import com.globant.scriptsapadea.widget.CropCircleTransformation;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
- * Fragment created to hold script image (an context-menu) inside the script grid.
+ * Fragment created to hold script image gallery (an context-menu) inside the script grid.
  *
  * @author nicolas.quartieri.
  */
@@ -31,6 +39,9 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     private Patient patient;
     private ScreenScriptSelectorListener mListener;
     private CreateScriptFragment.OnTakeScriptPictureFragmentListener listener;
+    private AboutFragment.AboutListener listenerAboutScreen;
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     public static ScreenScriptsSelectorFragment newInstance(Patient patient) {
         ScreenScriptsSelectorFragment fragment = new ScreenScriptsSelectorFragment();
@@ -42,21 +53,28 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         try {
-            mListener = (ScreenScriptSelectorListener) activity;
+            mListener = (ScreenScriptSelectorListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement ScreenScriptSelectorListener");
         }
 
         try {
-            listener = (CreateScriptFragment.OnTakeScriptPictureFragmentListener) activity;
+            listener = (CreateScriptFragment.OnTakeScriptPictureFragmentListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement ScreenScriptSelectorListener");
+        }
+
+        try {
+            listenerAboutScreen = (AboutFragment.AboutListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement AboutListener");
         }
     }
 
@@ -72,13 +90,41 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_scripts_selector, container, false);
 
-        view.findViewById(R.id.btn_new_script).setOnClickListener(new View.OnClickListener() {
+        View btnNewScript = view.findViewById(R.id.btn_new_script);
+        btnNewScript.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 listener.onTakeScriptPictureFragment(CreateScriptFragment.newInstance(args));
             }
         });
+
+        TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
+        txtPatientName.setText(patient.getName());
+
+        ImageView imageProfile = (ImageView) view.findViewById(R.id.img_profile);
+        if (patient.isResourceAvatar()) {
+            Picasso.with(getActivity()).load(patient.getResAvatar()).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imageProfile);
+        } else {
+            Picasso.with(getActivity()).load(new File(patient.getAvatar())).error(R.drawable.avatar_placeholder)
+                    .transform(new CropCircleTransformation())
+                    .into(imageProfile);
+        }
+
+        if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
+            btnNewScript.setVisibility(View.INVISIBLE);
+
+            View btnAbout = view.findViewById(R.id.btn_about);
+            btnAbout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listenerAboutScreen.onTakeToAboutScreen();
+                }
+            });
+            btnAbout.setVisibility(View.VISIBLE);
+        }
 
         mGridView = (RecyclerView) view.findViewById(R.id.grid_scripts);
         mGridView.setHasFixedSize(true);
@@ -101,7 +147,7 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         showProgress();
 
         // TODO create injectable id or pacient
-        scriptList = patient.getScriptList();
+        scriptList = mDBHelper.getAllScriptsFromPatient(patient.getId());
 
         if (scriptList != null && !scriptList.isEmpty()) {
             adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity());
@@ -119,8 +165,13 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         hideProgress();
     }
 
+    public void notifyDataChangeOnAdapter() {
+        updateScriptsView();
+    }
+
     public interface ScreenScriptSelectorListener {
         void onNavigateToScriptSlider(Script script);
         void onNavigateToSlideEditor(ScreenPlayEditorFragment fragment);
+        void onNavigateToScriptCopyScreen(Script script);
     }
 }

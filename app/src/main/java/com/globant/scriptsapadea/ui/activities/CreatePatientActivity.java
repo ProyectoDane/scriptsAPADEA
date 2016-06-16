@@ -18,6 +18,11 @@ import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
 
 import roboguice.inject.ContentView;
 
+/**
+ * This class provides the container activity for the first step of the patient creation.
+ *
+ * @author nicolas.quartieri
+ */
 @ContentView(R.layout.activity_screen)
 public class CreatePatientActivity extends BaseActivity implements CreatePatientFragment.OnChangePictureFragmentListener,
         ChoosePatientPictureFragment.OnShowPatientPictureFragmentListener, ShowPatientPictureFragment.OnNextFragmentListener,

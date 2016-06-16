@@ -20,6 +20,8 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
+ * This class provides the screen to select an images or take a camera picture to identify a Patient.
+ *
  * @author nicolas.quartieri
  */
 public class ShowScriptPictureFragment extends BaseFragment {
@@ -51,7 +53,6 @@ public class ShowScriptPictureFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View mainView = inflater.inflate(R.layout.fragment_picture, container, false);
         TextView screenplayName = (TextView) mainView.findViewById(R.id.txt_patient_name);
 
@@ -71,6 +72,12 @@ public class ShowScriptPictureFragment extends BaseFragment {
         return mainView;
     }
 
+    /**
+     * Show the image after been taken.
+     *
+     * @param imageBundle    - the image bundle with the contained path to the image.
+     * @param imageContainer - the ImageView for this image selected.
+     */
     private void showImage(Bundle imageBundle, ImageView imageContainer) {
         boolean pictureFromCamera = imageBundle.getBoolean(PICTURE_FROM_CAMERA);
 
@@ -79,7 +86,7 @@ public class ShowScriptPictureFragment extends BaseFragment {
 
         if (pictureFromCamera) {
             File photoFile = (File) imageBundle.getSerializable(SCRIPT_IMAGE);
-            if (photoFile.exists()) {
+            if (photoFile != null && photoFile.exists()) {
                 Uri uri = Uri.fromFile(photoFile);
                 imageContainer.setImageURI(uri);
             }

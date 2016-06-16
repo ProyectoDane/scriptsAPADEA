@@ -1,7 +1,7 @@
 package com.globant.scriptsapadea.settings;
 
 /**
- * Created by nicolas.quartieri
+ * @author nicolas.quartieri
  */
 public class SSPreferencies {
 

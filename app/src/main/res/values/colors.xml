@@ -17,6 +17,7 @@
     <color name="gray">#8193A9</color>
     <color name="red">#CF4848</color>
     <color name="light_gray">#A0AEBF</color>
+    <color name="light_medium_gray">#f4f4f4</color>
     <color name="panel_gray">#ecf1f4</color>
     <color name="hr_gray">#e1eaf4</color>
     <color name="button_light_blue">#d7edf4</color>

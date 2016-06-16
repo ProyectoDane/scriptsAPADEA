@@ -22,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * This class provides the function's for taking camera pictures.
+ *
  * Created by leonel.mendez on 6/11/2015.
  */
 public class PictureUtils {
@@ -82,8 +84,15 @@ public class PictureUtils {
         return filePath;
     }
 
-
-    public static String getImagePath(Context context, Uri contentUri) {
+    /**
+     * Get the image path base on the uri image related.
+     *
+     * @param context    {@link Context}
+     * @param contentUri {@link android.net.Uri}
+     * @param check      true if we want to check the limit size.
+     * @return           The image path, Null instead.
+     */
+    public static String getImagePath(Context context, Uri contentUri, boolean check) {
         String realPath;
         if (Build.VERSION.SDK_INT < 11) {
             realPath = getRealPathFromURI_BelowAPI11(context, contentUri);
@@ -91,6 +100,15 @@ public class PictureUtils {
             realPath = getRealPathFromURI_API11to18(context, contentUri);
         } else {
             realPath = getRealPathFromURI_API19(context, contentUri);
+        }
+
+        if (check) {
+            try {
+                // TODO create a static utility method.
+                new ImageFile(realPath);
+            } catch (ImageFile.ImageException e) {
+                return null;
+            }
         }
 
         return realPath;
@@ -138,7 +156,7 @@ public class PictureUtils {
         // Create imageDir
         File myPath=new File(directory, "profile.jpg");
 
-        FileOutputStream fos = null;
+        FileOutputStream fos;
         try {
             fos = new FileOutputStream(myPath);
 
@@ -159,7 +177,7 @@ public class PictureUtils {
     }
 
     public static String getRealPathFromResId(Context context, int resId) {
-        return getImagePath(context, resIdToUri(context, resId));
+        return getImagePath(context, resIdToUri(context, resId), true);
         //return getRealPathFromURI(context, resIdToUri(context, resId));
     }
 

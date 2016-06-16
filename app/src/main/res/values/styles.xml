@@ -72,6 +72,12 @@
         <!-- Avenir Regular -->
     </style>
 
+    <style name="Text.Body.Small">
+        <item name="android:textSize">@dimen/font_size_small</item>
+        <item name="android:typeface">serif</item>
+        <!-- Avenir Regular -->
+    </style>
+
     <style name="Text.Body.Big.Gray">
         <item name="android:textColor">@color/panel_gray</item>
     </style>
@@ -86,6 +92,11 @@
     </style>
 
     <style name="Text.Body.Medium.Bold">
+        <item name="android:typeface">sans</item>
+        <!-- Avenir Heavy -->
+    </style>
+
+    <style name="Text.Body.Small.Bold">
         <item name="android:typeface">sans</item>
         <!-- Avenir Heavy -->
     </style>
@@ -115,6 +126,10 @@
         <item name="android:background">@color/status_bar_light</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/font_size_body</item>
+    </style>
+
+    <style name="Button.Secondary.Small">
+        <item name="android:textSize">@dimen/font_size_small</item>
     </style>
 
     <style name="Button.Custom">

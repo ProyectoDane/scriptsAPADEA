@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -10,8 +10,8 @@
         android:id="@+id/slide_container"
         android:layout_width="@dimen/screenplay_editor_card_width"
         android:layout_height="@dimen/screenplay_editor_card_height"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/margin_xsmall"
+        android:layout_marginBottom="@dimen/margin_small"
         card_view:cardUseCompatPadding="true"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="4dp">
@@ -22,7 +22,14 @@
             android:id="@+id/slide_only_image"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
-            tools:src="@drawable/cepillo"
-            />
+            tools:src="@drawable/cepillo"/>
+
+        <ImageView
+            android:id="@+id/img_trash"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/trash"
+            android:layout_gravity="right|top" />
     </android.support.v7.widget.CardView>
-</LinearLayout>
+</FrameLayout>

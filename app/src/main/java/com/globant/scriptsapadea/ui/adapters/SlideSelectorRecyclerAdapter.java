@@ -90,14 +90,23 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
 
     public class CommonViewHolder extends RecyclerView.ViewHolder {
         public int slideType;
+        public ImageView imgTrash;
 
         public CommonViewHolder(final View itemView) {
             super(itemView);
+            imgTrash = (ImageView) itemView.findViewById(R.id.img_trash);
+            imgTrash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onSlideSelectorItemClickListener.eraseSlideSelectorItemClick(getPosition());
+                }
+            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (onSlideSelectorItemClickListener != null) {
-                        onSlideSelectorItemClickListener.onSlideSelectorItemClick(SlideSelectorRecyclerAdapter.this, itemView, getPosition());
+                        onSlideSelectorItemClickListener.onSlideSelectorItemClick(itemView, getPosition());
                     }
                 }
             });
@@ -146,11 +155,19 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
         }
     }
 
+    /**
+     * Set the listener.
+     *
+     * OBS: Setter indicates an optional operation/parameter instead this must became form the constructor.
+     *
+     * @param onSlideSelectorItemClickListener
+     */
     public void setOnSlideSelectorItemClickListener(OnSlideSelectorItemClickListener onSlideSelectorItemClickListener) {
         this.onSlideSelectorItemClickListener = onSlideSelectorItemClickListener;
     }
 
     public interface OnSlideSelectorItemClickListener {
-        void onSlideSelectorItemClick(RecyclerView.Adapter adapter, View view, int position);
+        void onSlideSelectorItemClick(View view, int position);
+        void eraseSlideSelectorItemClick(int position);
     }
 }

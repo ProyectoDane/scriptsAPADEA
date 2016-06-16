@@ -10,6 +10,11 @@ import android.net.Uri;
 
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 
+/**
+ * This class provides the respective ContentProvider for this app.
+ *
+ * @author nicolas.quartieri
+ */
 public class SSContentProvider extends ContentProvider {
 
 	private SQLiteHelper mDBHelper;
@@ -30,7 +35,7 @@ public class SSContentProvider extends ContentProvider {
 	@Override
 	public int delete(Uri uri, String where, String[] whereArgs) {
 		SQLiteDatabase db = mDBHelper.getWritableDatabase();
-		int count = 0;
+		int count;
 		
 		switch (uriMatcher.match(uri)) {
 		case ALL:
@@ -91,10 +96,8 @@ public class SSContentProvider extends ContentProvider {
 		}
 		
 		SQLiteDatabase db = mDBHelper.getReadableDatabase();
-		
-		Cursor c = queryBuilder.query(db, projection, selection, selectionArgs, null, null, null);
-		
-		return c;
+
+		return queryBuilder.query(db, projection, selection, selectionArgs, null, null, null);
 	}
 
 	@Override

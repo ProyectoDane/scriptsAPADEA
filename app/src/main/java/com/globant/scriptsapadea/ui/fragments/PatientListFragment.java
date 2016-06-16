@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
@@ -27,7 +26,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Created by nicolas.quartieri
+ * This class provides the patient list to be shown.
+ *
+ * @author nicolas.quartieri
  */
 public class PatientListFragment extends BaseFragment {
 
@@ -36,7 +37,6 @@ public class PatientListFragment extends BaseFragment {
     private View welcomePanel;
     private RecyclerView mPatientView;
     private PatientSelectorGridRecycleAdapter adapter;
-    private LinearLayoutManager patientLayoutManager;
 
     private PatientListFragmentListener mListener;
 
@@ -73,7 +73,7 @@ public class PatientListFragment extends BaseFragment {
 
         mPatientView = (RecyclerView) view.findViewById(R.id.grid_patient);
         mPatientView.setHasFixedSize(true);
-        patientLayoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager patientLayoutManager = new LinearLayoutManager(getActivity());
         mPatientView.setLayoutManager(patientLayoutManager);
 
         adapter = new PatientSelectorGridRecycleAdapter(patientList, this);
@@ -134,14 +134,6 @@ public class PatientListFragment extends BaseFragment {
             mPatientView.setAdapter(adapter);
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPatientView.smoothScrollToPosition(0);
-                adapter.showLoadingView();
-            }
-        }, 500);
-
         hideProgress();
     }
 
@@ -153,7 +145,7 @@ public class PatientListFragment extends BaseFragment {
     }
 
     private void loadFirstExample() {
-        List<Patient> listScript = new LinkedList<Patient>();
+        List<Patient> listScript = new LinkedList<>();
 /*
         Patient patientJuan = new Patient(0, "Juan", getRealPathFromResId(getActivity(), R.drawable.avatar_placeholder));
         Script scriptJuan = new Script(0, "Lavar los platos", getRealPathFromResId(getActivity(), R.drawable.ic_launcher));
@@ -161,15 +153,15 @@ public class PatientListFragment extends BaseFragment {
         scriptJuan.getSlides().add(new Slide(1, "Segundo....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
         scriptJuan.getSlides().add(new Slide(2, "Tercero....", getRealPathFromResId(getActivity(), R.drawable.cepillo)));
 */
-        Patient patientApadea = new Patient(0, "APADEA", R.drawable.teayudo_usuario);
+        Patient patientApadea = new Patient(0, getString(R.string.app_owner_name), R.drawable.teayudo_usuario, false);
 
-        Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes);
+        Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes, false);
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Segundo....", Slide.IMAGE_TEXT));
         script.getSlides().add(new Slide(0, R.drawable.cepillo, "Tercero....", Slide.IMAGE_TEXT));
         patientApadea.getScriptList().add(script);
 
-        Script scriptPepe = new Script(0, "Lavar los dientes", R.drawable.apadea_dientes);
+        Script scriptPepe = new Script(0, "Lavar los dientes", R.drawable.apadea_dientes, false);
         scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));
         scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Segundo....", Slide.IMAGE_TEXT));
         scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Tercero....", Slide.IMAGE_TEXT));

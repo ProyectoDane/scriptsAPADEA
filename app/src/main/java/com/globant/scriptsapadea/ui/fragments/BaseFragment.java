@@ -11,7 +11,9 @@ import javax.inject.Inject;
 import roboguice.RoboGuice;
 
 /**
- * Base Fragment for profile. Registers the fragment on the event bus.
+ * Base Fragment for registers the fragment on the event bus.
+ *
+ * @author nicolas.quartieri
  */
 public abstract class BaseFragment extends Fragment {
 

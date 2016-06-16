@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.disney.wdpro.dlr.ui.activities.SplashActivity"
+    tools:context="com.globant.scriptsapadea.ui.activities.SplashActivity"
     android:background="@color/status_bar_light">
 
     <LinearLayout
@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/disneyland_logo"
+            android:id="@+id/tea_logo"
             android:src="@drawable/teayudo_logo_splash"
             android:layout_centerVertical="true"
             android:layout_alignRight="@+id/view"
@@ -39,10 +39,10 @@
             android:textColor="@color/fab_material_grey_900"
             style="@style/Text.Body.Medium.Bold"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/disneyland_logo"
-            android:layout_toEndOf="@+id/disneyland_logo"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_toRightOf="@+id/tea_logo"
+            android:layout_toEndOf="@+id/tea_logo"
+            android:layout_marginLeft="@dimen/margin_xsmall"
+            android:layout_marginTop="@dimen/margin_xsmall"/>
     </LinearLayout>
 
     <ImageView

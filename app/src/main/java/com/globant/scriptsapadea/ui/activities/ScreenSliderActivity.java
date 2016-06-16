@@ -24,6 +24,7 @@ import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +34,12 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 /**
- * Created by nicolas.quartieri
+ * This class provides the container activity for the script sliding screen.
+ *
+ * @author nicolas.quartieri
  */
 @ContentView(R.layout.screen_slider_layout)
 public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback {
-
-    private static final String SCRIPT = "script";
 
     private ScreenSliderPageAdapter pageAdapter;
     private ViewPager viewPager;
@@ -56,7 +57,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
     public static Intent createIntent(Context context, Script script) {
         Intent intent = new Intent(context, ScreenSliderActivity.class);
-        intent.putExtra(SCRIPT, script);
+        intent.putExtra(Script.SCRIPT, script);
         return intent;
     }
 
@@ -66,8 +67,8 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         setContentView(R.layout.screen_slider_layout);
 
         if (savedInstanceState == null) {
-            if (getIntent().hasExtra(SCRIPT)) {
-                script = (Script)getIntent().getExtras().getSerializable(SCRIPT);
+            if (getIntent().hasExtra(Script.SCRIPT)) {
+                script = (Script)getIntent().getExtras().getSerializable(Script.SCRIPT);
 
                 List<Slide> slideList = script.getSlides();
                 if (slideList.size() > 1 && slideList.get(0).getResImage() == R.drawable.teayudo_usuario) {
@@ -84,13 +85,12 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         txtScriptName.setText(script.getName());
 
         ImageView imgProfile = (ImageView) findViewById(R.id.img_profile);
-
         if (script.isResourceImage()) {
             Picasso.with(getApplication()).load(script.getResImage()).error(R.drawable.avatar_placeholder)
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         } else {
-            Picasso.with(getApplication()).load(script.getImageScripts()).error(R.drawable.avatar_placeholder)
+            Picasso.with(getApplication()).load(new File(script.getImageScripts())).error(R.drawable.avatar_placeholder)
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         }
@@ -109,7 +109,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                // Do nothing.
             }
 
             @Override
@@ -172,7 +172,6 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
     }
 
     public class ScreenSliderPageAdapter extends FragmentStatePagerAdapter {
-
         private List<Fragment> fragmentList;
 
         public ScreenSliderPageAdapter(FragmentManager fm, List<Fragment> fragmentList) {

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.google.common.collect.Lists;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ScreenPlayEditorManager {
         this.patientManager = patientManager;
         this.mDBHelper = mDBHelper;
         if (slides != null && !slides.isEmpty()) {
-            this.slides = slides;
+            this.slides = Lists.reverse(slides);
         } else {
             this.slides = new LinkedList<>();
         }
@@ -52,7 +53,7 @@ public class ScreenPlayEditorManager {
     /**
      * Delete the selected slide from the slide list setup in memory.
      *
-     * @param slide
+     * @param slide {@link Slide} to be removed.
      */
     public void deleteSlide(Slide slide) {
         if (adapter != null) {
@@ -61,6 +62,17 @@ public class ScreenPlayEditorManager {
             adapter.notifyItemRemoved(position);
             adapter.notifyItemRangeChanged(position, slides.size());
             adapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * Update the selected slide from the slide list setup in memory.
+     *
+     * @param slide {@link Slide} to be update.
+     */
+    public void updateSlide(Slide slide) {
+        if (adapter != null) {
+            mDBHelper.updateSlide(slide);
         }
     }
 
@@ -75,8 +87,8 @@ public class ScreenPlayEditorManager {
     /**
      * Save the selected slide from the slide list setup into de Data Base.
      *
-     * @param slide
-     * @return
+     * @param slide the {@link Slide} to be save.
+     * @return      the ID of the saved {@link Slide}, -1 otherwise (Error).
      */
     public long saveSlide(Slide slide) {
         return mDBHelper.createSlide(slide, patientManager.getSelectedScript().getId());
@@ -85,8 +97,8 @@ public class ScreenPlayEditorManager {
     /**
      * Delete the selected slide from the slide list setup in the Data Base.
      *
-     * @param slide
-     * @return
+     * @param slide the {@link Slide} to be remove.
+     * @return      the ID of the remove {@link Slide}, -1 otherwise (Error).
      */
     public int removeSlide(Slide slide) {
         return mDBHelper.deleteSlide(slide, patientManager.getSelectedScript().getId());

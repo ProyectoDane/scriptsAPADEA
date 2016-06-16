@@ -7,27 +7,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by nicolas.quartieri
+ * @author nicolas.quartieri
  */
 public class Patient implements Serializable {
+
+    public static String PATIENT = "patient";
 
     private long id;
     private String name;
     private String avatar;
     private int resAvatar;
+    private boolean editable;
 
-    private List<Script> scriptList = new LinkedList<Script>();
+    private List<Script> scriptList = new LinkedList<>();
 
-    public Patient(long id, String name, String avatar) {
+    public Patient(long id, String name, String avatar, boolean editable) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.editable = editable;
     }
 
-    public Patient(long id, String name, int avatar) {
+    public Patient(long id, String name, int avatar, boolean editable) {
         this.id = id;
         this.name = name;
         this.resAvatar = avatar;
+        this.editable = editable;
     }
 
     public void setId(long id) {
@@ -55,18 +60,22 @@ public class Patient implements Serializable {
     }
 
     public boolean isResourceAvatar() {
-        return avatar == null;
+        return resAvatar != 0;
     }
 
     public int getResAvatar() {
         return resAvatar;
     }
 
+    public boolean isEditable() {
+        return editable;
+    }
+
     // TODO Mocked services
     public static List<Patient> fetchAllPatients(Context context, String idPatient) {
 
 		// TODO Remove this
-        List<Patient> listScript = new LinkedList<Patient>();
+        List<Patient> listScript = new LinkedList<>();
 
         if (idPatient == null) {
             // TODO Retrieve ALL Patients from DB

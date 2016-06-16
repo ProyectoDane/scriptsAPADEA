@@ -12,7 +12,7 @@ import com.globant.scriptsapadea.ui.activities.BaseActivity;
 import java.io.Serializable;
 
 /**
- * Created by nicolas.quartieri.
+ * @author nicolas.quartieri
  */
 public class Navigator {
 
@@ -56,15 +56,11 @@ public class Navigator {
     }
 
     public IntentNavigator to(Intent target) {
-        IntentNavigator intentNavigator = new IntentNavigator(this, target);
-        
-        return intentNavigator;
+        return new IntentNavigator(this, target);
     }
 
     public FragmentNavigator to(Fragment target) {
-        FragmentNavigator fragmentNavigator = new FragmentNavigator(this, target);
-        
-        return fragmentNavigator;
+        return new FragmentNavigator(this, target);
     }
 
     public void navigateTo(IntentNavigator intentNavigator) {

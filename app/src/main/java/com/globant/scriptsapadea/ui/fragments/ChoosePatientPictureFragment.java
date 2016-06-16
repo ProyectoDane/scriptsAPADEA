@@ -15,6 +15,7 @@ import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.utils.PictureUtils;
+import com.globant.scriptsapadea.utils.TEAlertDialog;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -22,7 +23,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
- * Created by leonel.mendez on 5/19/2015.
+ * @author leonel.mendez on 5/19/2015.
  */
 public class ChoosePatientPictureFragment extends BaseFragment {
 
@@ -101,13 +102,17 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         }
 
         if (requestCode == GALLERY) {
-            if (data != null && data.getData() != null) {
+            String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
+            if (imagePath != null && data.getData() != null) {
                 patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        PictureUtils.getImagePath(getActivity(), data.getData())));
+                        imagePath, true));
 
                 // TODO Refactor
                 imageArguments.putSerializable("patient", patientManager.getSelectedPatient());
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+            } else {
+                TEAlertDialog alert = new TEAlertDialog(getContext());
+                alert.setTitle(R.string.error_image).show();
             }
         } else {
             if (photoFile != null && photoFile.exists()) {
@@ -115,7 +120,7 @@ public class ChoosePatientPictureFragment extends BaseFragment {
                 imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
                 patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        photoFile.getAbsolutePath()));
+                        photoFile.getAbsolutePath(), true));
 
                 // TODO Refactor
                 imageArguments.putSerializable("patient", patientManager.getSelectedPatient());

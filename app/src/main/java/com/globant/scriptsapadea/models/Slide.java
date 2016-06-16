@@ -5,9 +5,11 @@ import com.globant.scriptsapadea.R;
 import java.io.Serializable;
 
 /**
- * Created by nicolas.quartieri
+ * @author nicolas.quartieri
  */
 public class Slide implements Serializable {
+
+    public static final String SLIDE = "slide";
 
     public static final int ONLY_TEXT = 0;
     public static final int ONLY_IMAGE = 1;
@@ -61,7 +63,12 @@ public class Slide implements Serializable {
         return resImage;
     }
 
+
     public static Slide createEmpty() {
         return new Slide(0, R.drawable.teayudo_usuario, "Slide Vacio", ONLY_IMAGE);
+    }
+
+    public void updateImage(String imageGalleryUrl) {
+        this.urlImage = imageGalleryUrl;
     }
 }

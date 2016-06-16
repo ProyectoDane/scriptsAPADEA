@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.models.Patient;
 
 /**
+ * This class provides the screen for the first step of the patient creation.
+ *
  * Created by leonel.mendez on 5/8/2015.
  */
 public class CreatePatientFragment extends BaseFragment {
@@ -75,6 +79,10 @@ public class CreatePatientFragment extends BaseFragment {
             public void onClick(View v) {
                 takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
 
+                // Hide Keyboard
+                InputMethodManager imm = (InputMethodManager)CreatePatientFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
                 listener.onChangePictureFragment(ChoosePatientPictureFragment.newInstance(takePictureArgs));
             }
         });
@@ -91,6 +99,12 @@ public class CreatePatientFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Go to the next screen to attach an image to this new user
+     *
+     * @param screenplayName - the name of the new user
+     * @param nextButton     - the view button to action the next step
+     */
     private void showNextButton(EditText screenplayName, final Button nextButton) {
         screenplayName.addTextChangedListener(new TextWatcher() {
 
@@ -110,7 +124,6 @@ public class CreatePatientFragment extends BaseFragment {
                 if (s.toString().length() == 0) {
                     nextButton.setVisibility(View.GONE);
                 }
-
             }
         });
     }

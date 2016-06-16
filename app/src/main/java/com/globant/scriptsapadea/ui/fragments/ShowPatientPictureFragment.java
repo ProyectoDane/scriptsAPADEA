@@ -22,7 +22,7 @@ import java.io.File;
 import javax.inject.Inject;
 
 /**
- * Created by leonel.mendez on 6/11/2015.
+ * @author leonel.mendez on 6/11/2015.
  */
 public class ShowPatientPictureFragment extends BaseFragment {
 
@@ -103,7 +103,7 @@ public class ShowPatientPictureFragment extends BaseFragment {
 
         if (pictureFromCamera) {
             File photoFile = (File) imageBundle.getSerializable(PATIENT_IMAGE);
-            if (photoFile.exists()) {
+            if (photoFile != null && photoFile.exists()) {
                 Uri uri = Uri.fromFile(photoFile);
                 imageContainer.setImageURI(uri);
             }
