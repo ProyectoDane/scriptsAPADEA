@@ -52,4 +52,9 @@ public class MainActivity extends BaseActivity implements PatientListFragment.Pa
     public void deletePatient(Patient patient) {
         mDBHelper.deletePatient(patient);
     }
+
+    @Override
+    public void onNavigateToEditPatient(Patient patient) {
+        navigator.to(CreatePatientActivity.createIntent(this, patient)).withAnimations(new SlidingUpAnimation()).navigate();
+    }
 }

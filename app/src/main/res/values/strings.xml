@@ -19,8 +19,10 @@
 
     <string name="default_script_name">Nuevo Script</string>
     <string name="edit_text_name_hint">Nombre</string>
+
     <string name="next_action_text">SIGUIENTE</string>
     <string name="what_is_guion_name_text">¿CUÁL ES EL NOMBRE DEL GUIÓN?</string>
+    <string name="save_action_text">Guardar</string>
     <string name="what_is_person_name">¿CÓMO SE LLAMA LA PERSONA?</string>
     <string name="whose_is_guion_text">¿ESTE GUIÓN ES PARA?</string>
     <string name="default_script_example">Guiones sociales de ejemplo</string>
@@ -58,7 +60,7 @@
     <string name="about_leyend_ln_5">FRANCISCO MARQUEZ - LEONEL MENDEZ - MARÍA PARIGI</string>
     <string name="about_leyend_ln_6">MARIA EUGENIA SOUZA - MARIA SARROUF - NICOLÁS QUARTIERI</string>
     <string name="about_leyend_ln_7">STELLA ROMERO - VIRGINIA GONZALEZ</string>
-    
+
     <string name="gallery_title">Selecciona una fotografía</string>
     <string name="title_activity_screenplay">ScreenplayActivity</string>
     <string name="start_screenplay_edit">Comenzar a editar</string>

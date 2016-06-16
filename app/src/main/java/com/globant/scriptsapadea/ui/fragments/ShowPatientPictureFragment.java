@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Patient;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -31,6 +33,9 @@ public class ShowPatientPictureFragment extends BaseFragment {
 
     @Inject
     private PatientManager patientManager;
+
+    @Inject
+    private SQLiteHelper mDBHelper;
 
     public static ShowPatientPictureFragment newInstance(Bundle imageBundle) {
         ShowPatientPictureFragment showPatientPictureFragment = new ShowPatientPictureFragment();
@@ -51,19 +56,41 @@ public class ShowPatientPictureFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_picture, container, false);
+
         TextView screenplayName = (TextView) mainView.findViewById(R.id.txt_patient_name);
+        Button editButton = (Button) mainView.findViewById(R.id.start_edit_button);
 
-        if (getArguments() != null) {
-            screenplayName.setText(getArguments().getString(CreatePatientFragment.PATIENT_NAME));
-            showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if (bundle.containsKey("edit_mode") && bundle.getBoolean("edit_mode")) {
+                editButton.setText(R.string.save_action_text);
+                final Patient patient = (Patient) bundle.getSerializable(Patient.PATIENT);
 
-            mainView.findViewById(R.id.start_edit_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle args = new Bundle();
-                    listener.onCreateScript(CreateScriptFragment.newInstance(args));
-                }
-            });
+                screenplayName.setText(bundle.getString(CreatePatientFragment.PATIENT_NAME));
+                showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
+
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle args = new Bundle();
+                        int value = mDBHelper.updatePatient(patient);
+
+                        getActivity().finish();
+                    }
+                });
+            } else {
+                screenplayName.setText(getArguments().getString(CreatePatientFragment.PATIENT_NAME));
+                showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
+
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // go to Edit the script.
+                        Bundle args = new Bundle();
+                        listener.onCreateScript(CreateScriptFragment.newInstance(args));
+                    }
+                });
+            }
         }
 
         return mainView;
@@ -81,15 +108,19 @@ public class ShowPatientPictureFragment extends BaseFragment {
                 imageContainer.setImageURI(uri);
             }
         } else {
-            if (patient.isResourceAvatar()) {
-                Picasso.with(getActivity())
-                        .load(patient.getResAvatar())
-                        .into(imageContainer);
-            } else {
-                Picasso.with(getActivity())
-                        .load(new File(patient.getAvatar()))
-                        .into(imageContainer);
-            }
+            loadImage(patient, imageContainer);
+        }
+    }
+
+    private void loadImage(Patient patient, ImageView imageContainer) {
+        if (patient.isResourceAvatar()) {
+            Picasso.with(getActivity())
+                    .load(patient.getResAvatar())
+                    .into(imageContainer);
+        } else {
+            Picasso.with(getActivity())
+                    .load(new File(patient.getAvatar()))
+                    .into(imageContainer);
         }
     }
 

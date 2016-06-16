@@ -141,6 +141,7 @@ public class PatientListFragment extends BaseFragment {
         void onNavigateToCreateNewPatient();
         void onNavigateToPatient(Patient patient);
         void deletePatient(Patient patient);
+        void onNavigateToEditPatient(Patient patient);
     }
 
     private void loadFirstExample() {

@@ -91,14 +91,24 @@ public class ChoosePatientPictureFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        long patientId = 0; //new patient
 
-        Bundle imageArguments = new Bundle();
+        Bundle imageArguments = getArguments();
+        if (imageArguments == null) {
+            imageArguments = new Bundle();
+        } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
+            Patient patient = (Patient) imageArguments.get(Patient.PATIENT);
+            patientId = patient.getId();
+        }
+
         if (requestCode == GALLERY) {
             String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
-            if (data.getData() != null && imagePath != null) {
-                patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+            if (imagePath != null && data.getData() != null) {
+                patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
                         imagePath, true));
 
+                // TODO Refactor
+                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             } else {
                 TEAlertDialog alert = new TEAlertDialog(getContext());
@@ -109,9 +119,11 @@ public class ChoosePatientPictureFragment extends BaseFragment {
                 imageArguments.putSerializable(ShowPatientPictureFragment.PATIENT_IMAGE, photoFile);
                 imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
-                patientManager.setSelectedPatient(new Patient(0, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+                patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
                         photoFile.getAbsolutePath(), true));
 
+                // TODO Refactor
+                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
                 showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
             }
         }

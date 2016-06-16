@@ -230,7 +230,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
             vEditButtonAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                // TODO Navigate to Edit View
+                    mListener.onNavigateToEditPatient(patientList.get(getPosition()));
                 }
             });
 

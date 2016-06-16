@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Patient;
 
 /**
  * This class provides the screen for the first step of the patient creation.
@@ -27,12 +28,24 @@ public class CreatePatientFragment extends BaseFragment {
 
     private EditText screenplayName;
 
+    private Patient patient = null;
+
     public static final String PATIENT_NAME = "patientname";
 
-    public static CreatePatientFragment newInstance(Bundle args){
+    public static CreatePatientFragment newInstance(Bundle bundle) {
         CreatePatientFragment screenPlayFragment = new CreatePatientFragment();
-        screenPlayFragment.setArguments(args);
+        screenPlayFragment.setArguments(bundle);
         return screenPlayFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(Patient.PATIENT)) {
+            patient = (Patient) bundle.getSerializable(Patient.PATIENT);
+        }
     }
 
     @Override
@@ -43,6 +56,7 @@ public class CreatePatientFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        final Bundle takePictureArgs = new Bundle();
 
         final TextView panelType = (TextView) view.findViewById(R.id.whose_is_screenplay_text);
         panelType.setText(getString(R.string.what_is_person_name));
@@ -50,11 +64,19 @@ public class CreatePatientFragment extends BaseFragment {
         screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
+        if (patient != null) { // Edit MODE
+            screenplayName.setText(patient.getName());
+            nextButton.setText(R.string.save_action_text);
+            takePictureArgs.putSerializable("edit_mode", true);
+            takePictureArgs.putSerializable(Patient.PATIENT, patient);
+        } else {
+            takePictureArgs.putSerializable("edit_mode", false);
+        }
+
         showNextButton(screenplayName, nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle takePictureArgs = new Bundle();
                 takePictureArgs.putString(PATIENT_NAME, screenplayName.getText().toString());
 
                 // Hide Keyboard
