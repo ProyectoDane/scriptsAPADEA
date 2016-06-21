@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ import com.globant.scriptsapadea.manager.ResponseEvent;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.CreateScriptFragment;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
 import com.globant.scriptsapadea.ui.views.MyProgressBar;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
@@ -39,7 +41,8 @@ import roboguice.inject.InjectView;
  * @author nicolas.quartieri
  */
 @ContentView(R.layout.screen_slider_layout)
-public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback {
+public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback,
+        CreateScriptFragment.OnTakeScriptPictureFragmentListener {
 
     private ScreenSliderPageAdapter pageAdapter;
     private ViewPager viewPager;
@@ -94,6 +97,14 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         }
+
+        View imaEditProfile = findViewById(R.id.img_profile_edit);
+        imaEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEditScriptProfile(CreateScriptFragment.newInstance(script));
+            }
+        });
 
         initActionBar(getApplicationContext());
         initViewPager(getApplicationContext());
@@ -169,6 +180,16 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         }
 
         return fragments;
+    }
+
+    @Override
+    public void onTakeScriptPictureFragment(Fragment fragment) {
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
+    public void onEditScriptProfile(Fragment fragment) {
+        navigator.to(fragment).navigate();
     }
 
     public class ScreenSliderPageAdapter extends FragmentStatePagerAdapter {

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Script;
 
 /**
  * This class provides the setup step for a new Script.
@@ -28,10 +29,19 @@ public class CreateScriptFragment extends BaseFragment {
     private EditText screenplayName;
 
     public static final String SCRIPT_NAME = "scriptname";
+    private Script script = null;
 
     public static CreateScriptFragment newInstance(Bundle args) {
         CreateScriptFragment screenPlayFragment = new CreateScriptFragment();
         screenPlayFragment.setArguments(args);
+        return screenPlayFragment;
+    }
+
+    public static CreateScriptFragment newInstance(Script script) {
+        CreateScriptFragment screenPlayFragment = new CreateScriptFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(com.globant.scriptsapadea.models.Script.SCRIPT, script);
+        screenPlayFragment.setArguments(bundle);
         return screenPlayFragment;
     }
 
@@ -50,15 +60,28 @@ public class CreateScriptFragment extends BaseFragment {
         screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
+        if (getArguments().containsKey(Script.SCRIPT)) {
+            script = (Script) getArguments().getSerializable(Script.SCRIPT);
+
+            screenplayName.setText(script.getName());
+        }
+
         showNextButton(screenplayName, nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle takePictureArgs = new Bundle();
                 takePictureArgs.putString(SCRIPT_NAME, screenplayName.getText().toString());
+                takePictureArgs.putSerializable(Script.SCRIPT, script);
+
+                if (script != null) { // Edit MODE
+                    takePictureArgs.putSerializable("edit_mode", true);
+                } else {
+                    takePictureArgs.putSerializable("edit_mode", false);
+                }
 
                 // Hide Keyboard
-                InputMethodManager imm = (InputMethodManager)CreateScriptFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) CreateScriptFragment.this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 listener.onTakeScriptPictureFragment(ChooseScriptPictureFragment.newInstance(takePictureArgs));
@@ -73,7 +96,7 @@ public class CreateScriptFragment extends BaseFragment {
         try {
             listener = (OnTakeScriptPictureFragmentListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.getLocalClassName() +  "must be implements OnTakeScriptPictureFragmentListener");
+            throw new ClassCastException(activity.getLocalClassName() +  " must be implements OnTakeScriptPictureFragmentListener");
         }
     }
 
@@ -103,5 +126,6 @@ public class CreateScriptFragment extends BaseFragment {
 
     public interface OnTakeScriptPictureFragmentListener {
         void onTakeScriptPictureFragment(Fragment fragment);
+        void onEditScriptProfile(Fragment fragment);
     }
 }

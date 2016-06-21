@@ -56,7 +56,6 @@ public class ShowPatientPictureFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_picture, container, false);
-
         TextView screenplayName = (TextView) mainView.findViewById(R.id.txt_patient_name);
         Button editButton = (Button) mainView.findViewById(R.id.start_edit_button);
 

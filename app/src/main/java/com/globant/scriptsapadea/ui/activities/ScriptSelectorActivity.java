@@ -123,6 +123,11 @@ public class ScriptSelectorActivity extends BaseActivity implements ScreenScript
     }
 
     @Override
+    public void onEditScriptProfile(Fragment fragment) {
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
     public void onShowScriptPictureFragment(Fragment fragment) {
         navigator.to(fragment).navigate();
     }

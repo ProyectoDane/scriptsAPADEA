@@ -1,6 +1,7 @@
 package com.globant.scriptsapadea.ui.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -62,6 +63,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     private SlideSelectorRecyclerAdapter slideSelectorRecyclerAdapter;
     private EditText slideDescription;
 
+    private CreateScriptFragment.OnTakeScriptPictureFragmentListener onTakeScriptPictureFragmentListener;
+
     public static ScreenPlayEditorFragment newInstance(Bundle args, boolean isEditMode) {
         ScreenPlayEditorFragment screenPlayEditorFragment = new ScreenPlayEditorFragment();
         args.putSerializable(EDIT_MODE, isEditMode);
@@ -75,6 +78,17 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         args.putSerializable(Script.SCRIPT, script);
         screenPlayEditorFragment.setArguments(args);
         return screenPlayEditorFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            onTakeScriptPictureFragmentListener = (CreateScriptFragment.OnTakeScriptPictureFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().getLocalClassName() + " must be implements OnTakeScriptPictureFragmentListener");
+        }
     }
 
     @Override
@@ -113,6 +127,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
         }
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
+
+        View imaEditProfile = rootView.findViewById(R.id.img_profile_edit);
+        imaEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onTakeScriptPictureFragmentListener.onEditScriptProfile(CreateScriptFragment.newInstance(patientManager.getSelectedScript()));
+            }
+        });
 
         ActionButton fabNext = (ActionButton) rootView.findViewById(R.id.fab_add);
         fabNext.setImageResource(R.drawable.crox_icon );
