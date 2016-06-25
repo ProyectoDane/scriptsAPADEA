@@ -32,6 +32,17 @@
             android:layout_toEndOf="@+id/img_script"
             android:layout_marginLeft="@dimen/margin_xsmall" />
 
+        <ImageView
+            android:id="@+id/img_profile_edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/txt_script_name"
+            android:layout_toEndOf="@+id/txt_script_name"
+            android:src="@drawable/chevron_white_down"
+            android:layout_gravity="right"/>
+
         <TextView
             android:id="@+id/btn_save_script"
             style="@style/Button.Secondary.Small"

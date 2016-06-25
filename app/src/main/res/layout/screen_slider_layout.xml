@@ -28,6 +28,15 @@
             android:text="@string/default_text"
             android:layout_marginLeft="4dp"
             android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/img_profile_edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/chevron_white_down"
+            android:layout_gravity="right"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <View style="@style/HR.Thick" />

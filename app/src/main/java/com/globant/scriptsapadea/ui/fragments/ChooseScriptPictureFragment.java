@@ -58,9 +58,15 @@ public class ChooseScriptPictureFragment extends BaseFragment {
 
         TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
 
-        if (getArguments() != null) {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
             String name = getArguments().getString(CreatePatientFragment.PATIENT_NAME);
             txtPatientName.setText(name);
+
+            if (bundle.containsKey(Script.SCRIPT)) {
+                Script script = (Script) bundle.getSerializable(Script.SCRIPT);
+                patientManager.setSelectedScript(script);
+            }
         }
 
         ImageView pickPhotoGallery = (ImageView) view.findViewById(R.id.img_gallery);
@@ -91,14 +97,22 @@ public class ChooseScriptPictureFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        long scriptId = 0; //new script
 
-        Bundle imageArguments = new Bundle();
+        Bundle imageArguments = getArguments();
+        if (imageArguments == null) {
+            imageArguments = new Bundle();
+        } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
+            Script script = (Script) imageArguments.get(Script.SCRIPT);
+            scriptId = script.getId();
+        }
+
         if (requestCode == GALLERY) {
             String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
             if (data.getData() != null && imagePath != null) {
                 imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, imagePath);
 
-                patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                patientManager.setSelectedScript(new Script(scriptId, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
                         imagePath, true));
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
@@ -111,7 +125,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
                 imageArguments.putSerializable(ShowScriptPictureFragment.SCRIPT_IMAGE, photoFile);
                 imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
-                patientManager.setSelectedScript(new Script(0, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                patientManager.setSelectedScript(new Script(scriptId, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
                         photoFile.getAbsolutePath(), true));
 
                 listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));

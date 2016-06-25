@@ -86,6 +86,11 @@ public class CreatePatientActivity extends BaseActivity implements CreatePatient
     }
 
     @Override
+    public void onEditScriptProfile(Fragment fragment) {
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
     public void onShowScriptPictureFragment(Fragment fragment) {
         navigator.to(fragment).navigate();
     }

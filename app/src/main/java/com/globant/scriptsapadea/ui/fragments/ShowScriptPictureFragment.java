@@ -7,12 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Script;
+import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -35,6 +37,9 @@ public class ShowScriptPictureFragment extends BaseFragment {
     @Inject
     private PatientManager patientManager;
 
+    @Inject
+    private SQLiteHelper mDBHelper;
+
     public static ShowScriptPictureFragment newInstance(Bundle imageBundle) {
         ShowScriptPictureFragment showPictureFragment = new ShowScriptPictureFragment();
         showPictureFragment.setArguments(imageBundle);
@@ -55,18 +60,39 @@ public class ShowScriptPictureFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.fragment_picture, container, false);
         TextView screenplayName = (TextView) mainView.findViewById(R.id.txt_patient_name);
+        Button editButton = (Button) mainView.findViewById(R.id.start_edit_button);
 
-        if (getArguments() != null) {
-            screenplayName.setText(getArguments().getString(CreatePatientFragment.PATIENT_NAME));
-            showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if (bundle.containsKey("edit_mode") && bundle.getBoolean("edit_mode")) {
+                editButton.setText(R.string.save_action_text);
+                final Script script = patientManager.getSelectedScript();
 
-            mainView.findViewById(R.id.start_edit_button).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Bundle args = new Bundle();
-                    listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args, false));
-                }
-            });
+                // Update Script
+                screenplayName.setText(getArguments().getString(CreatePatientFragment.PATIENT_NAME));
+                showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
+
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle args = new Bundle();
+                        int value = mDBHelper.updateScript(script);
+
+                        getActivity().finish();
+                    }
+                });
+            } else {
+                screenplayName.setText(getArguments().getString(CreatePatientFragment.PATIENT_NAME));
+                showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
+
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle args = new Bundle();
+                        listener.onEditFragment(ScreenPlayEditorFragment.newInstance(args, false));
+                    }
+                });
+            }
         }
 
         return mainView;

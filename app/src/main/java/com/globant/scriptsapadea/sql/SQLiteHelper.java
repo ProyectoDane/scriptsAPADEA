@@ -348,15 +348,20 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(slide.getId()) });
     }
 
-    // TODO
     public int updateScript(Script script) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(SCRIPT_COLUMN_NAME, script.getName());
-        values.put(SCRIPT_COLUMN_IMAGE, script.getImageScripts());
+        if (script.isResourceImage()) {
+            values.put(SCRIPT_COLUMN_IMAGE, script.getResImage());
+            values.put(SCRIPT_COLUMN_IS_RES_IMAGE, 1);
+        } else {
+            values.put(SCRIPT_COLUMN_IMAGE, script.getImageScripts());
+            values.put(SCRIPT_COLUMN_IS_RES_IMAGE, 0);
+        }
 
-        return db.update(TABLE_SCRIPT, values, PATIENT_ID + " = ?",
+        return db.update(TABLE_SCRIPT, values, SCRIPT_ID + " = ?",
                 new String[] { String.valueOf(script.getId()) });
     }
 
