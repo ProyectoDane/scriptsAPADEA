@@ -45,6 +45,10 @@
             android:name=".contentprovider.SSContentProvider"
             android:authorities="com.globant.scriptsapadea.contentprovider" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1f62d0033d0f482acd39445c5cba8239c5042ebd" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

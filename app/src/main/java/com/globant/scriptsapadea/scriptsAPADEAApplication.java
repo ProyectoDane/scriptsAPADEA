@@ -8,8 +8,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 
+import io.fabric.sdk.android.Fabric;
 import roboguice.RoboGuice;
 
 /**
@@ -22,6 +24,7 @@ public class scriptsAPADEAApplication extends Application  {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         Log.d("DEBUG", "Initializing scriptsAPADEA.");
 
         context = this;
