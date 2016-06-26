@@ -31,6 +31,7 @@
 
     <!-- Error stuff -->
     <string name="error_image">La imagen es demasiado grande, intente con una de menor tamaño.</string>
+    <string name="error_empty_image">Intente seleccionar una imagen y/o ingresar un texto.</string>
 
     <string name="title_back">SALIR</string>
 

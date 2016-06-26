@@ -48,7 +48,7 @@ public class SlideSelectorRecyclerAdapter extends RecyclerView.Adapter<SlideSele
             case Slide.IMAGE_TEXT:
                 return new ImageAndTextViewHolder(layoutInflater.inflate(R.layout.slide_card_image_text_layout, parent, false));
             default:
-                return new CommonViewHolder(layoutInflater.inflate(R.layout.slide_add_layout, parent, false));
+                throw new IllegalStateException(" Wrong holder type selection!");
         }
     }
 

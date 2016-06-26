@@ -106,17 +106,16 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
             }
         });
 
-        initActionBar(getApplicationContext());
-        initViewPager(getApplicationContext());
+        initActionBar();
+        initViewPager();
     }
 
-    private void initViewPager(Context applicationContext) {
+    private void initViewPager() {
         List<Fragment> fragments = getFragments();
         currentSlide = 0;
 
         pageAdapter = new ScreenSliderPageAdapter(getSupportFragmentManager(), fragments);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -149,7 +148,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         viewPager.setAdapter(pageAdapter);
     }
 
-    private void initActionBar(Context applicationContext) {
+    private void initActionBar() {
         ActionBar actionbar = getSupportActionBar();
         if (actionbar != null) {
             actionbar.setDisplayShowCustomEnabled(true);
@@ -166,6 +165,11 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         }
     }
 
+    /**
+     * Get the list of {@link SliderFragment} base on the provided list of {@link Slide}.
+     *
+     * @return the fragments list.
+     */
     private List<Fragment> getFragments() {
         ArrayList fragments = new ArrayList<>();
 
@@ -192,6 +196,9 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         navigator.to(fragment).navigate();
     }
 
+    /**
+     * This Adapter controls the flow of {@link SliderFragment}
+     */
     public class ScreenSliderPageAdapter extends FragmentStatePagerAdapter {
         private List<Fragment> fragmentList;
 

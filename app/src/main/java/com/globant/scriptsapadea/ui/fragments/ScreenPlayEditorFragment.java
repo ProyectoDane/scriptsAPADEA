@@ -26,6 +26,7 @@ import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
+import com.globant.scriptsapadea.utils.TEAlertDialog;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.software.shell.fab.ActionButton;
 import com.squareup.otto.Subscribe;
@@ -347,7 +348,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
      * @param save             true if we must save the slide to the {@link ScreenPlayEditorManager}
      */
     private void addSlideInAdapter(EditText slideDescription, boolean save) {
-        boolean slideAdded;
+        boolean slideAdded = false;
         Slide slide = null;
 
         if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
@@ -366,7 +367,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
             slideAdded = true;
         } else {
-            slideAdded = false;
+            TEAlertDialog alert = new TEAlertDialog(getContext());
+            alert.setTitle(R.string.error_empty_image).show();
         }
 
         if (save && slideAdded && slide != null) {

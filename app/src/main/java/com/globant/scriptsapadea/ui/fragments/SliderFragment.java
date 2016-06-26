@@ -3,6 +3,7 @@ package com.globant.scriptsapadea.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,6 @@ public class SliderFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         slide = (Slide)getArguments().getSerializable(EXTRA_MESSAGE);
-
         View view = inflater.inflate(R.layout.slider_layout, container, false);
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
@@ -85,8 +85,11 @@ public class SliderFragment extends BaseFragment {
             view.findViewById(R.id.ly_one).setVisibility(View.GONE);
             view.findViewById(R.id.ly_two).setVisibility(View.GONE);
 
-            Picasso.with(getActivity()).load(new File(slide.getUrlImage())).error(R.drawable.teayudo_usuario)
-                    .into(imgCard);
+            if (slide.getUrlImage() != null && !TextUtils.isEmpty(slide.getUrlImage())) {
+                Picasso.with(getActivity()).load(new File(slide.getUrlImage()))
+                        .error(R.drawable.teayudo_usuario)
+                        .into(imgCard);
+            }
         }
 
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
@@ -116,7 +119,7 @@ public class SliderFragment extends BaseFragment {
     }
 
     public interface SliderCallback {
-        public void nextSlide();
-        public void previousSlide();
+        void nextSlide();
+        void previousSlide();
     }
 }

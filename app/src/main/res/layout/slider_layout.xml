@@ -39,7 +39,7 @@
                 android:layout_alignParentTop="true"
                 android:visibility="gone"
                 android:layout_above="@+id/txt_slide_legend"
-                android:src="@drawable/cepillo"/>
+                android:src="@drawable/teayudo_iconovacio"/>
 
             <TextView
                 style="@style/Text.Body.Medium"
