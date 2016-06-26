@@ -1,11 +1,8 @@
 package com.globant.scriptsapadea;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
-import android.os.Handler;
 import android.util.Log;
 
 import com.crashlytics.android.Crashlytics;
@@ -45,28 +42,29 @@ public class scriptsAPADEAApplication extends Application  {
                 .listener(new Picasso.Listener() {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                        final Handler handler  = new Handler();
-                        final AlertDialog alert = new AlertDialog.Builder(getApplicationContext()).setTitle("Error al cargar la imagen!")
-                                .setIcon(R.drawable.teayudo_usuario)
-                                .show();
-                        final Runnable runnable = new Runnable() {
-                            @Override
-                            public void run() {
-                                if (alert.isShowing()) {
-                                    alert.dismiss();
-                                }
-                            }
-                        };
-                        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                handler.removeCallbacks(runnable);
-                            }
-                        });
+//                        final Handler handler  = new Handler();
+                        //FIXME: AlertDialog must be build with the local Context instead the ApplicationContext!
+//                        final AlertDialog alert = new AlertDialog.Builder(getApplicationContext()).setTitle("Error al cargar la imagen!")
+//                                .setIcon(R.drawable.teayudo_usuario)
+//                                .show();
+//                        final Runnable runnable = new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (alert.isShowing()) {
+//                                    alert.dismiss();
+//                                }
+//                            }
+//                        };
+//                        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                            @Override
+//                            public void onDismiss(DialogInterface dialog) {
+//                                handler.removeCallbacks(runnable);
+//                            }
+//                        });
+//
+//                        handler.postDelayed(runnable, 2000);
 
-                        handler.postDelayed(runnable, 2000);
-
-                        Log.d("DEBUG", "Error Loading an image: " + exception.getMessage());
+                        Log.d("DEBUG", "Error Loading an image: " + uri + " Exception: " + exception.getMessage());
                     }
                 }).build();
 
