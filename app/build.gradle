@@ -37,6 +37,20 @@ android {
         }
     }
 
+    productFlavors {
+        dev {
+            versionName = android.defaultConfig.versionName + " (DEV)"
+        }
+        qa {
+            versionName = android.defaultConfig.versionName + " (QA)"
+        }
+        staging {
+            versionName = android.defaultConfig.versionName + " (STAGING)"
+        }
+        production {
+        }
+    }
+
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE'

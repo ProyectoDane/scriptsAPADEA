@@ -69,6 +69,8 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_slider_layout);
 
+        TextView txtScriptName = (TextView)findViewById(R.id.txt_script_name);
+
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(Script.SCRIPT)) {
                 script = (Script)getIntent().getExtras().getSerializable(Script.SCRIPT);
@@ -81,11 +83,13 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
                 progressBar.setSize(script.getSlides().size());
                 progressBar.build();
+
+                String scriptName = script.getName();
+                if (scriptName != null) {
+                    txtScriptName.setText(scriptName);
+                }
             }
         }
-
-        TextView txtScriptName = (TextView)findViewById(R.id.txt_script_name);
-        txtScriptName.setText(script.getName());
 
         ImageView imgProfile = (ImageView) findViewById(R.id.img_profile);
         if (script.isResourceImage()) {
