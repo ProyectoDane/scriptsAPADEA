@@ -102,15 +102,21 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         }
 
         if (requestCode == GALLERY) {
-            String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
-            if (imagePath != null && data.getData() != null) {
-                patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        imagePath, true));
+            if (data.getData() != null) {
+                String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
+                if (imagePath != null) {
+                    patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+                            imagePath, true));
 
-                // TODO Refactor
-                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
-                showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+                    // TODO Refactor
+                    imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
+                    showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+                } else {
+                    TEAlertDialog alert = new TEAlertDialog(getContext());
+                    alert.setTitle(R.string.error_image).show();
+                }
             } else {
+                // TODO Refactor
                 TEAlertDialog alert = new TEAlertDialog(getContext());
                 alert.setTitle(R.string.error_image).show();
             }

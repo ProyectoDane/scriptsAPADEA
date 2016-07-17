@@ -56,7 +56,11 @@ public class Slide implements Serializable {
     }
 
     public boolean isResourceImage() {
-        return urlImage == null;
+        return resImage != 0;
+    }
+
+    public  boolean isUrlImage() {
+        return urlImage != null;
     }
 
     public int getResImage() {

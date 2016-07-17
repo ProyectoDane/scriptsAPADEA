@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:text="@string/default_text"
             android:textSize="20sp"
+            android:maxLength="20"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/img_script"
             android:layout_toEndOf="@+id/img_script"

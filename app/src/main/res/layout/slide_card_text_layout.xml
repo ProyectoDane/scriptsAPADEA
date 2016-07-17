@@ -15,11 +15,14 @@
         card_view:cardElevation="4dp">
 
     <TextView
+        android:id="@+id/slide_only_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:text="Large Text"
-        android:id="@+id/slide_only_text"
         android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
         android:textSize="@dimen/slide_only_text_size"/>
 
     <ImageView
