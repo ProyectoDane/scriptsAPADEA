@@ -104,11 +104,11 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
 
         ImageView imageProfile = (ImageView) view.findViewById(R.id.img_profile);
         if (patient.isResourceAvatar()) {
-            Picasso.with(getActivity()).load(patient.getResAvatar()).error(R.drawable.avatar_placeholder)
+            Picasso.with(getActivity()).load(patient.getResAvatar()).error(R.drawable.ic_launcher)
                     .transform(new CropCircleTransformation())
                     .into(imageProfile);
         } else {
-            Picasso.with(getActivity()).load(new File(patient.getAvatar())).error(R.drawable.avatar_placeholder)
+            Picasso.with(getActivity()).load(new File(patient.getAvatar())).error(R.drawable.ic_launcher)
                     .transform(new CropCircleTransformation())
                     .into(imageProfile);
         }

@@ -184,11 +184,11 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
         ImageView imgScript = (ImageView) rootView.findViewById(R.id.img_script);
         if (selectedScript.isResourceImage()) {
-            Picasso.with(getActivity()).load(selectedScript.getResImage()).error(R.drawable.avatar_placeholder)
+            Picasso.with(getActivity()).load(selectedScript.getResImage()).error(R.drawable.ic_launcher)
                     .transform(new CropCircleTransformation())
                     .into(imgScript);
         } else {
-            Picasso.with(getActivity()).load(new File(selectedScript.getImageScripts())).error(R.drawable.avatar_placeholder)
+            Picasso.with(getActivity()).load(new File(selectedScript.getImageScripts())).error(R.drawable.ic_launcher)
                     .transform(new CropCircleTransformation())
                     .into(imgScript);
         }
@@ -247,7 +247,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
                     Picasso.with(getActivity())
                             .load(slide.getResImage())
                             .into(slidePicture);
-                } else {
+                } else if (slide.isUrlImage()) {
                     Picasso.with(getActivity())
                             .load(new File(slide.getUrlImage()))
                             .into(slidePicture);
@@ -327,9 +327,14 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         if (requestCode == REQUEST_CODE_GALLERY) {
             if (data != null && data.getData() != null) {
                 imageGalleryUrl = PictureUtils.getImagePath(getActivity(), data.getData(), true);
-                Picasso.with(getActivity())
-                        .load(new File(imageGalleryUrl))
-                        .into(slidePicture);
+                if (imageGalleryUrl != null) {
+                    Picasso.with(getActivity())
+                            .load(new File(imageGalleryUrl))
+                            .into(slidePicture);
+                } else {
+                    TEAlertDialog alert = new TEAlertDialog(getContext());
+                    alert.setTitle(R.string.error_image).show();
+                }
             }
         } else {
             if (photoFile != null && photoFile.exists()) {

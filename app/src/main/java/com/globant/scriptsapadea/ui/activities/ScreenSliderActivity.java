@@ -19,7 +19,9 @@ import com.globant.scriptsapadea.manager.ResponseEvent;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
+import com.globant.scriptsapadea.ui.fragments.ChooseScriptPictureFragment;
 import com.globant.scriptsapadea.ui.fragments.CreateScriptFragment;
+import com.globant.scriptsapadea.ui.fragments.ShowScriptPictureFragment;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
 import com.globant.scriptsapadea.ui.views.MyProgressBar;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
@@ -42,7 +44,9 @@ import roboguice.inject.InjectView;
  */
 @ContentView(R.layout.screen_slider_layout)
 public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback,
-        CreateScriptFragment.OnTakeScriptPictureFragmentListener {
+        CreateScriptFragment.OnTakeScriptPictureFragmentListener,
+        ChooseScriptPictureFragment.OnShowScriptPictureFragmentListener,
+        ShowScriptPictureFragment.OnEditFragmentListener {
 
     private ScreenSliderPageAdapter pageAdapter;
     private ViewPager viewPager;
@@ -93,11 +97,11 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
         ImageView imgProfile = (ImageView) findViewById(R.id.img_profile);
         if (script.isResourceImage()) {
-            Picasso.with(getApplication()).load(script.getResImage()).error(R.drawable.avatar_placeholder)
+            Picasso.with(getApplication()).load(script.getResImage()).error(R.drawable.ic_launcher)
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         } else {
-            Picasso.with(getApplication()).load(new File(script.getImageScripts())).error(R.drawable.avatar_placeholder)
+            Picasso.with(getApplication()).load(new File(script.getImageScripts())).error(R.drawable.ic_launcher)
                     .transform(new CropCircleTransformation())
                     .into(imgProfile);
         }
@@ -197,6 +201,16 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
 
     @Override
     public void onEditScriptProfile(Fragment fragment) {
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
+    public void onShowScriptPictureFragment(Fragment fragment) {
+        navigator.to(fragment).navigate();
+    }
+
+    @Override
+    public void onEditFragment(Fragment fragment) {
         navigator.to(fragment).navigate();
     }
 
