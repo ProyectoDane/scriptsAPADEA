@@ -91,6 +91,9 @@ public class ChoosePatientPictureFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
         long patientId = 0; //new patient
 
         Bundle imageArguments = getArguments();

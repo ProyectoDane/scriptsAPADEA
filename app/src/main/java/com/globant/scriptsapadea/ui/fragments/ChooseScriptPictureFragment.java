@@ -97,6 +97,9 @@ public class ChooseScriptPictureFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
         long scriptId = 0; //new script
 
         Bundle imageArguments = getArguments();

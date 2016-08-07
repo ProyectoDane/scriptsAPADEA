@@ -306,6 +306,9 @@ public class ScreenPlayEditorFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
         showImage(data, requestCode);
 
         // Update the image for the selected slide.
