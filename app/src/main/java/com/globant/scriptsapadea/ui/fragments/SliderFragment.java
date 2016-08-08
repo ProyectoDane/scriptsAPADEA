@@ -58,9 +58,16 @@ public class SliderFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         slide = (Slide)getArguments().getSerializable(EXTRA_MESSAGE);
-        View view = inflater.inflate(R.layout.slider_layout, container, false);
+        return inflater.inflate(R.layout.slider_layout, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
+        final View legendOne = view.findViewById(R.id.ly_one);
+        final View legendTwo = view.findViewById(R.id.ly_two);
         final ImageView imgCardBackground = (ImageView) view.findViewById(R.id.img_card_background);
         if (slide.isResourceImage()) {
             imgCard.setVisibility(View.GONE);
@@ -68,8 +75,8 @@ public class SliderFragment extends BaseFragment {
                 imgCard.setVisibility(View.GONE);
             } else {
                 imgCard.setVisibility(View.VISIBLE);
-                view.findViewById(R.id.ly_one).setVisibility(View.GONE);
-                view.findViewById(R.id.ly_two).setVisibility(View.GONE);
+                legendOne.setVisibility(View.GONE);
+                legendTwo.setVisibility(View.GONE);
 
                 if (slide.getResImage() != 0) {
                     Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
@@ -80,22 +87,22 @@ public class SliderFragment extends BaseFragment {
                 }
             }
         } else {
-            imgCard.setVisibility(View.VISIBLE);
             imgCardBackground.setVisibility(View.GONE);
-            view.findViewById(R.id.ly_one).setVisibility(View.GONE);
-            view.findViewById(R.id.ly_two).setVisibility(View.GONE);
+            legendOne.setVisibility(View.GONE);
+            legendTwo.setVisibility(View.GONE);
 
             if (slide.getUrlImage() != null && !TextUtils.isEmpty(slide.getUrlImage())) {
                 Picasso.with(getActivity()).load(new File(slide.getUrlImage()))
                         .error(R.drawable.teayudo_usuario)
                         .into(imgCard);
+                imgCard.setVisibility(View.VISIBLE);
             }
         }
 
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
         txtSlideLegend.setText(slide.getText());
 
-        ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
+        final ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
         fabNext.setImageResource(R.drawable.rightarrow_icon);
         fabNext.setShadowResponsiveEffectEnabled(true);
         fabNext.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +112,7 @@ public class SliderFragment extends BaseFragment {
             }
         });
 
-        ActionButton fabPrev = (ActionButton) view.findViewById(R.id.fab_prev);
+        final ActionButton fabPrev = (ActionButton) view.findViewById(R.id.fab_prev);
         fabPrev.setImageResource(R.drawable.leftarrow_icon);
         fabPrev.setShadowResponsiveEffectEnabled(true);
         fabPrev.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +121,6 @@ public class SliderFragment extends BaseFragment {
                 listener.previousSlide();
             }
         });
-
-        return view;
     }
 
     public interface SliderCallback {

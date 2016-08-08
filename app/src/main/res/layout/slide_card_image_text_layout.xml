@@ -36,6 +36,8 @@
                 android:id="@+id/slide_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLength="10"
+                android:ellipsize="end"
                 tools:text="Description"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"

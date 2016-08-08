@@ -17,10 +17,12 @@
         card_view:cardElevation="4dp">
 
         <ImageView
+            android:id="@+id/slide_only_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/slide_only_image"
             android:layout_gravity="center"
+            android:maxLength="10"
+            android:ellipsize="end"
             android:scaleType="centerCrop"
             tools:src="@drawable/cepillo"/>
 

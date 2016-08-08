@@ -33,13 +33,13 @@
 
             <ImageView
                 android:id="@+id/img_card"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
                 android:layout_alignParentTop="true"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_above="@+id/txt_slide_legend"
-                android:src="@drawable/teayudo_iconovacio"/>
+                android:src="@drawable/cepillo"/>
 
             <TextView
                 style="@style/Text.Body.Medium"
@@ -92,5 +92,4 @@
         fab:button_color="@color/fab_material_cyan_500"
         fab:button_colorPressed="@color/fab_material_cyan_900"
         fab:type="DEFAULT"/>
-
 </RelativeLayout>
