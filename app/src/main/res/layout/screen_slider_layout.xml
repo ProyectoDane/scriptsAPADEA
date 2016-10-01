@@ -1,57 +1,84 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/pnl_pacient"
-        style="@style/Panel.White"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="4dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img_profile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="4dp"
-            android:layout_gravity="left"/>
+        <LinearLayout
+            android:id="@+id/pnl_pacient"
+            style="@style/Panel.White"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="4dp">
 
-        <TextView
-            android:id="@+id/txt_script_name"
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="left"/>
+
+            <TextView
+                android:id="@+id/txt_script_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:text="@string/default_text"
+                android:layout_marginLeft="4dp"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/img_profile_edit"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/chevron_white_down"
+                android:layout_gravity="right"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <View style="@style/HR.Thick" />
+
+        <com.globant.scriptsapadea.ui.views.MyProgressBar
+            android:text="@+id/TextView01"
+            android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:text="@string/default_text"
-            android:layout_marginLeft="4dp"
-            android:textSize="20sp" />
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            app:dotsize="4"/>
 
-        <ImageView
-            android:id="@+id/img_profile_edit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="4dp"
-            android:src="@drawable/chevron_white_down"
-            android:layout_gravity="right"
-            android:visibility="invisible"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
-    <View style="@style/HR.Thick" />
-
-    <com.globant.scriptsapadea.ui.views.MyProgressBar
-        android:text="@+id/TextView01"
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
+    <com.software.shell.fab.ActionButton
+        android:id="@+id/fab_next"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/margin_xsmall"
-        app:dotsize="4"/>
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        fab:image_size="24dp"
+        fab:button_color="@color/fab_material_cyan_500"
+        fab:button_colorPressed="@color/fab_material_cyan_900"
+        fab:type="DEFAULT"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+    <com.software.shell.fab.ActionButton
+        android:id="@+id/fab_prev"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical|left"
+        fab:image_size="24dp"
+        fab:button_color="@color/fab_material_cyan_500"
+        fab:button_colorPressed="@color/fab_material_cyan_900"
+        fab:type="DEFAULT"/>
+
+</FrameLayout>

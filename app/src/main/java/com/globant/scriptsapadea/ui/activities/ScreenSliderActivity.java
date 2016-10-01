@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,12 +22,15 @@ import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.fragments.CreateScriptFragment;
 import com.globant.scriptsapadea.ui.fragments.SliderFragment;
+import com.globant.scriptsapadea.ui.views.FixedSpeedScroller;
 import com.globant.scriptsapadea.ui.views.MyProgressBar;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
+import com.software.shell.fab.ActionButton;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +45,9 @@ import roboguice.inject.InjectView;
  * @author nicolas.quartieri
  */
 @ContentView(R.layout.screen_slider_layout)
-public class ScreenSliderActivity extends BaseActivity implements SliderFragment.SliderCallback,
+public class ScreenSliderActivity extends BaseActivity implements
         CreateScriptFragment.OnTakeScriptPictureFragmentListener {
+    private static final String TAG = ScreenSliderActivity.class.getSimpleName();
 
     private ScreenSliderPageAdapter pageAdapter;
     private ViewPager viewPager;
@@ -70,7 +75,8 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         setContentView(R.layout.screen_slider_layout);
 
         TextView txtScriptName = (TextView)findViewById(R.id.txt_script_name);
-
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        
         if (savedInstanceState == null) {
             if (getIntent().hasExtra(Script.SCRIPT)) {
                 script = (Script)getIntent().getExtras().getSerializable(Script.SCRIPT);
@@ -110,6 +116,26 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
             }
         });
 
+        final ActionButton fabNext = (ActionButton) findViewById(R.id.fab_next);
+        fabNext.setImageResource(R.drawable.rightarrow_icon);
+        fabNext.setShadowResponsiveEffectEnabled(true);
+        fabNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextSlide();
+            }
+        });
+
+        final ActionButton fabPrev = (ActionButton) findViewById(R.id.fab_prev);
+        fabPrev.setImageResource(R.drawable.leftarrow_icon);
+        fabPrev.setShadowResponsiveEffectEnabled(true);
+        fabPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previousSlide();
+            }
+        });
+
         initActionBar();
         initViewPager();
     }
@@ -119,7 +145,20 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         currentSlide = 0;
 
         pageAdapter = new ScreenSliderPageAdapter(getSupportFragmentManager(), fragments);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        try {
+            Field mScroller;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            DecelerateInterpolator decelerateInterpolator = new DecelerateInterpolator(1f);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(viewPager.getContext(), decelerateInterpolator);
+            scroller.setFixedDuration(1200);
+            mScroller.set(viewPager, scroller);
+		} catch (NoSuchFieldException | IllegalArgumentException
+				| IllegalAccessException e) {
+            Log.d(TAG, "Something went wrong setting up the speed ViewPager in the Slider's screen.");
+        }
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -224,7 +263,6 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         }
     }
 
-    @Override
     public void nextSlide() {
         if (currentSlide + 1 < pageAdapter.getCount()) {
             avoid = true;
@@ -243,7 +281,6 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
         }
     }
 
-    @Override
     public void previousSlide() {
         if (currentSlide - 1 >= 0) {
             avoid = true;

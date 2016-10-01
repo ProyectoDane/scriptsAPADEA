@@ -1,6 +1,5 @@
 package com.globant.scriptsapadea.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import com.globant.scriptsapadea.R;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Slide;
-import com.software.shell.fab.ActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -29,8 +27,6 @@ public class SliderFragment extends BaseFragment {
 
     private static final String EXTRA_MESSAGE = "message";
 
-    private SliderCallback listener;
-
     @Inject
     private PatientManager patientManager;
 
@@ -45,13 +41,6 @@ public class SliderFragment extends BaseFragment {
         fragment.setArguments(bundle);
 
         return fragment;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        listener = (SliderCallback)activity;
     }
 
     @Nullable
@@ -106,29 +95,6 @@ public class SliderFragment extends BaseFragment {
         final TextView txtSlideLegend = (TextView) view.findViewById(R.id.txt_slide_legend);
         txtSlideLegend.setText(slide.getText());
 
-        final ActionButton fabNext = (ActionButton) view.findViewById(R.id.fab_next);
-        fabNext.setImageResource(R.drawable.rightarrow_icon);
-        fabNext.setShadowResponsiveEffectEnabled(true);
-        fabNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.nextSlide();
-            }
-        });
 
-        final ActionButton fabPrev = (ActionButton) view.findViewById(R.id.fab_prev);
-        fabPrev.setImageResource(R.drawable.leftarrow_icon);
-        fabPrev.setShadowResponsiveEffectEnabled(true);
-        fabPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.previousSlide();
-            }
-        });
-    }
-
-    public interface SliderCallback {
-        void nextSlide();
-        void previousSlide();
     }
 }
