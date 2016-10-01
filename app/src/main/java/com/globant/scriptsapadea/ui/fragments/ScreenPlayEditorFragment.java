@@ -27,7 +27,6 @@ import com.globant.scriptsapadea.models.Slide;
 import com.globant.scriptsapadea.sql.SQLiteHelper;
 import com.globant.scriptsapadea.ui.adapters.SlideSelectorRecyclerAdapter;
 import com.globant.scriptsapadea.utils.PictureUtils;
-import com.globant.scriptsapadea.utils.TEAlertDialog;
 import com.globant.scriptsapadea.widget.CropCircleTransformation;
 import com.software.shell.fab.ActionButton;
 import com.squareup.otto.Subscribe;
@@ -126,7 +125,10 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         if (listSlides != null && !listSlides.isEmpty()) {
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager, listSlides);
         } else {
+            // At least one Slide should be in the Script.
             slideSelectorRecyclerAdapter = new SlideSelectorRecyclerAdapter(screenPlayEditorManager);
+            saveSlide(slideDescription);
+            slideSelectorRecyclerAdapter.notifyDataSetChanged();
         }
         slidesListView.setAdapter(slideSelectorRecyclerAdapter);
 
@@ -146,7 +148,6 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             public void onClick(View v) {
                 saveSlide(slideDescription);
                 // Hide Keyboard
-
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
@@ -359,24 +360,30 @@ public class ScreenPlayEditorFragment extends BaseFragment {
         boolean slideAdded = false;
         Slide slide = null;
 
+        // ImageURL & Text not empty.
         if (!TextUtils.isEmpty(imageGalleryUrl) && !TextUtils.isEmpty(slideDescription.getText().toString())) {
             slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString().toUpperCase(), Slide.IMAGE_TEXT);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;
+        // ImageURL & Text empty.
         } else if (!TextUtils.isEmpty(imageGalleryUrl) && TextUtils.isEmpty(slideDescription.getText().toString())) {
             slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString(), Slide.ONLY_IMAGE);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;
+        // ImageURL empty & Text not empty.
         } else if (!TextUtils.isEmpty(slideDescription.getText().toString())) {
-            slide = screenPlayEditorManager.createSlide(0, imageGalleryUrl, slideDescription.getText().toString().toUpperCase(), Slide.ONLY_TEXT);
+            slide = screenPlayEditorManager.createSlide(0, "", slideDescription.getText().toString().toUpperCase(), Slide.ONLY_TEXT);
             screenPlayEditorManager.addSlide(slide);
 
             slideAdded = true;
+        // ImageURL empty & Text empty.
         } else {
-            TEAlertDialog alert = new TEAlertDialog(getContext());
-            alert.setTitle(R.string.error_empty_image).show();
+            slide = screenPlayEditorManager.createSlide(0, "", "", Slide.ONLY_TEXT);
+            screenPlayEditorManager.addSlide(slide);
+
+            slideAdded = true;
         }
 
         if (save && slideAdded && slide != null) {

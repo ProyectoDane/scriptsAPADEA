@@ -64,36 +64,40 @@ public class SliderFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        // Get View.
         final ImageView imgCard = (ImageView) view.findViewById(R.id.img_card);
         final View legendOne = view.findViewById(R.id.ly_one);
         final View legendTwo = view.findViewById(R.id.ly_two);
         final ImageView imgCardBackground = (ImageView) view.findViewById(R.id.img_card_background);
+
+        // Asserts values & asserts into view components.
         if (slide.isResourceImage()) {
             imgCard.setVisibility(View.GONE);
             if (slide.getResImage() == R.drawable.teayudo_iconovacio) {
                 imgCard.setVisibility(View.GONE);
             } else {
+                // Hide empty view.
                 imgCard.setVisibility(View.VISIBLE);
                 legendOne.setVisibility(View.GONE);
                 legendTwo.setVisibility(View.GONE);
-
+                // Setup the image Resource in the slide.
                 if (slide.getResImage() != 0) {
-                    Picasso.with(getActivity()).load(slide.getResImage()).error(R.drawable.teayudo_usuario)
-                            .into(imgCard);
+					Picasso.with(getActivity()).load(slide.getResImage())
+							.error(R.drawable.teayudo_usuario).into(imgCard);
                 } else {
                     Picasso.with(getActivity()).load(android.R.color.transparent)
                             .into(imgCard);
                 }
             }
         } else {
-            imgCardBackground.setVisibility(View.GONE);
-            legendOne.setVisibility(View.GONE);
-            legendTwo.setVisibility(View.GONE);
-
             if (slide.getUrlImage() != null && !TextUtils.isEmpty(slide.getUrlImage())) {
+                // Hide empty view.
+                imgCardBackground.setVisibility(View.GONE);
+                legendOne.setVisibility(View.GONE);
+                legendTwo.setVisibility(View.GONE);
+                // Setup the image URL in the slide.
                 Picasso.with(getActivity()).load(new File(slide.getUrlImage()))
-                        .error(R.drawable.teayudo_usuario)
+                        .error(R.drawable.teayudo_iconovacio)
                         .into(imgCard);
                 imgCard.setVisibility(View.VISIBLE);
             }

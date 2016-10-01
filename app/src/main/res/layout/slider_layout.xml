@@ -38,8 +38,7 @@
                 android:scaleType="fitCenter"
                 android:layout_alignParentTop="true"
                 android:visibility="visible"
-                android:layout_above="@+id/txt_slide_legend"
-                android:src="@drawable/cepillo"/>
+                android:layout_above="@+id/txt_slide_legend"/>
 
             <TextView
                 style="@style/Text.Body.Medium"

@@ -183,6 +183,7 @@ public class ScreenSliderActivity extends BaseActivity implements SliderFragment
                 fragments.add(SliderFragment.newInstance(slide));
             }
         } else {
+            // Empty Slide.
             SliderFragment fragment = SliderFragment.newInstance((new Slide(0, R.drawable.teayudo_iconovacio, "", Slide.ONLY_IMAGE)));
             fragments.add(fragment);
         }
