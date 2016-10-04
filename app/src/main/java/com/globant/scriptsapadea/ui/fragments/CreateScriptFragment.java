@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,8 @@ public class CreateScriptFragment extends BaseFragment {
         panelType.setText(getString(R.string.what_is_guion_name_text));
 
         screenplayName = (EditText) view.findViewById(R.id.screenplay_name);
+        // TODO Make this a custom component.
+        screenplayName.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         Button nextButton = (Button) view.findViewById(R.id.next_button);
 
         if (getArguments().containsKey(Script.SCRIPT)) {

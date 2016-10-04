@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,6 +121,8 @@ public class ScreenPlayEditorFragment extends BaseFragment {
 
         slidePicture = (ImageView) rootView.findViewById(R.id.screenplay_slide_image);
         slideDescription = (EditText) rootView.findViewById(R.id.editor_slide_text);
+        // TODO Make this a custom component.
+        slideDescription.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         RecyclerView slidesListView = (RecyclerView) rootView.findViewById(R.id.screenplay_slide_list);
         slidesListView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true));
         if (listSlides != null && !listSlides.isEmpty()) {
