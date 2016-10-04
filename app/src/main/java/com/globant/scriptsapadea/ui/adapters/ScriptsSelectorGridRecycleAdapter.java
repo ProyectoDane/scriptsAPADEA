@@ -39,6 +39,7 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     private final Context context;
     private final ScreenScriptsSelectorFragment.ScreenScriptSelectorListener mScriptSelectorListener;
     private static List<Script> scriptList;
+    private final boolean isApadeaPatient;
 
     private boolean showLoadingView;
     private int lastPosition = -1;
@@ -46,9 +47,10 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
     private boolean animateItems = true;
     private static int screenHeight = 0;
 
-    public ScriptsSelectorGridRecycleAdapter(List<Script> scriptList, Context context) {
+    public ScriptsSelectorGridRecycleAdapter(List<Script> scriptList, Context context, boolean isApadeaPatient) {
         this.scriptList = scriptList;
         this.context = context;
+        this.isApadeaPatient = isApadeaPatient;
         this.mScriptSelectorListener = (ScreenScriptsSelectorFragment.ScreenScriptSelectorListener) context;
     }
 
@@ -73,6 +75,9 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
         contactViewHolder.vNameAvatar.setText(script.getName());
         contactViewHolder.setScript(script);
+        if (isApadeaPatient) {
+            contactViewHolder.setPopUpApadea();
+        }
     }
 
     /**
@@ -165,7 +170,15 @@ public class ScriptsSelectorGridRecycleAdapter extends RecyclerView.Adapter<Scri
 
         public void setScript(Script script) {
             this.script = script;
-            popupWindow.setScript(script);
+            if (popupWindow != null) {
+                popupWindow.setScript(script);
+            }
+        }
+
+        public void setPopUpApadea() {
+            if (popupWindow != null) {
+                popupWindow.notifyPopUpApadea(true);
+            }
         }
     }
 

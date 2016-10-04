@@ -19,19 +19,23 @@ import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
  */
 public class SSPopupMenuWindow extends PopupWindow {
 
+    private static TextView txtEditOption;
+    private static TextView txtRemoveOption;
+    private static TextView txtCopyOption;
     private Script script;
 
     static public SSPopupMenuWindow createPopupWindow(final Context context, boolean focusable, final ScriptsSelectorGridRecycleAdapter adapter) {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.popup_layout, null);
 
-        final SSPopupMenuWindow popupWindow = new SSPopupMenuWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
+		final SSPopupMenuWindow popupWindow = new SSPopupMenuWindow(popupView,
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, focusable);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOutsideTouchable(true);
 
-        final TextView txtEditOption = (TextView) popupView.findViewById(R.id.txt_edit_option);
-        final TextView txtRemoveOption = (TextView) popupView.findViewById(R.id.txt_remove_option);
-        final TextView txtCopyOption = (TextView) popupView.findViewById(R.id.txt_copy_option);
+        txtEditOption = (TextView) popupView.findViewById(R.id.txt_edit_option);
+        txtRemoveOption = (TextView) popupView.findViewById(R.id.txt_remove_option);
+        txtCopyOption = (TextView) popupView.findViewById(R.id.txt_copy_option);
 
         txtEditOption.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +78,16 @@ public class SSPopupMenuWindow extends PopupWindow {
 
     public Script getScript() {
         return script;
+    }
+
+    public void notifyPopUpApadea(boolean isApadeaPatient) {
+        if (isApadeaPatient) {
+            txtEditOption.setVisibility(View.GONE);
+            txtRemoveOption.setVisibility(View.GONE);
+        } else {
+            txtEditOption.setVisibility(View.VISIBLE);
+            txtRemoveOption.setVisibility(View.VISIBLE);
+        }
     }
 
     public interface SSPopupMenuWindowListener {

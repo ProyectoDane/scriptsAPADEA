@@ -131,9 +131,6 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 3);
         mGridView.setLayoutManager(glm);
 
-        adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity());
-        mGridView.setAdapter(adapter);
-
         return view;
     }
 
@@ -150,7 +147,11 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         scriptList = mDBHelper.getAllScriptsFromPatient(patient.getId());
 
         if (scriptList != null && !scriptList.isEmpty()) {
-            adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity());
+            if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
+                adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity(), true);
+            } else {
+                adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity(), false);
+            }
             mGridView.setAdapter(adapter);
         }
 
