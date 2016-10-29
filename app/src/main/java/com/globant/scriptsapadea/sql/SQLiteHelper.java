@@ -66,7 +66,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 PATIENT_COLUMN_NAME + " text not null, " +
                 PATIENT_COLUMN_IS_RES_AVATAR + " integer not null, " +
                 PATIENT_COLUMN_IS_EDITABLE + " integer not null, " +
-                PATIENT_COLUMN_AVATAR + " text null ); ");
+                PATIENT_COLUMN_AVATAR + " text null,  " + "UNIQUE (" + PATIENT_ID + ") ON CONFLICT REPLACE);");
         db.execSQL("create table " + TABLE_SCRIPT + "(" + SCRIPT_ID + " integer primary key autoincrement, " +
                 SCRIPT_COLUMN_NAME + " text not null, " +
                 SCRIPT_COLUMN_IS_RES_IMAGE + " integer not null, " +

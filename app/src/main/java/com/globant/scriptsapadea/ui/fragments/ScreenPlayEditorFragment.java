@@ -234,7 +234,7 @@ public class ScreenPlayEditorFragment extends BaseFragment {
             if (scriptList.size() == 1 && !isEditMode) {
                 mDBHelper.createPatient(patientManager.getSelectedPatient());
                 patientManager.setSelectedScript(scriptList.get(0));
-            } else if (scriptList.size() > 1 && !isEditMode) { // TODO Refactor this!
+            } else if (!isEditMode) { // TODO Refactor this!
                 mDBHelper.createScript(patientManager.getSelectedScript(),
                         patientManager.getSelectedPatient().getId());
             }

@@ -82,7 +82,14 @@ public class ShowScriptPictureFragment extends BaseFragment {
                     }
                 });
             } else {
-                screenplayName.setText(getArguments().getString(CreatePatientFragment.PATIENT_NAME));
+                String name = null;
+                if (bundle.containsKey(CreateScriptFragment.SCRIPT_NAME)) {
+                    name = bundle.getString(CreateScriptFragment.SCRIPT_NAME);
+                } else if (bundle.containsKey(CreatePatientFragment.PATIENT_NAME)) {
+                    name = bundle.getString(CreatePatientFragment.PATIENT_NAME);
+                }
+
+                screenplayName.setText(name);
                 showImage(getArguments(), (ImageView) mainView.findViewById(R.id.screenplay_image));
 
                 editButton.setOnClickListener(new View.OnClickListener() {

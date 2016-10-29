@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author nicolas.quartieri.
  */
-public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<PatientSelectorGridRecycleAdapter.PatientViewHolder> {
+public class PatientSelectorGridRecycleAdapter extends
+		RecyclerView.Adapter<PatientSelectorGridRecycleAdapter.PatientViewHolder> {
 
     private static final int TOP_POSITION = 300;
 
@@ -82,6 +83,9 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
 
         if (patient.getName().equalsIgnoreCase(context.getString(R.string.app_owner_name))) {
             patientViewHolder.vTextLegend.setText(R.string.default_script_example);
+            patientViewHolder.vEditCardButton.setVisibility(View.GONE);
+            patientViewHolder.vRemoveButtonAction.setVisibility(View.GONE);
+            patientViewHolder.vEditButtonAction.setVisibility(View.GONE);
         } else {
             patientViewHolder.vTextLegend.setVisibility(View.GONE);
         }
@@ -239,9 +243,9 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(context.getActivity())
-                            .setMessage("Confirma eliminar esta persona ?")
-                            .setTitle("Eliminar")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.remove_patient)
+                            .setTitle(R.string.remove_title)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Patient selectedPatient = patientList.get(getPosition());
@@ -252,7 +256,7 @@ public class PatientSelectorGridRecycleAdapter extends RecyclerView.Adapter<Pati
                                     }
                                 }
                             })
-                            .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();

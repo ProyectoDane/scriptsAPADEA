@@ -146,14 +146,12 @@ public class ScreenScriptsSelectorFragment extends BaseFragment {
         // TODO create injectable id or pacient
         scriptList = mDBHelper.getAllScriptsFromPatient(patient.getId());
 
-        if (scriptList != null && !scriptList.isEmpty()) {
-            if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
-                adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity(), true);
-            } else {
-                adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity(), false);
-            }
-            mGridView.setAdapter(adapter);
+        if (patient.getName().equalsIgnoreCase(getString(R.string.app_owner_name))) {
+            adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity(), true);
+        } else {
+            adapter = new ScriptsSelectorGridRecycleAdapter(scriptList, getActivity(), false);
         }
+        mGridView.setAdapter(adapter);
 
         new Handler().postDelayed(new Runnable() {
             @Override

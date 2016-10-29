@@ -39,23 +39,30 @@
                 android:visibility="visible"
                 android:layout_above="@+id/txt_slide_legend"/>
 
-            <TextView
-                style="@style/Text.Body.Medium"
-                android:id="@+id/ly_one"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/slide_vacio_one"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="360dp" />
+                android:layout_marginTop="400dp">
 
-            <TextView
-                android:id="@+id/ly_two"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/slide_vacio_two"
-                android:layout_below="@+id/ly_one"
-                android:layout_centerHorizontal="true" />
+                <TextView
+                    style="@style/Text.Body.Medium"
+                    android:id="@+id/ly_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/slide_vacio_one"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/ly_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/slide_vacio_two"
+                    android:layout_below="@+id/ly_one" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/txt_slide_legend"

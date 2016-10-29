@@ -25,7 +25,7 @@
     <string name="save_action_text">Guardar</string>
     <string name="what_is_person_name">¿CÓMO SE LLAMA LA PERSONA?</string>
     <string name="whose_is_guion_text">¿ESTE GUIÓN ES PARA?</string>
-    <string name="default_script_example">Guiones sociales de ejemplo</string>
+    <string name="default_script_example">GUIONES SOCIALES DE EJEMPLO</string>
 
     <string name="list_patient_create">CREAR UNA NUEVA PERSONA</string>
 
@@ -64,7 +64,7 @@
 
     <string name="gallery_title">Selecciona una fotografía</string>
     <string name="title_activity_screenplay">ScreenplayActivity</string>
-    <string name="start_screenplay_edit">Comenzar a editar</string>
+    <string name="start_screenplay_edit">COMENZAR A EDITAR</string>
 
     <string name="script_select_edit">EDITAR</string>
     <!-- Editor text screen -->
@@ -80,11 +80,18 @@
     <string name="hint_leyend">TEXTO</string>
 
     <string name="slide_vacio_one">EL GUIÓN ESTA VACÍO</string>
-    <string name="slide_vacio_two">Continúa editando el guión para agregarle contenido</string>
+    <string name="slide_vacio_two">CONTINÚA EDITANDO EL GUIÓN PARA AGREGARLE CONTENIDO</string>
 
     <string name="default_text">text_to_display</string>
     <!-- Stuff -->
     <string name="script_from">COPIAR</string>
     <string name="script_to">A QUIEN?</string>
-    <string name="name_script">Nombre del script</string>
+    <string name="name_script">NOMBRE DEL SCRIPT</string>
+
+    <!-- Popup - Dialog -->
+    <string name="remove_patient">Confirma eliminar esta persona ?</string>
+    <string name="remove_script">Confirma eliminar este guión ?</string>
+    <string name="remove_title">Eliminar</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
 </resources>

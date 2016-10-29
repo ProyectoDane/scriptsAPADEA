@@ -121,7 +121,7 @@ public class PatientListFragment extends BaseFragment {
             welcomePanel.setVisibility(View.VISIBLE);
             welcomePanel.setTranslationY(size.y);
             welcomePanel.animate().setStartDelay(500)
-                    .translationY(200)
+                    .translationY(180)
                     .setInterpolator(new DecelerateInterpolator(3.f))
                     .setDuration(1000)
                     .start();
@@ -155,17 +155,31 @@ public class PatientListFragment extends BaseFragment {
 */
         Patient patientApadea = new Patient(0, getString(R.string.app_owner_name), R.drawable.teayudo_usuario, false);
 
-        Script script = new Script(0, "Lavar los platos", R.drawable.apadea_dientes, false);
-        script.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));
-        script.getSlides().add(new Slide(0, R.drawable.cepillo, "Segundo....", Slide.IMAGE_TEXT));
-        script.getSlides().add(new Slide(0, R.drawable.cepillo, "Tercero....", Slide.IMAGE_TEXT));
-        patientApadea.getScriptList().add(script);
+        Script scriptComedor = new Script(0, "Regar las plantas del comedor", R.drawable.teayudo_usuario, false);
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_1, "Buscar la regadera en el lavadero.", Slide.IMAGE_TEXT));
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_2, "Cargarla con agua.", Slide.IMAGE_TEXT));
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_3, "Ir al comedor", Slide.IMAGE_TEXT));
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_4, "Poner un poco de agua en cada maceta.", Slide.IMAGE_TEXT));
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_5, "Ir al lavadero.", Slide.IMAGE_TEXT));
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_6, "Vaciar la regadera.", Slide.IMAGE_TEXT));
+        scriptComedor.getSlides().add(new Slide(0, R.drawable.comerdor_7, "Guardar la regadera.", Slide.IMAGE_TEXT));
+        patientApadea.getScriptList().add(scriptComedor);
 
-        Script scriptPepe = new Script(0, "Lavar los dientes", R.drawable.apadea_dientes, false);
-        scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Primero....", Slide.IMAGE_TEXT));
-        scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Segundo....", Slide.IMAGE_TEXT));
-        scriptPepe.getSlides().add(new Slide(0, R.drawable.cepillo, "Tercero....", Slide.IMAGE_TEXT));
-        patientApadea.getScriptList().add(scriptPepe);
+        Script scriptManos = new Script(0, "Lavarse las manos", R.drawable.teayudo_usuario, false);
+        scriptManos.getSlides().add(new Slide(0, R.drawable.manos_1, "Abro la canilla.", Slide.IMAGE_TEXT));
+        scriptManos.getSlides().add(new Slide(0, R.drawable.manos_2, "Pongo las manos bajo el chorro de agua.", Slide.IMAGE_TEXT));
+        scriptManos.getSlides().add(new Slide(0, R.drawable.manos_3, "Enjabono las dos manos.", Slide.IMAGE_TEXT));
+        scriptManos.getSlides().add(new Slide(0, R.drawable.manos_4, "Froto las manos bajo el chorro de agua, cuento hasta 10 en silencio.", Slide.IMAGE_TEXT));
+        scriptManos.getSlides().add(new Slide(0, R.drawable.manos_5, "Cierro la canilla.", Slide.IMAGE_TEXT));
+        patientApadea.getScriptList().add(scriptManos);
+
+        Script scriptDientes = new Script(0, "Cepillarse los dientes", R.drawable.teayudo_usuario, false);
+        scriptDientes.getSlides().add(new Slide(0, R.drawable.dientes_1, "Pongo pasta sobre el cepillo.", Slide.IMAGE_TEXT));
+        scriptDientes.getSlides().add(new Slide(0, R.drawable.dientes_2, "Cepillo  los dientes de arriba.", Slide.IMAGE_TEXT));
+        scriptDientes.getSlides().add(new Slide(0, R.drawable.dientes_3, "Apoyo cepillo en  lavatorio.", Slide.IMAGE_TEXT));
+        scriptDientes.getSlides().add(new Slide(0, R.drawable.dientes_4, "Cargo el vaso con agua.", Slide.IMAGE_TEXT));
+        scriptDientes.getSlides().add(new Slide(0, R.drawable.dientes_5, "Foto Enjuago la boca .", Slide.IMAGE_TEXT));
+        patientApadea.getScriptList().add(scriptDientes);
 
         mDBHelper.createPatient(patientApadea);
     }

@@ -54,13 +54,18 @@ public class ChooseScriptPictureFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_take_picture, container, false);
+        View view = inflater.inflate(R.layout.fragment_take_picture_script, container, false);
 
-        TextView txtPatientName = (TextView) view.findViewById(R.id.txt_patient_name);
+        TextView txtPatientName = (TextView) view.findViewById(R.id.txt_script_name);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String name = getArguments().getString(CreatePatientFragment.PATIENT_NAME);
+            String name = null;
+            if (bundle.containsKey(CreateScriptFragment.SCRIPT_NAME)) {
+                name = bundle.getString(CreateScriptFragment.SCRIPT_NAME);
+            } else if (bundle.containsKey(CreatePatientFragment.PATIENT_NAME)) {
+                name = bundle.getString(CreatePatientFragment.PATIENT_NAME);
+            }
             txtPatientName.setText(name);
 
             if (bundle.containsKey(Script.SCRIPT)) {

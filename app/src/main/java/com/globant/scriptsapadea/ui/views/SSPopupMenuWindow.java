@@ -1,7 +1,10 @@
 package com.globant.scriptsapadea.ui.views;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -9,6 +12,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
+import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.ui.adapters.ScriptsSelectorGridRecycleAdapter;
 
@@ -50,9 +54,29 @@ public class SSPopupMenuWindow extends PopupWindow {
         txtRemoveOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Script selectedScript = popupWindow.getScript();
+                final Script selectedScript = popupWindow.getScript();
                 if (selectedScript.isEditable()) {
-                    adapter.deleteScript(selectedScript);
+                    new AlertDialog.Builder(context)
+                            .setMessage(R.string.remove_script)
+                            .setTitle(R.string.remove_title)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    adapter.deleteScript(selectedScript);
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                @Override
+                                public void onCancel(DialogInterface dialog) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                 }
                 popupWindow.dismiss();
             }
