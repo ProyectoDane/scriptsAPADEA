@@ -9,11 +9,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
+
+import com.globant.scriptsapadea.scriptsAPADEAApplication;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -199,16 +201,23 @@ public class PictureUtils {
     public static File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "PNG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".png",         /* suffix */
-                storageDir      /* directory */
-        );
+        String imageFileName = "PNG_" + timeStamp + ".png";
+        File dirPath = scriptsAPADEAApplication.getContext().getExternalFilesDir(null);
+        dirPath.mkdir();
 
+        File file = new File(dirPath, imageFileName);
+        file.createNewFile();
         // Save a file: path for use with ACTION_VIEW intents
-        return image;
+        return file;
+    }
+
+    public static Uri getUriForImageFile(Context context, File file) {
+        if (file != null && file.isFile()) {
+            return FileProvider.getUriForFile(context,
+                    "com.globant.scriptsapadea.fileprovider",
+                    file);
+        } else {
+            return null;
+        }
     }
 }

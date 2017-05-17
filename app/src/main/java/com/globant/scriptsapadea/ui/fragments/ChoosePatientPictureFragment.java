@@ -11,16 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Patient;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.globant.scriptsapadea.utils.TEAlertDialog;
-import com.squareup.otto.Subscribe;
 
 import java.io.File;
 
 import javax.inject.Inject;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * @author leonel.mendez on 5/19/2015.
@@ -83,51 +83,44 @@ public class ChoosePatientPictureFragment extends BaseFragment {
         return view;
     }
 
-    @Subscribe
-    public void onActivityResultReceived(ActivityResultEvent event) {
-        onActivityResult(event.getRequestCode(), event.getResultCode(), event.getData());
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            return;
-        }
-        long patientId = 0; //new patient
+        if (resultCode == RESULT_OK) {
+            long patientId = 0; //new patient
 
-        Bundle imageArguments = getArguments();
-        if (imageArguments == null) {
-            imageArguments = new Bundle();
-        } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
-            Patient patient = (Patient) imageArguments.get(Patient.PATIENT);
-            patientId = patient.getId();
-        }
-
-        if (requestCode == GALLERY) {
-            String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
-            if (imagePath != null && data.getData() != null) {
-                patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        imagePath, true));
-
-                // TODO Refactor
-                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
-                showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
-            } else {
-                TEAlertDialog alert = new TEAlertDialog(getContext());
-                alert.setTitle(R.string.error_image).show();
+            Bundle imageArguments = getArguments();
+            if (imageArguments == null) {
+                imageArguments = new Bundle();
+            } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
+                Patient patient = (Patient) imageArguments.get(Patient.PATIENT);
+                patientId = patient.getId();
             }
-        } else {
-            if (photoFile != null && photoFile.exists()) {
-                imageArguments.putSerializable(ShowPatientPictureFragment.PATIENT_IMAGE, photoFile);
-                imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
-                patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
-                        photoFile.getAbsolutePath(), true));
+            if (requestCode == GALLERY) {
+                String imagePath = photoFile.getAbsolutePath();
+                if (imagePath != null) {
+                    patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+                            imagePath, true));
 
-                // TODO Refactor
-                imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
-                showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+                    // TODO Refactor
+                    imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
+                    showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+                } else {
+                    TEAlertDialog alert = new TEAlertDialog(getContext());
+                    alert.setTitle(R.string.error_image).show();
+                }
+            } else {
+                if (photoFile != null && photoFile.exists()) {
+                    imageArguments.putSerializable(ShowPatientPictureFragment.PATIENT_IMAGE, photoFile);
+                    imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
+
+                    patientManager.setSelectedPatient(new Patient(patientId, getArguments().getString(CreatePatientFragment.PATIENT_NAME),
+                            photoFile.getAbsolutePath(), true));
+
+                    // TODO Refactor
+                    imageArguments.putSerializable(Patient.PATIENT, patientManager.getSelectedPatient());
+                    showPictureFragmentListener.onShowPictureFragment(ShowPatientPictureFragment.newInstance(imageArguments));
+                }
             }
         }
     }

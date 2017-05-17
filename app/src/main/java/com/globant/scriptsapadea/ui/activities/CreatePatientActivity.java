@@ -99,4 +99,9 @@ public class CreatePatientActivity extends BaseActivity implements CreatePatient
     public void onEditFragment(Fragment fragment) {
         navigator.to(fragment).navigate();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

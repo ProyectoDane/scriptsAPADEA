@@ -11,16 +11,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.globant.scriptsapadea.R;
-import com.globant.scriptsapadea.manager.ActivityResultEvent;
 import com.globant.scriptsapadea.manager.PatientManager;
 import com.globant.scriptsapadea.models.Script;
 import com.globant.scriptsapadea.utils.PictureUtils;
 import com.globant.scriptsapadea.utils.TEAlertDialog;
-import com.squareup.otto.Subscribe;
 
 import java.io.File;
 
 import javax.inject.Inject;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * @author leonel.mendez on 5/19/2015.
@@ -94,49 +94,42 @@ public class ChooseScriptPictureFragment extends BaseFragment {
         return view;
     }
 
-    @Subscribe
-    public void onActivityResultReceived(ActivityResultEvent event) {
-        onActivityResult(event.getRequestCode(), event.getResultCode(), event.getData());
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
-            return;
-        }
-        long scriptId = 0; //new script
+        if (resultCode == RESULT_OK) {
+            long scriptId = 0; //new script
 
-        Bundle imageArguments = getArguments();
-        if (imageArguments == null) {
-            imageArguments = new Bundle();
-        } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
-            Script script = (Script) imageArguments.get(Script.SCRIPT);
-            scriptId = script.getId();
-        }
-
-        if (requestCode == GALLERY) {
-            String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
-            if (data.getData() != null && imagePath != null) {
-                imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, imagePath);
-
-                patientManager.setSelectedScript(new Script(scriptId, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
-                        imagePath, true));
-
-                listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
-            } else {
-                TEAlertDialog alert = new TEAlertDialog(getContext());
-                alert.setTitle(R.string.error_image).show();
+            Bundle imageArguments = getArguments();
+            if (imageArguments == null) {
+                imageArguments = new Bundle();
+            } else if (imageArguments.containsKey("edit_mode") && imageArguments.getBoolean("edit_mode")) {
+                Script script = (Script) imageArguments.get(Script.SCRIPT);
+                scriptId = script.getId();
             }
-        } else {
-            if (photoFile != null && photoFile.exists()) {
-                imageArguments.putSerializable(ShowScriptPictureFragment.SCRIPT_IMAGE, photoFile);
-                imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
 
-                patientManager.setSelectedScript(new Script(scriptId, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
-                        photoFile.getAbsolutePath(), true));
+            if (requestCode == GALLERY) {
+                String imagePath = photoFile.getAbsolutePath();
+                if (data.getData() != null && imagePath != null) {
+                    imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, imagePath);
 
-                listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
+                    patientManager.setSelectedScript(new Script(scriptId, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                            imagePath, true));
+
+                    listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
+                } else {
+                    TEAlertDialog alert = new TEAlertDialog(getContext());
+                    alert.setTitle(R.string.error_image).show();
+                }
+            } else {
+                if (photoFile != null && photoFile.exists()) {
+                    imageArguments.putSerializable(ShowScriptPictureFragment.SCRIPT_IMAGE, photoFile);
+                    imageArguments.putBoolean(ShowPatientPictureFragment.PICTURE_FROM_CAMERA, true);
+
+                    patientManager.setSelectedScript(new Script(scriptId, getArguments().getString(CreateScriptFragment.SCRIPT_NAME),
+                            photoFile.getAbsolutePath(), true));
+
+                    listener.onShowScriptPictureFragment(ShowScriptPictureFragment.newInstance(imageArguments));
+                }
             }
         }
     }
