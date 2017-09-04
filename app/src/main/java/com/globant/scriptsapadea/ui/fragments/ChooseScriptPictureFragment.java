@@ -108,7 +108,7 @@ public class ChooseScriptPictureFragment extends BaseFragment {
             }
 
             if (requestCode == GALLERY) {
-                String imagePath = photoFile.getAbsolutePath();
+                String imagePath = PictureUtils.getImagePath(getActivity(), data.getData(), true);
                 if (data.getData() != null && imagePath != null) {
                     imageArguments.putString(ShowPatientPictureFragment.PATIENT_IMAGE, imagePath);
 
